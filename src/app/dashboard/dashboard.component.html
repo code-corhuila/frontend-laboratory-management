@@ -1,0 +1,54 @@
+<div>
+    <header>
+        <div class="header-content">
+            <div class="date-container">
+                <button type="button" class="btn btn-primary">
+                    <span class="date-label">Fecha actual:</span> {{ currentDate }}
+                </button>
+            </div>
+            <div class="user">
+                <img src="https://img.icons8.com/?size=100&id=41799&format=png&color=000000" alt="Logo_User" style="border-radius: 50px; height: 50px; width: 50px;">
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <nav class="menu">
+            <button class="btn btn-secondary" routerLink="agendamiento"><img src="https://img.icons8.com/?size=100&id=23&format=png&color=000000"
+                    alt="calendario" style="height: 30px; width: 30px;">
+                Agendamiento</button>
+            <button class="btn btn-secondary" routerLink="inventario"><img src="https://img.icons8.com/?size=100&id=1395&format=png&color=000000"
+                    alt="calendario" style="height: 30px; width: 30px;">
+                Inventario</button>
+            <button class="btn btn-secondary" routerLink="usuarios"><img src="https://img.icons8.com/?size=100&id=11168&format=png&color=000000"
+                    alt="calendario" style="height: 30px; width: 30px;">
+                Usuarios</button>
+            <button class="btn btn-secondary" routerLink="asistencia"><img src="https://img.icons8.com/?size=100&id=4023&format=png&color=000000"
+                    alt="calendario" style="height: 30px; width: 30px;">
+                Asistencia</button>
+            <button class="btn btn-secondary" routerLink="reporte"><img src="https://img.icons8.com/?size=100&id=iTjVs2F27MrP&format=png&color=000000"
+                    alt="calendario" style="height: 30px; width: 30px;">
+                Reporte</button>
+            <button class="btn btn-secondary" routerLink="mantenimientos"><img src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000"
+                    alt="calendario" style="height: 30px; width: 30px;">
+                Mantenimientos</button>
+        </nav>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Corporación Universitaria del Huila CORHUILA. Todos los derechos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="#about">Sobre nosotros</a></li>
+                <li><a href="#services">Servicios</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+            <div class="footer-logo">
+                <img src="assets/images/LOGO_CORHUILA.png" alt="Logo_CORHUILA" class="logo">
+            </div>
+        </div>
+    </footer>
+</div>
