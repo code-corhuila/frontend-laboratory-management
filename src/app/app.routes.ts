@@ -17,6 +17,10 @@ export const routes: Routes = [
       { path: 'asistencia', loadComponent: () => import('./asistencia/asistencia.component').then(m => m.AsistenciaComponent) },
       { path: 'reporte', loadComponent: () => import('./reporte/reporte.component').then(m => m.ReporteComponent) },
       { path: 'mantenimientos', loadComponent: () => import('./mantenimientos/mantenimientos.component').then(m => m.MantenimientosComponent) },
+      { path: 'agendarNuevaSala', loadComponent: () => import('./agendamiento/agendar-nueva-sala/agendar-nueva-sala.component').then(m => m.AgendarNuevaSalaComponent) },
+      { path: 'verDetalle', loadComponent: () => import('./agendamiento/ver-detalle/ver-detalle.component').then(m => m.VerDetalleComponent) },
+      { path: 'crearUsuario', loadComponent: () => import('./usuarios/crear-usuario/crear-usuario.component').then(m => m.CrearUsuarioComponent) },
+
     ],
   },
   { path: '**', redirectTo: '' } // Redirige cualquier ruta desconocida al LoginComponent

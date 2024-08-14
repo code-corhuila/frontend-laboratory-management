@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-usuarios',
@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css'
 })
-export class UsuariosComponent {
-
+export class UsuariosComponent  {
+  
 }
+
+
+
+
+
+
