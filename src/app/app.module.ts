@@ -6,6 +6,8 @@ import { LoginComponent } from './Componentes/login/login.component';
 import { AppRoutingModule } from './app.routes';
 import { AuthService } from './Services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,8 +16,10 @@ import { AuthGuard } from './guards/auth.guard';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

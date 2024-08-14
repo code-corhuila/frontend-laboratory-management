@@ -1,0 +1,25 @@
+<h2>Listado de salas</h2>
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+           <!--  <th>Id Registro</th> -->
+            <th>Nombre</th>
+            <th>Ubicación</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor= "let empleado of empleados">
+           <!--  <td>{{ empleado.id_empleado}}</td> -->
+            <td>{{ empleado.nombre}}</td>
+            <td>{{ empleado.ubicacion}}</td>
+            <td>{{ empleado.descripcion}}</td>
+            <td> 
+                <button (click)="actualizarEmpleado(empleado.id)" class="btn btn-info">Editar</button>
+                <button (click)="eliminarEmpleado(empleado.id)" class="btn btn-danger" style="margin-left: 10px;">Eliminar sala</button>
+                <button (click)="verDetallesDelEmpleado(empleado.id)" class="btn btn-primary" style="margin-left: 10px;">Ver detalles</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

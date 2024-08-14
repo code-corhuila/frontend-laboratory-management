@@ -21,7 +21,7 @@ export const routes: Routes = [
       { path: 'verDetalle', loadComponent: () => import('./Componentes/AgendamientoSalas/ver-detalle/ver-detalle.component').then(m => m.VerDetalleComponent) },
       { path: 'crearUsuario', loadComponent: () => import('./Componentes/Usuarios/crear-usuario/crear-usuario.component').then(m => m.CrearUsuarioComponent) },
       { path: 'detallesUsuario', loadComponent: () => import('./Componentes/Usuarios/detalles-usuario/detalles-usuario.component').then(m => m.DetallesUsuarioComponent) },
-      { path: 'crearUsuario', loadComponent: () => import('./Componentes/Usuarios/crear-usuario/crear-usuario.component').then(m => m.CrearUsuarioComponent) },
+      { path: 'listarSalas', loadComponent: () => import('./Componentes/Salas/listar-salas/listar-salas.component').then(m => m.ListarSalasComponent) },
 
     ],
   },
