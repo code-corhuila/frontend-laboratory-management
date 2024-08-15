@@ -14,28 +14,28 @@ import Swal from 'sweetalert2';
 })
 export class ListarSalasComponent implements OnInit {
 
-  empleados:Sala[];
+  salas:Sala[];
 
-  constructor( private empleadoService:SalaService, private router:Router) { }
+  constructor( private salaService:SalaService, private router:Router) { }
 
 
   ngOnInit(): void {
-    console.log("obtener salas", this.empleados)
-    this.obtenerEmpleados();
+    console.log("obtener salas", this.salas)
+    this.obtenerSalas();
   }
 
-  actualizarEmpleado(id:any){
+  actualizarSala(id:any){
     this.router.navigate(['actualizar-empleado', id]);
   }
 
-  private obtenerEmpleados(){
-    this.empleadoService.obtenerListaDeSalas().subscribe(dato => {
-      this.empleados = dato['data'];
+  private obtenerSalas(){
+    this.salaService.obtenerListaDeSalas().subscribe(dato => {
+      this.salas = dato['data'];
     });
   }
 
 
-  eliminarEmpleado(id: any) {
+  eliminarSala(id: any) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "Confirma si deseas eliminar este registro!",
@@ -47,11 +47,11 @@ export class ListarSalasComponent implements OnInit {
       cancelButtonText: 'No, cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.empleadoService.eliminarSala(id).subscribe(() => {
-          this.obtenerEmpleados();
+        this.salaService.eliminarSala(id).subscribe(() => {
+          this.obtenerSalas();
           Swal.fire(
-            'Empleado eliminado',
-            'El empleado ha sido eliminado con éxito',
+            'Registro eliminado',
+            'La sala ha sido eliminada con éxito',
             'success'
           );
         });
@@ -61,7 +61,7 @@ export class ListarSalasComponent implements OnInit {
   
 
 
-  verDetallesDelEmpleado(id:any){
+  verDetallesDeSala(id:any){
     this.router.navigate(['empleado-detalles',id]);
   }
 

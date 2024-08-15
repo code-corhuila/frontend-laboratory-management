@@ -22,6 +22,7 @@ export const routes: Routes = [
       { path: 'crearUsuario', loadComponent: () => import('./Componentes/Usuarios/crear-usuario/crear-usuario.component').then(m => m.CrearUsuarioComponent) },
       { path: 'detallesUsuario', loadComponent: () => import('./Componentes/Usuarios/detalles-usuario/detalles-usuario.component').then(m => m.DetallesUsuarioComponent) },
       { path: 'listarSalas', loadComponent: () => import('./Componentes/Salas/listar-salas/listar-salas.component').then(m => m.ListarSalasComponent) },
+      { path: 'actualizarSala', loadComponent: () => import('./Componentes/Salas/actualizar-sala/actualizar-sala.component').then(m => m.ActualizarSalaComponent) },
 
     ],
   },

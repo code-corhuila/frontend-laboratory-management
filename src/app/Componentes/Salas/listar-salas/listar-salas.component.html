@@ -10,15 +10,15 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor= "let empleado of empleados">
+        <tr *ngFor= "let sala of salas">
            <!--  <td>{{ empleado.id_empleado}}</td> -->
-            <td>{{ empleado.nombre}}</td>
-            <td>{{ empleado.ubicacion}}</td>
-            <td>{{ empleado.descripcion}}</td>
+            <td>{{ sala.nombre}}</td>
+            <td>{{ sala.ubicacion}}</td>
+            <td>{{ sala.descripcion}}</td>
             <td> 
-                <button (click)="actualizarEmpleado(empleado.id)" class="btn btn-info">Editar</button>
-                <button (click)="eliminarEmpleado(empleado.id)" class="btn btn-danger" style="margin-left: 10px;">Eliminar sala</button>
-                <button (click)="verDetallesDelEmpleado(empleado.id)" class="btn btn-primary" style="margin-left: 10px;">Ver detalles</button>
+                <button (click)="actualizarSala(sala.id)" class="btn btn-info">Editar</button>
+                <button (click)="eliminarSala(sala.id)" class="btn btn-danger" style="margin-left: 10px;">Eliminar sala</button>
+                <button (click)="verDetallesDeSala(sala.id)" class="btn btn-primary" style="margin-left: 10px;">Ver detalles</button>
             </td>
         </tr>
     </tbody>
