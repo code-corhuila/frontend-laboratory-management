@@ -27,6 +27,7 @@ export class ListarSalasComponent implements OnInit {
   actualizarSala(id:any){
     this.router.navigate(['actualizar-empleado', id]);
   }
+  
 
   private obtenerSalas(){
     this.salaService.obtenerListaDeSalas().subscribe(dato => {

@@ -1,25 +1,27 @@
-<h2>Listado de salas</h2>
-<table class="table table-striped">
-    <thead class="table-dark">
-        <tr>
-           <!--  <th>Id Registro</th> -->
-            <th>Nombre</th>
-            <th>Ubicación</th>
-            <th>Descripción</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor= "let sala of salas">
-           <!--  <td>{{ empleado.id_empleado}}</td> -->
-            <td>{{ sala.nombre}}</td>
-            <td>{{ sala.ubicacion}}</td>
-            <td>{{ sala.descripcion}}</td>
-            <td> 
-                <button (click)="actualizarSala(sala.id)" class="btn btn-info">Editar</button>
-                <button (click)="eliminarSala(sala.id)" class="btn btn-danger" style="margin-left: 10px;">Eliminar sala</button>
-                <button (click)="verDetallesDeSala(sala.id)" class="btn btn-primary" style="margin-left: 10px;">Ver detalles</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<h2 class="text-center my-4">Listado de salas</h2>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <!-- <th>Id Registro</th> -->
+                <th>Nombre</th>
+                <th>Ubicación</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sala of salas">
+                <!-- <td>{{ sala.id_sala }}</td> -->
+                <td>{{ sala.nombre }}</td>
+                <td>{{ sala.ubicacion }}</td>
+                <td>{{ sala.descripcion }}</td>
+                <td class="text-center">
+                    <button (click)="actualizarSala(sala.id)" class="btn btn-info btn-sm">Editar</button>
+                    <button (click)="eliminarSala(sala.id)" class="btn btn-danger btn-sm mx-2">Eliminar</button>
+                    <button (click)="verDetallesDeSala(sala.id)" class="btn btn-primary btn-sm">Detalles</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
