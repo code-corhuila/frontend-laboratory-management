@@ -1,1 +1,79 @@
-<p>actualizar-sala works!</p>
+<div class="col-md-6 offser-md-3">
+    <h3 class="text-center">Edición sala</h3>
+    <form  (ngSubmit)="onSubmit()" #empleadoForm="ngForm">
+        <div class="form-group">
+            <label for="">Nombre : </label>
+            <input type="text" class = "form-control" 
+            id = "nombre" 
+            [(ngModel)] = "sala.nombre" 
+            name = "nombre"  
+            required
+            minlength="3"
+            maxlength="20"
+            placeholder="Nombre"
+            #nombre = "ngModel"
+            >
+            <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                <div *ngIf = "nombre.errors?.['required']">
+                    Digite su nombre por favor
+                </div>
+                <div *ngIf = "nombre.errors?.['minlength']">
+                    El nombre debe tener por lo minimo 3 caracteres
+                </div>
+                <div *ngIf = "nombre.errors?.['maxlength']">
+                    El nombre debe tener como maximo 20 caracteres
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="">Apellidos : </label>
+            <input type="text" class = "form-control" 
+            id = "apellidos"
+            [(ngModel)] = "sala.nombre" 
+            name = "apellidos"
+            required
+            minlength="4"
+            maxlength="20"
+            placeholder="Apellidos"
+            #apellidos = "ngModel"
+            >
+            <div class="alert alert-danger" *ngIf="apellidos.invalid && (nombre.dirty || nombre.touched)">
+                <div *ngIf = "apellidos.errors?.['required']">
+                    Digite su apellido por favor
+                </div>
+                <div *ngIf = "apellidos.errors?.['minlength']">
+                    El apellidos debe tener por lo minimo 4 caracteres
+                </div>
+                <div *ngIf = "apellidos.errors?.['maxlength']">
+                    El apellido debe tener como maximo 20 caracteres
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="">Email : </label>
+            <input type="text" class = "form-control" 
+            id = "correo" [(ngModel)] = "sala.nombre" 
+            name = "correo"
+            pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?" 
+            required
+            placeholder="Email"
+            #correo = "ngModel"
+            >
+            <div class="alert alert-danger" *ngIf="correo.invalid && (nombre.dirty || nombre.touched)">
+                <div *ngIf = "correo.errors?.['required'] ">
+                    Digite su email por favor
+                </div>
+                <div *ngIf = "correo.errors?.['pattern']">
+                    Por favor digite el email con el siguiente formato : usuariogmail.co..
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="">N° Identificación : </label>
+            <input type="number" class = "form-control" id = "num_identificacion" [(ngModel)] = "sala.nombre" name = "
+            num_identificacion">
+        </div>
+
+        <button class="btn btn-success" [disabled]="!empleadoForm.form.valid">Guardar</button>
+    </form>
+</div>

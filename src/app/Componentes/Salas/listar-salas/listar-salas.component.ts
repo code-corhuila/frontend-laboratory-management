@@ -25,7 +25,8 @@ export class ListarSalasComponent implements OnInit {
   }
 
   actualizarSala(id:any){
-    this.router.navigate(['actualizar-empleado', id]);
+    console.log("siufgbigudfb - ID ", id);
+    this.router.navigate(['actualizarSala', id]);
   }
   
 
@@ -36,7 +37,7 @@ export class ListarSalasComponent implements OnInit {
   }
 
 
-  eliminarSala(id: any) {
+  eliminarSala(id: String) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "Confirma si deseas eliminar este registro!",

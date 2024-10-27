@@ -36,7 +36,7 @@ export class SalaService {
    }
 
    //metodo para eliminar una Usuario
-   eliminarSala(id:number):Observable<Object>{
+   eliminarSala(id:String):Observable<Object>{
      return this.httpClient.delete(`${this.baseURL}/${id}`);
    }
 
