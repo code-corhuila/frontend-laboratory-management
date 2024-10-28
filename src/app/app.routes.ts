@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Componentes/login/login.component';
 import { DashboardComponent } from './Componentes/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard'; // Importa el guard de autenticación
+import { FormsModule } from '@angular/forms';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -22,10 +23,10 @@ export const routes: Routes = [
       { path: 'crearUsuario', loadComponent: () => import('./Componentes/Usuarios/crear-usuario/crear-usuario.component').then(m => m.CrearUsuarioComponent) },
       { path: 'detallesUsuario', loadComponent: () => import('./Componentes/Usuarios/detalles-usuario/detalles-usuario.component').then(m => m.DetallesUsuarioComponent) },
       { path: 'listarSalas', loadComponent: () => import('./Componentes/Salas/listar-salas/listar-salas.component').then(m => m.ListarSalasComponent) },
+      { path: 'registrarSala', loadComponent: () => import('./Componentes/Salas/registrar-sala/registrar-sala.component').then(m => m.RegistrarSalaComponent) },
       { path: 'actualizarSala/:id', loadComponent: () => import('./Componentes/Salas/actualizar-sala/actualizar-sala.component').then(m => m.ActualizarSalaComponent) },
-      { path: 'detalleSala', loadComponent: () => import('./Componentes/Salas/detalle-sala/detalle-sala.component').then(m => m.DetalleSalaComponent
-        
-      ) },
+      { path: 'detalleSala', loadComponent: () => import('./Componentes/Salas/detalle-sala/detalle-sala.component').then(m => m.DetalleSalaComponent) },
+      
 
     ],
   },
@@ -33,7 +34,10 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes),
+    FormsModule,
+  ],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

@@ -21,7 +21,7 @@ export class SalaService {
 
    //Metodo para registrar sala
    registrarSala(sala:Sala): Observable<Object>{
-     return this.httpClient.post(`${this.baseURL+'/guardar'}`,sala);
+     return this.httpClient.post(`${this.baseURL}`,sala);
    }
 
    //Metodo para actualizar sala

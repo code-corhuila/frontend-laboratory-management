@@ -1,1 +1,51 @@
-<p>registrar-sala works!</p>
+<div class="col-md-6 offser-md-3">
+    <h3 class="text-center">Registro de empleados</h3>
+    <form (ngSubmit)="onSubmit()" #salaForm="ngForm">
+
+        <div class="form-group">
+            <label for="">Nombre : </label>
+             <input type="text" class="form-control" id="nombre" [(ngModel)]="sala.nombre" name="nombre" required
+                 minlength="3" maxlength="20" placeholder="Nombre" #nombre="ngModel">
+            <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                <div *ngIf="nombre.errors.required ">
+                    Digite su nombre por favor
+                </div>
+                <div *ngIf="nombre.errors.minlength ">
+                    El nombre debe tener por lo minimo 3 caracteres
+                </div>
+                <div *ngIf="nombre.errors.maxlength ">
+                    El nombre debe tener como maximo 20 caracteres
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="">Ubicación : </label>
+            <input type="text" class = "form-control" id = "ubicacion"  [(ngModel)] = "sala.ubicacion" name = "ubicacion">
+        </div>
+
+        <div class="form-group">
+            <label for="">Código : </label>
+            <input type="text" class = "form-control" id = "codigo"  name = "codigo">
+        </div>
+
+        <div class="form-group">
+            <label for="">Estado ocupacional : </label>
+            <input type="number" class = "form-control" id = "estadoOcupacional" [(ngModel)] = "sala.estadoOcupacional" name = "estadoOcupacional">
+        </div>
+
+        <div class="form-group">
+            <label for="">State: </label>
+            <input type="number" class = "form-control" id = "state" [(ngModel)] = "sala.state" name = "state">
+        </div>
+
+        <div class="form-group">
+            <label for="">Descripción : </label>
+            <textarea class = "form-control" id = "descripcion" [(ngModel)] = "sala.descripcion" name = "descripcion" placeholder="Descripción"  rows="3" ></textarea>
+        </div>
+
+    
+        <button class="btn btn-success" [disabled]="!salaForm.form.valid">Guardar</button>
+
+    </form>
+</div>

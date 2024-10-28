@@ -1,6 +1,9 @@
 export class Sala {
     id:any;
+    code:any;
+    descripcion:String;
+    estadoOcupacional:any;
     nombre:String;
     ubicacion:String;
-    descripcion:String;  
+    state:any;
 }
