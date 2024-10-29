@@ -1,79 +1,108 @@
-<div class="col-md-6 offser-md-3">
-    <h3 class="text-center">Edición sala</h3>
-    <form  (ngSubmit)="onSubmit()" #empleadoForm="ngForm">
-        <div class="form-group">
-            <label for="">Nombre : </label>
-            <input type="text" class = "form-control" 
-            id = "nombre" 
-            [(ngModel)] = "sala.nombre" 
-            name = "nombre"  
+<div class="d-flex justify-content-center">
+    <div class="col-md-8 col-lg-6 p-4 shadow-sm rounded bg-white">
+      <h3 class="text-center mb-4 fw-bold">Edición de Sala</h3>
+      <form (ngSubmit)="onSubmit()" #salaForm="ngForm">
+        
+        <div class="form-group mb-3">
+          <label for="nombre" class="form-label">Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            [(ngModel)]="sala.nombre"
+            name="nombre"
             required
             minlength="3"
-            maxlength="20"
-            placeholder="Nombre"
-            #nombre = "ngModel"
-            >
-            <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
-                <div *ngIf = "nombre.errors?.['required']">
-                    Digite su nombre por favor
-                </div>
-                <div *ngIf = "nombre.errors?.['minlength']">
-                    El nombre debe tener por lo minimo 3 caracteres
-                </div>
-                <div *ngIf = "nombre.errors?.['maxlength']">
-                    El nombre debe tener como maximo 20 caracteres
-                </div>
-            </div>
+            maxlength="100"
+            placeholder="Ingrese el nombre de la sala"
+            #nombre="ngModel"
+          />
+          <div class="alert alert-danger mt-2 p-1" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <small *ngIf="nombre.errors?.['required']">Por favor ingrese un nombre</small>
+            <small *ngIf="nombre.errors?.['minlength']">Debe tener al menos 3 caracteres</small>
+            <small *ngIf="nombre.errors?.['maxlength']">Máximo 100 caracteres</small>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="">Apellidos : </label>
-            <input type="text" class = "form-control" 
-            id = "apellidos"
-            [(ngModel)] = "sala.nombre" 
-            name = "apellidos"
+        
+        <div class="form-group mb-3">
+          <label for="ubicacion" class="form-label">Ubicación:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ubicacion"
+            [(ngModel)]="sala.ubicacion"
+            name="ubicacion"
             required
             minlength="4"
-            maxlength="20"
-            placeholder="Apellidos"
-            #apellidos = "ngModel"
-            >
-            <div class="alert alert-danger" *ngIf="apellidos.invalid && (nombre.dirty || nombre.touched)">
-                <div *ngIf = "apellidos.errors?.['required']">
-                    Digite su apellido por favor
-                </div>
-                <div *ngIf = "apellidos.errors?.['minlength']">
-                    El apellidos debe tener por lo minimo 4 caracteres
-                </div>
-                <div *ngIf = "apellidos.errors?.['maxlength']">
-                    El apellido debe tener como maximo 20 caracteres
-                </div>
-            </div>
+            placeholder="Ingrese la ubicación"
+            #ubicacion="ngModel"
+          />
+          <div class="alert alert-danger mt-2 p-1" *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)">
+            <small *ngIf="ubicacion.errors?.['required']">Por favor ingrese la ubicación</small>
+            <small *ngIf="ubicacion.errors?.['minlength']">Debe tener al menos 4 caracteres</small>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="">Email : </label>
-            <input type="text" class = "form-control" 
-            id = "correo" [(ngModel)] = "sala.nombre" 
-            name = "correo"
-            pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?" 
+        
+        <div class="form-group mb-3">
+          <label for="code" class="form-label">Código:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="code"
+            [(ngModel)]="sala.code"
+            name="code"
             required
-            placeholder="Email"
-            #correo = "ngModel"
-            >
-            <div class="alert alert-danger" *ngIf="correo.invalid && (nombre.dirty || nombre.touched)">
-                <div *ngIf = "correo.errors?.['required'] ">
-                    Digite su email por favor
-                </div>
-                <div *ngIf = "correo.errors?.['pattern']">
-                    Por favor digite el email con el siguiente formato : usuariogmail.co..
-                </div>
-            </div>
+            placeholder="Ingrese el código"
+            #code="ngModel"
+          />
+          <div class="alert alert-danger mt-2 p-1" *ngIf="code.invalid && (code.dirty || code.touched)">
+            <small *ngIf="code.errors?.['required']">Por favor ingrese el código</small>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="">N° Identificación : </label>
-            <input type="number" class = "form-control" id = "num_identificacion" [(ngModel)] = "sala.nombre" name = "
-            num_identificacion">
+        
+        <div class="form-group mb-3">
+          <label for="estadoOcupacional" class="form-label">Estado Ocupacional:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="estadoOcupacional"
+            [(ngModel)]="sala.estadoOcupacional"
+            name="estadoOcupacional"
+            required
+            placeholder="Ingrese el estado ocupacional"
+            #estadoOcupacional="ngModel"
+          />
+          <div class="alert alert-danger mt-2 p-1" *ngIf="estadoOcupacional.invalid && (estadoOcupacional.dirty || estadoOcupacional.touched)">
+            <small *ngIf="estadoOcupacional.errors?.['required']">Por favor ingrese el estado ocupacional</small>
+          </div>
         </div>
-
-        <button class="btn btn-success" [disabled]="!empleadoForm.form.valid">Guardar</button>
-    </form>
-</div>
+        
+        <div class="form-group mb-3">
+          <label for="descripcion" class="form-label">Descripción:</label>
+          <textarea
+            class="form-control"
+            id="descripcion"
+            [(ngModel)]="sala.descripcion"
+            name="descripcion"
+            required
+            minlength="5"
+            maxlength="200"
+            placeholder="Ingrese una descripción"
+            rows="3"
+            #descripcion="ngModel"
+          ></textarea>
+          <div class="alert alert-danger mt-2 p-1" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+            <small *ngIf="descripcion.errors?.['required']">Por favor ingrese la descripción</small>
+            <small *ngIf="descripcion.errors?.['minlength']">Debe tener al menos 5 caracteres</small>
+            <small *ngIf="descripcion.errors?.['maxlength']">Máximo 200 caracteres</small>
+          </div>
+        </div>
+  
+        <div class="text-center">
+          <button class="btn btn-success w-100 fw-bold" [disabled]="!salaForm.form.valid">Guardar</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  

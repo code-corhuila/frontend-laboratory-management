@@ -1,19 +1,20 @@
-<h3>Detalles de la sala</h3>
-<div>
-    <div>
-        <label for=""><b>Id :</b> {{sala.id}}</label>
-    </div>
-    <div>
-        <label for=""><b>Nombre :</b> {{sala.nombre}}</label>
-    </div>
-    <div>
-        <label for=""><b>Descripción :</b> {{sala.descripcion}}</label>
-    </div>
-    <div>
-        <label for=""><b>Ubicación :</b> {{sala.deletedAt}}</label>
-    </div>
-    <div>
-        <label for=""><b>Estado ocupacional :</b> {{ obtenerEstadoOcupacional(sala.estadoOcupacional) }}</label>
+<div class="d-flex justify-content-center my-5">
+    <div class="card shadow-sm p-4 rounded bg-light" style="width: 60%; max-width: 600px;">
+        <h3 class="text-center mb-4">Detalles de la sala</h3>
+        <div class="mb-3">
+            <label><b>Id :</b> {{ sala.id }}</label>
+        </div>
+        <div class="mb-3">
+            <label><b>Nombre :</b> {{ sala.nombre }}</label>
+        </div>
+        <div class="mb-3">
+            <label><b>Descripción :</b> {{ sala.descripcion }}</label>
+        </div>
+        <div class="mb-3">
+            <label><b>Ubicación :</b> {{ sala.deletedAt }}</label>
+        </div>
+        <div class="mb-3">
+            <label><b>Estado ocupacional :</b> {{ obtenerEstadoOcupacional(sala.estadoOcupacional) }}</label>
+        </div>
     </div>
 </div>
-

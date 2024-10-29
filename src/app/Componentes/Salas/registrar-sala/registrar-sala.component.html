@@ -5,11 +5,11 @@
             <div class="form-group mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
                 <input type="text" class="form-control" id="nombre" [(ngModel)]="sala.nombre" name="nombre" required
-                       minlength="3" maxlength="20" placeholder="Ingrese el nombre de la sala" #nombre="ngModel">
+                       minlength="3" maxlength="100" placeholder="Ingrese el nombre de la sala" #nombre="ngModel">
                 <div class="alert alert-danger mt-2 p-1" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                     <small *ngIf="nombre.errors?.required">Digite el nombre de la sala</small>
                     <small *ngIf="nombre.errors?.minlength">Debe tener al menos 3 caracteres</small>
-                    <small *ngIf="nombre.errors?.maxlength">Máximo 20 caracteres</small>
+                    <small *ngIf="nombre.errors?.maxlength">Máximo 100 caracteres</small>
                 </div>
             </div>
 

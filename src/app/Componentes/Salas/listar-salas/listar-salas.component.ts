@@ -26,7 +26,7 @@ export class ListarSalasComponent implements OnInit {
   }
 
   actualizarSala(id:any){
-    this.router.navigate(['actualizarSala', id]);
+    this.router.navigate(['dashboard','actualizarSala', id]);
   }
   
 

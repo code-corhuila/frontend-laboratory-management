@@ -26,14 +26,14 @@ export class ActualizarSalaComponent  implements OnInit {
     },error => console.log(error));
   }
 
-  irAlaListaDeEmpleados(){
-    this.router.navigate(['/empleados']);
+  irAlaListaDeSalas(){
+    this.router.navigate(['dashboard','listarSalas']);
     Swal.fire('Empleado actualizado',`El empleado ${this.sala.nombre} ha sido actualizado con exito`,`success`);
   }
 
   onSubmit(){
     this.salaService.actualizarSala(this.id,this.sala).subscribe(dato => {
-      this.irAlaListaDeEmpleados();
+      this.irAlaListaDeSalas();
     },error => console.log(error));
   }
 }

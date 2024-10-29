@@ -22,7 +22,15 @@ export class DetalleSalaComponent implements OnInit {
     this.sala = new Sala();
     this.salaService.obtenerSalaPorId(this.id).subscribe(dato =>{
       this.sala = dato['data'];
-      Swal.fire(`Detalles: ${this.sala.nombre}`);
+      Swal.fire({
+    title: `Detalles: ${this.sala.nombre}`,
+    confirmButtonText: 'Cerrar',
+    confirmButtonColor: '#28a745', // color gris
+    background: '#f8f9fa',
+    customClass: {
+        title: 'swal-title',
+    }
+});;
     })
   }
 

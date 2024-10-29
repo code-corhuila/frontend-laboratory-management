@@ -1,0 +1,36 @@
+.card {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    color: #343a40;
+    font-weight: bold;
+}
+
+.card label {
+    font-size: 1rem;
+    color: #495057;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.card b {
+    color: #212529;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.my-5 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
