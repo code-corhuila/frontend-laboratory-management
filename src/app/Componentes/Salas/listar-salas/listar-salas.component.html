@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let sala of salas">
+            <tr *ngFor="let sala of salas | paginate: { itemsPerPage: 8, currentPage: page }">
                 <td>{{ sala.id }}</td>
                 <td>{{ sala.nombre }}</td>
                 <td>{{ sala.ubicacion }}</td>
@@ -24,9 +24,10 @@
                     <button type="button" (click)="actualizarSala(sala.id)" class="btn btn-info btn-sm">Editar</button>
                     <button type="button" (click)="eliminarSala(sala.id)" class="btn btn-danger btn-sm mx-2">Eliminar</button>
                     <button (click)="verDetallesDeSala(sala.id)" class="btn btn-primary" style="margin-left: 10px;">Detalles</button>
-                    <!-- <button  [routerLink]="['/detalleSala', sala.id]" class="btn btn-primary btn-sm">Detalles</button> -->
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+
+<pagination-controls (pageChange)="page = $event"></pagination-controls>

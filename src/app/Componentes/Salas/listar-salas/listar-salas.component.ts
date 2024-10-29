@@ -4,28 +4,28 @@ import { SalaService } from '../../../Services/sala.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-listar-salas',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgxPaginationModule],
   templateUrl: './listar-salas.component.html',
   styleUrl: './listar-salas.component.css'
 })
 export class ListarSalasComponent implements OnInit {
 
   salas:Sala[];
+  page: number = 1;  // Variable para manejar la página actual
 
   constructor( private salaService:SalaService, private router:Router) { }
 
 
   ngOnInit(): void {
-    console.log("obtener salas", this.salas)
     this.obtenerSalas();
   }
 
   actualizarSala(id:any){
-    console.log("siufgbigudfb - ID ", id);
     this.router.navigate(['actualizarSala', id]);
   }
   

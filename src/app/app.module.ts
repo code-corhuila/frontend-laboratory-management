@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegistrarSalaComponent } from './Componentes/Salas/registrar-sala/registrar-sala.component';
 import { AppRoutingModule } from './app.routes';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     RouterModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    NgxPaginationModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
