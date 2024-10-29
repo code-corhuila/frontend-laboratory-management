@@ -22,9 +22,7 @@ export class RegistrarSalaComponent implements OnInit {
   }
 
   guardarEmpleado(){
-    console.log("dato a guardad 1", this.sala);
      this.salaService.registrarSala(this.sala).subscribe(dato => {
-      console.log("dato a guardado",dato);
       this.irALaListaDeSalas();
      }, error => console.log(error));
   }
