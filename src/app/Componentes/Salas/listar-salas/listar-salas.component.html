@@ -3,23 +3,28 @@
     <table class="table table-striped table-bordered">
         <thead class="table-dark text-center">
             <tr>
-                <!-- <th>Id Registro</th> -->
+                <th>Id Registro</th>
                 <th>Nombre</th>
                 <th>Ubicación</th>
                 <th>Descripción</th>
+                <th>Estado ocupacional</th>
+                <th>Codigo</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let sala of salas">
-                <!-- <td>{{ sala.id_sala }}</td> -->
+                <td>{{ sala.id }}</td>
                 <td>{{ sala.nombre }}</td>
                 <td>{{ sala.ubicacion }}</td>
                 <td>{{ sala.descripcion }}</td>
+                <td>{{ sala.code }}</td>
+                <td>{{ sala.estadoOcupacional }}</td>
                 <td class="text-center">
-                    <button (click)="actualizarSala(sala.id)" class="btn btn-info btn-sm">Editar</button>
-                    <button (click)="eliminarSala(sala.id)" class="btn btn-danger btn-sm mx-2">Eliminar</button>
-                    <button routerLink="dashboard/detalleSala" class="btn btn-primary btn-sm">Detalles</button>
+                    <button type="button" (click)="actualizarSala(sala.id)" class="btn btn-info btn-sm">Editar</button>
+                    <button type="button" (click)="eliminarSala(sala.id)" class="btn btn-danger btn-sm mx-2">Eliminar</button>
+                    <button (click)="verDetallesDeSala(sala.id)" class="btn btn-primary" style="margin-left: 10px;">Detalles</button>
+                    <!-- <button  [routerLink]="['/detalleSala', sala.id]" class="btn btn-primary btn-sm">Detalles</button> -->
                 </td>
             </tr>
         </tbody>

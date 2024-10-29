@@ -31,12 +31,12 @@ export class SalaService {
 
    
    //Metodo para obtener o buscar una Usuario
-   obtenerSalaPorId(id:number):Observable<Sala>{
+   obtenerSalaPorId(id:any):Observable<Sala>{
      return this.httpClient.get<Sala>(`${this.baseURL}/${id}`);
    }
 
    //metodo para eliminar una Usuario
-   eliminarSala(id:String):Observable<Object>{
+   eliminarSala(id:number):Observable<Object>{
      return this.httpClient.delete(`${this.baseURL}/${id}`);
    }
 

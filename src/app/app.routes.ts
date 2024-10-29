@@ -25,12 +25,12 @@ export const routes: Routes = [
       { path: 'listarSalas', loadComponent: () => import('./Componentes/Salas/listar-salas/listar-salas.component').then(m => m.ListarSalasComponent) },
       { path: 'registrarSala', loadComponent: () => import('./Componentes/Salas/registrar-sala/registrar-sala.component').then(m => m.RegistrarSalaComponent) },
       { path: 'actualizarSala/:id', loadComponent: () => import('./Componentes/Salas/actualizar-sala/actualizar-sala.component').then(m => m.ActualizarSalaComponent) },
-      { path: 'detalleSala', loadComponent: () => import('./Componentes/Salas/detalle-sala/detalle-sala.component').then(m => m.DetalleSalaComponent) },
+      { path: 'detalleSala/:id', loadComponent: () => import('./Componentes/Salas/detalle-sala/detalle-sala.component').then(m => m.DetalleSalaComponent) },
       
 
     ],
   },
-  { path: '**', redirectTo: '' } // Redirige cualquier ruta desconocida al LoginComponent
+  //{ path: '**', redirectTo: '' } // Redirige cualquier ruta desconocida al LoginComponent
 ];
 
 @NgModule({

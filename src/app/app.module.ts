@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistrarSalaComponent } from './Componentes/Salas/registrar-sala/registrar-sala.component';
 import { AppRoutingModule } from './app.routes';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AppRoutingModule } from './app.routes';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    RouterModule,
     FormsModule,
     CommonModule
   ],

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Sala } from '../../../clases/sala';
 import { SalaService } from '../../../Services/sala.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar-salas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './listar-salas.component.html',
   styleUrl: './listar-salas.component.css'
 })
@@ -37,7 +37,7 @@ export class ListarSalasComponent implements OnInit {
   }
 
 
-  eliminarSala(id: String) {
+  eliminarSala(id: any) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "Confirma si deseas eliminar este registro!",
@@ -64,7 +64,10 @@ export class ListarSalasComponent implements OnInit {
 
 
   verDetallesDeSala(id:any){
-    this.router.navigate(['empleado-detalles',id]);
+    console.log("ingresa 1");
+    console.log("ingresa 2");
+    this.router.navigate(['dashboard','detalleSala',id]);
+
   }
 
 }
