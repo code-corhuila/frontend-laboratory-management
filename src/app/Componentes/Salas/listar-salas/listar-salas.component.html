@@ -18,8 +18,8 @@
                 <td>{{ sala.nombre }}</td>
                 <td>{{ sala.ubicacion }}</td>
                 <td>{{ sala.descripcion }}</td>
+                <td>{{ obtenerEstadoOcupacional(sala.estadoOcupacional) }}</td>
                 <td>{{ sala.code }}</td>
-                <td>{{ sala.estadoOcupacional }}</td>
                 <td class="text-center">
                     <button type="button" (click)="actualizarSala(sala.id)" class="btn btn-info btn-sm">Editar</button>
                     <button type="button" (click)="eliminarSala(sala.id)" class="btn btn-danger btn-sm mx-2">Eliminar</button>

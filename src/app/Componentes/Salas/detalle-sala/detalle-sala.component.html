@@ -10,10 +10,10 @@
         <label for=""><b>Descripción :</b> {{sala.descripcion}}</label>
     </div>
     <div>
-        <label for=""><b>Ubicación :</b> {{sala.ubicacion}}</label>
+        <label for=""><b>Ubicación :</b> {{sala.deletedAt}}</label>
     </div>
     <div>
-        <label for=""><b>Estado ocupacional :</b> {{sala.estadoOcupacional}}</label>
+        <label for=""><b>Estado ocupacional :</b> {{ obtenerEstadoOcupacional(sala.estadoOcupacional) }}</label>
     </div>
 </div>
 

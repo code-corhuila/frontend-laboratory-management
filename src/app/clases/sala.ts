@@ -6,4 +6,5 @@ export class Sala {
     nombre:String;
     ubicacion:String;
     state:any;
+    deletedAt:any;
 }

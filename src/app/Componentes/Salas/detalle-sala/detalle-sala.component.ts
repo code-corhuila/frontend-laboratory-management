@@ -26,4 +26,8 @@ export class DetalleSalaComponent implements OnInit {
     })
   }
 
+  obtenerEstadoOcupacional(estadoOcupacional: number): string {
+    return estadoOcupacional === 1 ? 'Ocupado' : 'Libre';
+  }
+
 }

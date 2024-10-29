@@ -64,10 +64,11 @@ export class ListarSalasComponent implements OnInit {
 
 
   verDetallesDeSala(id:any){
-    console.log("ingresa 1");
-    console.log("ingresa 2");
     this.router.navigate(['dashboard','detalleSala',id]);
+  }
 
+  obtenerEstadoOcupacional(estadoOcupacional: number): string {
+    return estadoOcupacional === 1 ? 'Ocupado' : 'Libre';
   }
 
 }
