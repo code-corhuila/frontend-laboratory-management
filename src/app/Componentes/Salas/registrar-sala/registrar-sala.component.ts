@@ -31,6 +31,9 @@ export class RegistrarSalaComponent implements OnInit {
     this.router.navigate(['/listarSalas']);
   }
 
+  verDetallesDeSala(id:any){
+    this.router.navigate(['dashboard','detalleSala',id]);
+  }
   onSubmit(){
     this.guardarEmpleado();
   }

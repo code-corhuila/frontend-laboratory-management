@@ -1,0 +1,17 @@
+.icono-boton {
+    background: none;
+    border: none;
+    padding: 0;
+    display: inline-flex;    /* Hace que el botón actúe como contenedor flex */
+    align-items: center;     /* Centra el ícono verticalmente */
+    justify-content: center; /* Centra el ícono horizontalmente */
+    width: 24px;             /* Ajusta al tamaño del ícono */
+    height: 24px;
+    cursor: pointer;
+  }
+  
+  .icono-boton img {
+    width: 100%;             /* Asegura que el ícono ocupe todo el espacio del botón */
+    height: 100%;
+  }
+  

@@ -71,4 +71,7 @@ export class ListarSalasComponent implements OnInit {
     return estadoOcupacional === 1 ? 'Ocupado' : 'Libre';
   }
 
+  agregarSala(id:any){
+    this.router.navigate(['dashboard','registrarSala']);
+  }
 }
