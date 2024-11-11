@@ -155,9 +155,43 @@ footer {
 }
 
 .footer-links a:hover {
-    color: #ddd !important; /* Color para el efecto hover */
+    color: #ddd !important;
+    /* Color para el efecto hover */
 }
 
 .footer-links a:active {
     color: white !important;
+}
+
+
+/* Estilos para el header */
+.header-content {
+    background-color: #34495E;
+    /* Color de fondo que coincide con la paleta de colores */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Contenedor de fecha y usuario */
+.date-user-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Espacio entre la fecha y el avatar */
+}
+
+/* Ajustes de la etiqueta de fecha */
+.date-label {
+    margin-right: 5px;
+}
+
+/* Estilo para el avatar del usuario */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ECF0F1;
+    /* Borde claro alrededor del avatar */
 }
