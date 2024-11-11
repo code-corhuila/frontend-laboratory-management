@@ -3,48 +3,48 @@
         <h3 class="text-center mb-4 fw-bold">Registro de salas de laboratorio</h3>
         <form (ngSubmit)="onSubmit()" #salaForm="ngForm">
             <div class="form-group mb-3">
-                <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" [(ngModel)]="sala.nombre" name="nombre" required
-                       minlength="3" maxlength="100" placeholder="Ingrese el nombre de la sala" #nombre="ngModel">
+                <label for="nombre" class="form-label">Laboratorio:</label>
+                <input type="text" class="form-control" id="nombre" [(ngModel)]="sala.laboratorio" name="nombre" required
+                    minlength="3" maxlength="100" placeholder="Ingrese el nombre de la sala" #nombre="ngModel">
                 <div class="alert alert-danger mt-2 p-1" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                     <small *ngIf="nombre.errors?.required">Digite el nombre de la sala</small>
                     <small *ngIf="nombre.errors?.minlength">Debe tener al menos 3 caracteres</small>
                     <small *ngIf="nombre.errors?.maxlength">Máximo 100 caracteres</small>
                 </div>
             </div>
-
             <div class="form-group mb-3">
                 <label for="ubicacion" class="form-label">Ubicación:</label>
                 <input type="text" class="form-control" id="ubicacion" placeholder="Ingrese la ubicación"
-                       [(ngModel)]="sala.ubicacion" name="ubicacion">
+                    [(ngModel)]="sala.ubicacion" name="ubicacion">
             </div>
-
+            
             <div class="form-group mb-3">
-                <label for="codigo" class="form-label">Código:</label>
-                <input type="text" class="form-control" id="codigo" placeholder="Ingrese el código" name="codigo">
+                <label for="estadoOcupacional" class="form-label">Estado laboratorio:</label>
+                <div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="disponible" name="estadoOcupacional" [(ngModel)]="sala.estado_laboratorio" [value]="1">
+                        <label class="form-check-label" for="disponible">Habilitado</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="noDisponible" name="estadoOcupacional" [(ngModel)]="sala.estado_laboratorio" [value]="0">
+                        <label class="form-check-label" for="noDisponible">Fuera de servicio</label>
+                    </div>
+                </div>
             </div>
+            
 
-            <div class="form-group mb-3">
-                <label for="estadoOcupacional" class="form-label">Estado ocupacional:</label>
-                <input type="number" class="form-control" id="estadoOcupacional" [(ngModel)]="sala.estadoOcupacional"
-                       name="estadoOcupacional" placeholder="Ingrese el estado ocupacional">
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="state" class="form-label">State:</label>
-                <input type="number" class="form-control" id="state" [(ngModel)]="sala.state" name="state"
-                       placeholder="Ingrese el estado">
-            </div>
 
             <div class="form-group mb-4">
                 <label for="descripcion" class="form-label">Descripción:</label>
                 <textarea class="form-control" id="descripcion" [(ngModel)]="sala.descripcion" name="descripcion"
-                          placeholder="Ingrese una descripción" rows="3"></textarea>
+                    placeholder="Ingrese una descripción" rows="3"></textarea>
             </div>
-
             <div class="text-center">
                 <button class="btn btn-success w-100 fw-bold" [disabled]="!salaForm.form.valid">Guardar</button>
             </div>
         </form>
+        <div class="text-center mt-4">
+            <button class="btn btn-secondary w-100 fw-bold" (click)="cancelar()">Cancelar</button>
+        </div>
     </div>
 </div>

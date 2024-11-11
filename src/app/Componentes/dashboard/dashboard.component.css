@@ -142,3 +142,22 @@ footer {
         gap: 0.5rem;
     }
 }
+
+
+/* Footer links (Color blanco para todos los tamaños de pantalla) */
+.footer-links a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.footer-links a:visited {
+    color: white !important;
+}
+
+.footer-links a:hover {
+    color: #ddd !important; /* Color para el efecto hover */
+}
+
+.footer-links a:active {
+    color: white !important;
+}

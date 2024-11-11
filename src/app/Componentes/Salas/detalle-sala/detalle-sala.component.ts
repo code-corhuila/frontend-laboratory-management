@@ -26,7 +26,7 @@ export class DetalleSalaComponent implements OnInit {
     this.salaService.obtenerSalaPorId(this.id).subscribe(dato =>{
       this.sala = dato['data'];
       Swal.fire({
-    title: `Detalles: ${this.sala.nombre}`,
+    title: `Detalles: ${this.sala.laboratorio}`,
     confirmButtonText: 'Cerrar',
     confirmButtonColor: '#28a745', // color gris
     background: '#f8f9fa',
@@ -38,7 +38,7 @@ export class DetalleSalaComponent implements OnInit {
   }
 
   obtenerEstadoOcupacional(estadoOcupacional: number): string {
-    return estadoOcupacional === 1 ? 'Ocupado' : 'Libre';
+    return estadoOcupacional === 1 ? 'No disponible' : 'Disponible';
   }
 
   cerrar(): void {

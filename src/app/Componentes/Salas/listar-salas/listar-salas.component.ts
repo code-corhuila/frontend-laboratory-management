@@ -15,27 +15,48 @@ import { NgxPaginationModule } from 'ngx-pagination';
 })
 export class ListarSalasComponent implements OnInit {
 
-  salas:Sala[];
-  page: number = 1;  // Variable para manejar la página actual
+  salas: Sala[];
+  page: number = 1;
+  cargando = true;
 
-  constructor( private salaService:SalaService, private router:Router) { }
+  constructor(private salaService: SalaService, private router: Router) { }
 
 
   ngOnInit(): void {
     this.obtenerSalas();
   }
 
-  actualizarSala(id:any){
-    this.router.navigate(['dashboard','actualizarSala', id]);
-  }
-  
-
-  private obtenerSalas(){
-    this.salaService.obtenerListaDeSalas().subscribe(dato => {
-      this.salas = dato['data'];
-    });
+  actualizarSala(id: any) {
+    this.router.navigate(['dashboard', 'actualizarSala', id]);
   }
 
+  private obtenerSalas() {
+    this.cargando = true;
+    this.salaService.obtenerListaDeSalas().subscribe(
+        (dato) => {
+            this.salas = dato['data'];
+            this.cargando = false;
+            if (this.salas.length === 0) {
+                Swal.fire({
+                    title: 'No hay registros',
+                    text: 'No se encontraron salas. ¿Quieres agregar una nueva?',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Agregar Sala',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.agregarSala();
+                    }
+                });
+            }
+        },
+        (error) => {
+            console.error('Error al cargar las salas', error);
+            this.cargando = false;
+        }
+    );
+}
 
   eliminarSala(id: any) {
     Swal.fire({
@@ -60,18 +81,16 @@ export class ListarSalasComponent implements OnInit {
       }
     });
   }
-  
 
-
-  verDetallesDeSala(id:any){
-    this.router.navigate(['dashboard','detalleSala',id]);
+  verDetallesDeSala(id: any) {
+    this.router.navigate(['dashboard', 'detalleSala', id]);
   }
 
-  obtenerEstadoOcupacional(estadoOcupacional: number): string {
-    return estadoOcupacional === 1 ? 'Ocupado' : 'Libre';
+  obtenerEstadoLaboratorio(estadoOcupacional: number): string {
+    return estadoOcupacional == 0 ? 'Fuera de servicio' : 'Habilitado';
   }
 
-  agregarSala(id:any){
-    this.router.navigate(['dashboard','registrarSala']);
+  agregarSala() {
+    this.router.navigate(['dashboard', 'registrarSala']);
   }
 }

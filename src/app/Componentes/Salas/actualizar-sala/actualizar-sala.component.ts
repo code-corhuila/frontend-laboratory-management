@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-actualizar-sala',
@@ -17,7 +18,8 @@ export class ActualizarSalaComponent  implements OnInit {
 
   id:number;
   sala:Sala = new Sala();
-  constructor(private salaService:SalaService,private router:Router, private route:ActivatedRoute) { }
+  constructor(private salaService:SalaService,private router:Router,
+     private route:ActivatedRoute, private location:Location) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -28,7 +30,7 @@ export class ActualizarSalaComponent  implements OnInit {
 
   irAlaListaDeSalas(){
     this.router.navigate(['dashboard','listarSalas']);
-    Swal.fire('Empleado actualizado',`El empleado ${this.sala.nombre} ha sido actualizado con exito`,`success`);
+    Swal.fire('Sala actualizada',`La sala ${this.sala.laboratorio} ha sido actualizada con exito`,`success`);
   }
 
   onSubmit(){
@@ -36,4 +38,9 @@ export class ActualizarSalaComponent  implements OnInit {
       this.irAlaListaDeSalas();
     },error => console.log(error));
   }
+
+  cancelar(): void {
+    this.location.back();
+  }
+
 }
