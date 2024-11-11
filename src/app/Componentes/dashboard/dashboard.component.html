@@ -1,24 +1,21 @@
-<div>
+<div class="dashboard-container">
     <header>
         <div class="header-content">
-            <div class="date-container">
-                <button type="button" class="btn btn-primary">
+            <div class="date-user-container">
+                <button type="button" class="btn btn-primary date-button">
                     <span class="date-label">Fecha actual:</span> {{ currentDate }}
                 </button>
-            </div>
-            <div class="user">
-                <img src="https://img.icons8.com/?size=100&id=41799&format=png&color=000000" alt="Logo_User" style="border-radius: 50px; height: 50px; width: 50px;">
+                <img src="https://img.icons8.com/?size=100&id=41799&format=png&color=000000" alt="Logo_User" class="user-avatar">
             </div>
         </div>
     </header>
-
     
     <div class="main-content">
         <nav class="menu">
             <div class="btn-group-vertical">
                 <div class="dropdown">
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://img.icons8.com/?size=100&id=23&format=png&color=000000" alt="calendario" style="height: 30px; width: 30px;">
+                        <img src="https://img.icons8.com/?size=100&id=23&format=png&color=000000" alt="calendario" class="icon">
                         Agendamiento
                     </button>
                     <div class="dropdown-menu">
@@ -28,33 +25,33 @@
                 </div>
             </div>
 
-
             <button class="btn btn-secondary" routerLink="inventario">
-                <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=000000" alt="inventario" style="height: 30px; width: 30px;">
+                <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=000000" alt="inventario" class="icon">
                 Inventario
             </button>
             <button class="btn btn-secondary" routerLink="usuarios">
-                <img src="https://img.icons8.com/?size=100&id=11168&format=png&color=000000" alt="usuarios" style="height: 30px; width: 30px;">
+                <img src="https://img.icons8.com/?size=100&id=11168&format=png&color=000000" alt="usuarios" class="icon">
                 Usuarios
             </button>
             <button class="btn btn-secondary" routerLink="asistencia">
-                <img src="https://img.icons8.com/?size=100&id=4023&format=png&color=000000" alt="asistencia" style="height: 30px; width: 30px;">
+                <img src="https://img.icons8.com/?size=100&id=4023&format=png&color=000000" alt="asistencia" class="icon">
                 Asistencia
             </button>
             <button class="btn btn-secondary" routerLink="reporte">
-                <img src="https://img.icons8.com/?size=100&id=iTjVs2F27MrP&format=png&color=000000" alt="reporte" style="height: 30px; width: 30px;">
+                <img src="https://img.icons8.com/?size=100&id=iTjVs2F27MrP&format=png&color=000000" alt="reporte" class="icon">
                 Reporte
             </button>
             <button class="btn btn-secondary" routerLink="mantenimientos">
-                <img src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="mantenimientos" style="height: 30px; width: 30px;">
+                <img src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="mantenimientos" class="icon">
                 Mantenimientos
             </button>
         </nav>
+
         <div class="content">
             <router-outlet></router-outlet>
         </div>
     </div>
-    
+
     <footer>
         <div class="footer-content">
             <p>&copy; 2024 Corporación Universitaria del Huila CORHUILA. Todos los derechos reservados.</p>

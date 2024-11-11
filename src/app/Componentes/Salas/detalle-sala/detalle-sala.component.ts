@@ -3,6 +3,7 @@ import { Sala } from '../../../clases/sala';
 import { ActivatedRoute } from '@angular/router';
 import { SalaService } from '../../../Services/sala.service';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detalle-sala',
@@ -15,7 +16,9 @@ export class DetalleSalaComponent implements OnInit {
 
   id:number;
   sala:Sala;
-  constructor(private route:ActivatedRoute, private salaService:SalaService) { }
+  constructor(private route:ActivatedRoute,
+              private salaService:SalaService,
+              private location: Location) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -36,6 +39,10 @@ export class DetalleSalaComponent implements OnInit {
 
   obtenerEstadoOcupacional(estadoOcupacional: number): string {
     return estadoOcupacional === 1 ? 'Ocupado' : 'Libre';
+  }
+
+  cerrar(): void {
+    this.location.back();
   }
 
 }
