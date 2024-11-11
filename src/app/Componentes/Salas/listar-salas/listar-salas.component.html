@@ -1,4 +1,12 @@
-<h2 class="text-center my-4">Listado de salas</h2>
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h2 class="text-center">Listado de salas</h2>
+    <button type="button" (click)="agregarSala()" class="btn btn-primary" style="background-color: #ECF0F1; border-color: #004494; color: #000;">
+        <img src="assets/Icons/agregar.svg" alt="Agregar" width="20" height="20" style="margin-right: 5px;">
+        Nuevo registro
+    </button>
+</div>
+
+
 
 <!-- Spinner de carga -->
 <div *ngIf="cargando" class="text-center my-4">
@@ -26,14 +34,9 @@
                 <td>{{ sala.descripcion }}</td>
                 <td>{{ obtenerEstadoLaboratorio(sala.estado_laboratorio) }}</td>
                 <td class="text-center">
-                    <button type="button" (click)="agregarSala()" class="icono-boton">
-                        <img src="assets/Icons/agregar.svg" alt="Agregar" width="24" height="24">
+                    <button type="button" (click)="actualizarSala(sala.id)" class="icono-boton">
+                        <img src="assets/Icons/editar.svg" alt="Editar" width="24" height="24">
                     </button>
-                    
-                    <button type="button" (click)="actualizarSala(sala.id)" class="icono-boton" style="margin-left: 10px;">
-                        <img src="assets/Icons/editar.svg" alt="Eliminar" width="24" height="24">
-                    </button>
-
                     <button type="button" (click)="eliminarSala(sala.id)" class="icono-boton" style="margin-left: 10px;">
                         <img src="assets/Icons/eliminar.svg" alt="Eliminar" width="24" height="24">
                     </button>

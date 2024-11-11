@@ -16,10 +16,10 @@ import { CommonModule, Location } from '@angular/common';
 
 export class RegistrarSalaComponent implements OnInit {
 
-  sala : Sala = new Sala();
+  sala: Sala = new Sala();
 
-  constructor( private salaService: SalaService, private router:Router,
-                private location:Location
+  constructor(private salaService: SalaService, private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -27,34 +27,34 @@ export class RegistrarSalaComponent implements OnInit {
     this.sala.estado_laboratorio = 1;
   }
 
-  guardarSala(){
+  guardarSala() {
     this.sala.state = 1;
-     this.salaService.registrarSala(this.sala).subscribe(dato => {
+    this.salaService.registrarSala(this.sala).subscribe(dato => {
       this.irALaListaDeSalas();
-     }, error => console.log(error));
+    }, error => console.log(error));
   }
 
 
-  verDetallesDeSala(id:any){
-    this.router.navigate(['dashboard','detalleSala',id]);
+  verDetallesDeSala(id: any) {
+    this.router.navigate(['dashboard', 'detalleSala', id]);
   }
-  
 
-  irALaListaDeSalas(){
-    this.router.navigate(['dashboard','listarSalas']);
-    Swal.fire('Sala registrada',`La sala ${this.sala.laboratorio} ha sido registrada con exito`,`success`);
+
+  irALaListaDeSalas() {
+    this.router.navigate(['dashboard', 'listarSalas']);
+    Swal.fire('Sala registrada', `La sala ${this.sala.laboratorio} ha sido registrada con exito`, `success`);
   }
 
   onSubmit(salaForm: any) {
     if (salaForm.invalid) {
       salaForm.form.markAllAsTouched();
-      return; 
+      return;
     }
-    
+
     this.guardarSala();
     this.irALaListaDeSalas();
   }
-  
+
 
   cancelar(): void {
     this.location.back();

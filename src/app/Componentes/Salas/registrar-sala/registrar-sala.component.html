@@ -45,12 +45,13 @@
                         <label class="form-check-label" for="noDisponible">Fuera de servicio</label>
                     </div>
                 </div>
-            
-                <div class="alert alert-danger mt-2 p-1" *ngIf="estadoOcupacional.invalid && (estadoOcupacional.dirty || estadoOcupacional.touched)">
+
+                <div class="alert alert-danger mt-2 p-1"
+                    *ngIf="estadoOcupacional.invalid && (estadoOcupacional.dirty || estadoOcupacional.touched)">
                     <small>Debe seleccionar el estado del laboratorio</small>
                 </div>
             </div>
-            
+
 
             <!-- Campo Descripción -->
             <div class="form-group mb-4">
