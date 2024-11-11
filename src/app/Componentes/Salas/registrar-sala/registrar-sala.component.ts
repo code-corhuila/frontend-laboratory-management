@@ -4,14 +4,14 @@ import { SalaService } from '../../../Services/sala.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 
 @Component({
   selector: 'app-registrar-sala',
   templateUrl: './registrar-sala.component.html',
   styleUrl: './registrar-sala.component.css',
   standalone: true,
-  imports: [FormsModule]
+  imports: [FormsModule, CommonModule]
 })
 
 export class RegistrarSalaComponent implements OnInit {
@@ -23,7 +23,8 @@ export class RegistrarSalaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("empleado init : " +this.sala);
+    this.sala = new Sala();
+    this.sala.estado_laboratorio = 1;
   }
 
   guardarSala(){
@@ -44,10 +45,16 @@ export class RegistrarSalaComponent implements OnInit {
     Swal.fire('Sala registrada',`La sala ${this.sala.laboratorio} ha sido registrada con exito`,`success`);
   }
 
-  onSubmit(){
+  onSubmit(salaForm: any) {
+    if (salaForm.invalid) {
+      salaForm.form.markAllAsTouched();
+      return; 
+    }
+    
     this.guardarSala();
     this.irALaListaDeSalas();
   }
+  
 
   cancelar(): void {
     this.location.back();

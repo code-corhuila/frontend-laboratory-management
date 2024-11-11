@@ -2,16 +2,13 @@
     <div class="card shadow-sm p-4 rounded bg-light" style="width: 60%; max-width: 600px;">
         <h3 class="text-center mb-4">Detalles de la sala</h3>
         <div class="mb-3">
-            <label><b>Id :</b> {{ sala.id }}</label>
-        </div>
-        <div class="mb-3">
             <label><b>Nombre :</b> {{ sala.laboratorio }}</label>
         </div>
         <div class="mb-3">
             <label><b>Descripción :</b> {{ sala.descripcion }}</label>
         </div>
         <div class="mb-3">
-            <label><b>Ubicación :</b> {{ sala.deletedAt }}</label>
+            <label><b>Ubicación :</b> {{ sala.ubicacion }}</label>
         </div>
         <div class="mb-3">
             <label><b>Estado laboratorio :</b> {{ obtenerEstadoOcupacional(sala.estado_laboratorio) }}</label>

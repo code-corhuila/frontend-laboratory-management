@@ -21,12 +21,17 @@ export class ActualizarSalaComponent  implements OnInit {
   constructor(private salaService:SalaService,private router:Router,
      private route:ActivatedRoute, private location:Location) { }
 
-  ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    this.salaService.obtenerSalaPorId(this.id).subscribe(dato =>{
-      this.sala = dato['data'];
-    },error => console.log(error));
+     ngOnInit(): void {
+      this.id = this.route.snapshot.params['id'];
+      this.salaService.obtenerSalaPorId(this.id).subscribe(
+          (dato) => {
+              this.sala = dato['data'];
+              this.sala.estado_laboratorio = +this.sala.estado_laboratorio;
+          },
+          (error) => console.log(error)
+      );
   }
+  
 
   irAlaListaDeSalas(){
     this.router.navigate(['dashboard','listarSalas']);
