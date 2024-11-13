@@ -1,0 +1,105 @@
+/* Contenedor principal */
+.full-calendar-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: white !important;
+}
+
+/* Fondo y estilo del toolbar */
+.fc .fc-toolbar {
+    background-color: #f3f4f6;
+    color: #333;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.fc-toolbar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: capitalize; /* Para que el mes empiece con mayúscula */
+    margin-bottom: 10px;
+}
+
+
+.fc-button {
+    background-color: #677c88; /* Color similar a Teams  uno */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 2px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.fc-button:hover {
+    background-color: #677c88;
+}
+
+/* Estilo para los números de los días y las etiquetas de hora */
+.fc-daygrid-day-number,
+.fc-timegrid-slot-label {
+    color: #464b4e;
+    font-weight: 600;
+}
+
+.fc-timegrid-slot-label-cushion {
+    padding-left: 5px;
+    color: #6b6b6b;
+}
+
+/* Estilo para los bloques de eventos */
+.fc-event {
+    background-color: #677c88;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 0.9rem;
+}
+
+/* Estilo de las líneas de división en la cuadrícula de tiempo */
+.fc-timegrid-slot {
+    height: 180px !important; /* Incrementa el tamaño de cada celda para hacerlas más grandes */
+    border-color: #ddd;
+}
+
+/* Ajuste del texto en el eje de tiempo */
+.fc-timegrid-axis {
+    color: #333;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+/* Scroll para el contenido del calendario */
+.fc-scroller {
+    max-height: 600px; /* Ajusta la altura máxima para habilitar el scroll */
+    overflow-y: scroll;
+}
+
+/* Bordes y estilo adicional para la vista */
+.fc-view-harness {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Estilo adicional para el título */
+.fc .fc-toolbar-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #505f79;
+}
+
+
+
+
+
+
+
+.fc .fc-col-header-cell .fc-col-header-cell-cushion {
+    color: gray !important;
+    text-decoration: none !important;
+}
