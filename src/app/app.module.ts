@@ -11,6 +11,8 @@ import { RegistrarSalaComponent } from './Componentes/Salas/registrar-sala/regis
 import { AppRoutingModule } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ScheduleModule, RecurrenceEditorModule, DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, TimelineViewsService, TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
+
 
 @NgModule({
   declarations: [
@@ -24,9 +26,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RouterModule,
     FormsModule,
     CommonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+
+    ScheduleModule,
+    RecurrenceEditorModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard,
+    DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, TimelineViewsService, TimelineMonthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
