@@ -1,0 +1,6 @@
+@media (max-width: 768px) {
+    .table-responsive {
+      max-height: 300px; /* Ajusta la altura máxima para dispositivos pequeños */
+    }
+  }
+  

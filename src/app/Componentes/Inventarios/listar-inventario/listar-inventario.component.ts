@@ -49,6 +49,7 @@ export class ListarInventarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.inventarioService.getInventarios().subscribe(response => {
+      console.log(response.data)
       if (response.status) {
         this.inventarios = response.data;
       }
