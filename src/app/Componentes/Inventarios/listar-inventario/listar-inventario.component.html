@@ -1,28 +1,30 @@
 <div class="container mt-5">
   <h2>Inventario</h2>
-  <table class="table" *ngIf="inventarios && inventarios.length > 0">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre del Equipo</th>
-        <th scope="col">Ubicación</th>
-        <th scope="col">Cantidad Disponible</th>
-        <th scope="col">Costo</th>
-        <th scope="col">Fecha de Adquisición</th>
-        <th scope="col">Observaciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let inventario of inventarios">
-        <th scope="row">{{ inventario.id }}</th>
-        <td>{{ inventario.equipo.nombre }}</td>
-        <td>{{ inventario.equipo.ubicacion }}</td>
-        <td>{{ inventario.cantidadDisponible }}</td>
-        <td>{{ inventario.costo }}</td>
-        <td>{{ inventario.fechaAdquisicion }}</td>
-        <td>{{ inventario.observaciones }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre del Equipo</th>
+          <th scope="col">Ubicación</th>
+          <th scope="col">Cantidad Disponible</th>
+          <th scope="col">Costo</th>
+          <th scope="col">Fecha de Adquisición</th>
+          <th scope="col">Observaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inventario of inventarios">
+          <th scope="row">{{ inventario.id }}</th>
+          <td>{{ inventario.equipo.nombre }}</td>
+          <td>{{ inventario.equipo.ubicacion }}</td>
+          <td>{{ inventario.cantidadDisponible }}</td>
+          <td>{{ inventario.costo }}</td>
+          <td>{{ inventario.fechaAdquisicion }}</td>
+          <td>{{ inventario.observaciones }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <p *ngIf="!inventarios || inventarios.length === 0">Cargando inventarios...</p>
 </div>
