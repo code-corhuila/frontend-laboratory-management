@@ -11,6 +11,7 @@ import { RegistrarSalaComponent } from './Componentes/Salas/registrar-sala/regis
 import { AppRoutingModule } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FullCalendarModule } from '@fullcalendar/angular'; 
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RouterModule,
     FormsModule,
     CommonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FullCalendarModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

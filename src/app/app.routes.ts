@@ -26,8 +26,7 @@ export const routes: Routes = [
       { path: 'registrarSala', loadComponent: () => import('./Componentes/Salas/registrar-sala/registrar-sala.component').then(m => m.RegistrarSalaComponent) },
       { path: 'actualizarSala/:id', loadComponent: () => import('./Componentes/Salas/actualizar-sala/actualizar-sala.component').then(m => m.ActualizarSalaComponent) },
       { path: 'detalleSala/:id', loadComponent: () => import('./Componentes/Salas/detalle-sala/detalle-sala.component').then(m => m.DetalleSalaComponent) },
-      
-
+      { path: 'calendario', loadComponent: () => import('./Componentes/calendario/calendario.component').then(m => m.CalendarioComponent)},
     ],
   },
   //{ path: '**', redirectTo: '' } // Redirige cualquier ruta desconocida al LoginComponent
