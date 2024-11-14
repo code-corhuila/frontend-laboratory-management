@@ -1,6 +1,52 @@
+/* Para hacer la tabla responsive */
+.table-responsive {
+  max-height: 400px; /* Ajusta la altura máxima para pantallas grandes */
+  overflow-y: auto;  /* Permite desplazamiento vertical si es necesario */
+  -webkit-overflow-scrolling: touch; /* Mejora el desplazamiento en dispositivos móviles */
+}
+
+/* Ajustes de la tabla para pantallas pequeñas */
 @media (max-width: 768px) {
-    .table-responsive {
-      max-height: 300px; /* Ajusta la altura máxima para dispositivos pequeños */
-    }
+  .table-responsive {
+    max-height: 300px; /* Ajusta la altura de la tabla para pantallas pequeñas */
   }
-  
+
+  .table {
+    width: 100%;
+    table-layout: fixed; /* Asegura que las celdas se ajusten */
+  }
+
+  .table th, .table td {
+    word-wrap: break-word; /* Evita desbordes de texto largo */
+    white-space: normal; /* Asegura que el texto no se corte */
+  }
+
+  /* Ajustar el tamaño de los botones en la tabla */
+  .btn {
+    font-size: 0.8rem; /* Reduce el tamaño de los botones */
+    padding: 5px 10px; /* Ajusta el tamaño del padding */
+  }
+}
+
+/* Modal: fondo y centrado */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
