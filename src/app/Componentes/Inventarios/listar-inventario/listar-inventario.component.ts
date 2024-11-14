@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InventarioService } from '../../../services/inventario.service';
-import { FormsModule } from '@angular/forms';  // Importa FormsModule para habilitar ngModel
+import { EquipoService } from '../../../services/equipo.service';
+import { FormsModule } from '@angular/forms';
 
 interface Equipo {
   id: number;
@@ -39,17 +40,21 @@ interface Inventario {
 @Component({
   selector: 'app-listar-inventario',
   standalone: true,
-  imports: [CommonModule, FormsModule],  // Agrega FormsModule aquí
+  imports: [CommonModule, FormsModule],
   templateUrl: './listar-inventario.component.html',
   styleUrls: ['./listar-inventario.component.css']
 })
 export class ListarInventarioComponent implements OnInit {
   inventarios: Inventario[] = [];
+  equipos: Equipo[] = [];
   modalMode: 'add' | 'edit' = 'add';
   currentInventario: Inventario | null = null;
   isModalOpen: boolean = false;
 
-  constructor(private inventarioService: InventarioService) {}
+  constructor(
+    private inventarioService: InventarioService,
+    private equipoService: EquipoService
+  ) {}
 
   ngOnInit(): void {
     this.loadInventarios();
@@ -61,11 +66,18 @@ export class ListarInventarioComponent implements OnInit {
         this.inventarios = response.data;
       }
     });
+    this.equipoService.getEquipos().subscribe(response => {
+      if (response.status) {
+        this.equipos = response.data;
+      }
+    });
   }
 
   openModal(mode: 'add' | 'edit', inventario?: Inventario): void {
     this.modalMode = mode;
-    this.currentInventario = mode === 'edit' ? { ...inventario } : {} as Inventario;
+    this.currentInventario = mode === 'edit'
+      ? { ...inventario, equipo: { ...inventario?.equipo } }
+      : { equipo: {} as Equipo } as Inventario;
     this.isModalOpen = true;
   }
 
