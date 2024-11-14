@@ -1,52 +1,82 @@
 <div class="dashboard-container">
-    <header class="navbar  text-white">
-        <div class="header-content container-fluid">
-            <span class="navbar-brand mb-0 h1" style="color: white;">GESTION LABORATORIOS</span>
-            <div class="right-header">
-                <button type="button" class="btn btn-date">
+    <header>
+        <div class="header-content">
+            <div class="date-user-container">
+                <button type="button" class="btn btn-primary date-button" style="border-radius: 20px; padding: 8px 15px;">
                     <span class="date-label">Fecha actual:</span> {{ currentDate }}
                 </button>
-                <img src="https://img.icons8.com/?size=100&id=41799&format=png&color=000000" alt="Logo_User" class="user-icon">
+                
+                <img src="https://img.icons8.com/?size=100&id=41799&format=png&color=000000" alt="Logo_User" class="user-avatar">
             </div>
         </div>
     </header>
-
-    <div class="dashboard-main">
-        <nav class="sidebar ">
-            <div class="btn-group-vertical w-100">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://img.icons8.com/?size=100&id=23&format=png&color=ffffff" alt="calendario" style="height: 30px; width: 30px;">
-                    Agendamiento
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" routerLink="agendarNuevaSala">Agendar sala</a>
-                    <a class="dropdown-item" routerLink="listarSalas">Salas</a>
+    
+    <div class="main-content">
+        <nav class="menu">
+            <!-- <div class="btn-group-vertical">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://img.icons8.com/?size=100&id=23&format=png&color=000000" alt="calendario" class="icon">
+                        Agendamiento
+                    </button>
+                    <div class="dropdown-menu"> -->
+                        <!-- <a class="dropdown-item" routerLink="calendario">Calendario</a> -->
+                        <!-- <a class="dropdown-item" routerLink="calendario">Agendar sala</a>
+                        <a class="dropdown-item" routerLink="listarSalas">Listado de salas</a>
+                    </div>
                 </div>
-            </div>
-            <button class="btn btn-secondary w-100" routerLink="inventario">
-                <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=ffffff" alt="inventario" style="height: 30px; width: 30px;">
+            </div> -->
+
+            <button class="btn btn-secondary" routerLink="calendario">
+                <img src="https://img.icons8.com/?size=100&id=23&format=png&color=000000" alt="calendario" class="icon">
+                Agendamiento
+            </button>
+
+
+            <button class="btn btn-secondary" routerLink="listarSalas">
+                <img src="assets/Icons/laboratorios.svg" alt="listarSalas" class="icon">
+                Laboratorios
+            </button>
+
+            <button class="btn btn-secondary" routerLink="inventario">
+                <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=000000" alt="inventario" class="icon">
                 Inventario
             </button>
-            <button class="btn btn-secondary w-100" routerLink="usuarios">
-                <img src="https://img.icons8.com/?size=100&id=11168&format=png&color=ffffff" alt="usuarios" style="height: 30px; width: 30px;">
+            <button class="btn btn-secondary" routerLink="usuarios">
+                <img src="https://img.icons8.com/?size=100&id=11168&format=png&color=000000" alt="usuarios" class="icon">
                 Usuarios
             </button>
-            <button class="btn btn-secondary w-100" routerLink="asistencia">
-                <img src="https://img.icons8.com/?size=100&id=4023&format=png&color=ffffff" alt="asistencia" style="height: 30px; width: 30px;">
+            <button class="btn btn-secondary" routerLink="asistencia">
+                <img src="https://img.icons8.com/?size=100&id=4023&format=png&color=000000" alt="asistencia" class="icon">
                 Asistencia
             </button>
-            <button class="btn btn-secondary w-100" routerLink="reporte">
-                <img src="https://img.icons8.com/?size=100&id=iTjVs2F27MrP&format=png&color=ffffff" alt="reporte" style="height: 30px; width: 30px;">
+            <button class="btn btn-secondary" routerLink="reporte">
+                <img src="https://img.icons8.com/?size=100&id=iTjVs2F27MrP&format=png&color=000000" alt="reporte" class="icon">
                 Reporte
             </button>
-            <button class="btn btn-secondary w-100" routerLink="mantenimientos">
-                <img src="https://img.icons8.com/?size=100&id=11151&format=png&color=ffffff" alt="mantenimientos" style="height: 30px; width: 30px;">
+            <button class="btn btn-secondary" routerLink="mantenimientos">
+                <img src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="mantenimientos" class="icon">
                 Mantenimientos
             </button>
         </nav>
-        
+
         <div class="content">
             <router-outlet></router-outlet>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Corporación Universitaria del Huila CORHUILA. Todos los derechos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="https://corhuila.edu.co/" target="_blank">Sobre nosotros</a></li>
+                <li><a href="https://corhuila.edu.co/" target="_blank">Servicios</a></li>
+                <li><a href="https://corhuila.edu.co/" target="_blank">Contacto</a></li>
+            </ul>
+            <div class="footer-logo">
+                <img src="assets/images/LOGO_CORHUILA.png" alt="Logo_CORHUILA" class="logo">
+            </div>
+        </div>
+    </footer>
+    
 </div>

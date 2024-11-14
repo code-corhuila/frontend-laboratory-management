@@ -1,74 +1,197 @@
+/* General layout */
 .dashboard-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
 
-.navbar {
-    padding: 10px;
-    background-color: rgb(21, 57, 73); /* Fondo del header */
-}
-
+/* Header */
 .header-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    padding: 1rem;
+    background-color: #2c3e50;
+    color: white;
 }
 
-.right-header {
+.date-user-container {
     display: flex;
     align-items: center;
-    gap: 15px; /* Espacio entre el botón de fecha y el icono */
+    gap: 1rem;
 }
 
-.btn-date {
-    background-color: #4CAF50;
-    color: #fff;
-    border-color: #4CAF50;
-    border-radius: 20px;
-    padding: 8px 16px;
-    font-size: 14px;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+.date-button {
+    background-color: #28a745;
+    border: none;
 }
 
-.btn-date:hover {
-    background-color: #45a049;
-    border-color: #45a049;
-}
-
-.user-icon {
+.user-avatar {
     border-radius: 50%;
     height: 50px;
     width: 50px;
 }
 
-.dashboard-main {
-    display: flex;
-    flex-grow: 1;
-}
-
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 220px;
-    padding: 15px;
-    background-color: rgb(21, 57, 73); /* Fondo de la barra lateral */
-    color: #ffffff;
-}
-
-.sidebar .btn {
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: left;
-    color: #ffffff;
+.date-container .btn-primary {
+    background-color: #28a745;
     border: none;
 }
 
-.sidebar .btn:hover {
-    background-color: #388E3C;
+
+
+/* Main content area */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow-y: auto;
 }
 
+/* Sidebar menu */
+.menu {
+    display: flex;
+    flex-direction: column;
+    background-color: #34495e;
+    padding: 1rem;
+    min-width: 200px;
+    max-width: 250px;
+}
+
+.menu .btn {
+    margin-bottom: 0.5rem;
+    text-align: left;
+    color: #ecf0f1;
+    display: flex;
+    align-items: center;
+}
+
+.menu .icon {
+    height: 30px;
+    width: 30px;
+    margin-right: 0.5rem;
+}
+
+/* Main content area */
 .content {
-    flex-grow: 1;
-    padding: 20px;
+    flex: 1;
+    padding: 2rem;
+    background-color: #ecf0f1;
+    overflow-y: auto;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-logo .logo {
+    height: 40px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+
+    .menu {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .menu .btn {
+        margin-bottom: 0;
+        margin-right: 0.5rem;
+        flex: 1;
+    }
+
+    .content {
+        padding: 1rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+
+/* Footer links (Color blanco para todos los tamaños de pantalla) */
+.footer-links a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.footer-links a:visited {
+    color: white !important;
+}
+
+.footer-links a:hover {
+    color: #ddd !important;
+    /* Color para el efecto hover */
+}
+
+.footer-links a:active {
+    color: white !important;
+}
+
+
+/* Estilos para el header */
+.header-content {
+    background-color: #34495E;
+    /* Color de fondo que coincide con la paleta de colores */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Contenedor de fecha y usuario */
+.date-user-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Espacio entre la fecha y el avatar */
+}
+
+/* Ajustes de la etiqueta de fecha */
+.date-label {
+    margin-right: 5px;
+}
+
+/* Estilo para el avatar del usuario */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ECF0F1;
+    /* Borde claro alrededor del avatar */
 }
