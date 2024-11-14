@@ -1,34 +1,13 @@
-/* Para hacer la tabla responsive */
 .table-responsive {
-  max-height: 400px; /* Ajusta la altura máxima para pantallas grandes */
-  overflow-y: auto;  /* Permite desplazamiento vertical si es necesario */
-  -webkit-overflow-scrolling: touch; /* Mejora el desplazamiento en dispositivos móviles */
+  max-height: 400px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Ajustes de la tabla para pantallas pequeñas */
-@media (max-width: 768px) {
-  .table-responsive {
-    max-height: 300px; /* Ajusta la altura de la tabla para pantallas pequeñas */
-  }
-
-  .table {
-    width: 100%;
-    table-layout: fixed; /* Asegura que las celdas se ajusten */
-  }
-
-  .table th, .table td {
-    word-wrap: break-word; /* Evita desbordes de texto largo */
-    white-space: normal; /* Asegura que el texto no se corte */
-  }
-
-  /* Ajustar el tamaño de los botones en la tabla */
-  .btn {
-    font-size: 0.8rem; /* Reduce el tamaño de los botones */
-    padding: 5px 10px; /* Ajusta el tamaño del padding */
-  }
+.table-striped > tbody > tr:hover {
+  background-color: #f8f9fa;
 }
 
-/* Modal: fondo y centrado */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -43,45 +22,27 @@
 }
 
 .modal-content {
-  background-color: white;
-  padding: 20px;
+  background-color: #fff;
+  padding: 25px;
   border-radius: 8px;
   max-width: 500px;
   width: 90%;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-
-/* Estilos del modal */
-.modal-backdrop {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1040;
-}
-
-.modal-form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  max-width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .modal-title {
   font-size: 1.5rem;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  color: #007bff;
+  text-align: center;
 }
 
 .form-group {
   margin-bottom: 1rem;
+}
+
+.form-check-input {
+  margin-right: 8px;
 }
 
 .modal-footer {
@@ -89,23 +50,41 @@
   justify-content: flex-end;
   gap: 10px;
 }
- 
+
 .btn-success:hover {
-  background-color: #28a745cc; /* Un verde ligeramente más oscuro */
-}
-.btn-secondary:hover {
-  background-color: #6c757dcc; /* Un gris ligeramente más oscuro */
+  background-color: #28a745cc;
 }
 
-.modal-content {
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4); /* Más difusa y un poco más fuerte */
+.btn-secondary:hover {
+  background-color: #6c757dcc;
+}
+
+.icono-boton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icono-boton img {
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 576px) {
   .form-group label {
-    font-size: 0.9rem; /* Texto más pequeño en etiquetas */
+    font-size: 0.9rem;
   }
-  .form-group input, .form-group textarea {
-    padding: 8px; /* Reducir el padding en los campos */
+  .form-group input,
+  .form-group textarea {
+    padding: 8px;
+  }
+  .modal-content {
+    padding: 15px;
   }
 }

@@ -76,8 +76,8 @@ export class ListarInventarioComponent implements OnInit {
   openModal(mode: 'add' | 'edit', inventario?: Inventario): void {
     this.modalMode = mode;
     this.currentInventario = mode === 'edit'
-      ? { ...inventario, equipo: { ...inventario?.equipo } }
-      : { equipo: {} as Equipo } as Inventario;
+      ? { ...inventario, equipo: { ...inventario?.equipo }, state: inventario?.state || true }
+      : { equipo: {} as Equipo, state: true } as Inventario;
     this.isModalOpen = true;
   }
 
