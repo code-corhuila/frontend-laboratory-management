@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { MantenimientoService } from '../../../services/mantenimiento.service';
 
 @Component({
-  selector: 'app-mantenimiento-registro',
+  selector: 'app-registrar-mantenimiento',
+  template: '<p>registrar-mantenimiento works!</p>',
   templateUrl: './registrar-mantenimiento.component.html',
   styleUrls: ['./registrar-mantenimiento.component.css']
 })
@@ -33,7 +34,7 @@ export class MantenimientoRegistroComponent {
       responsableMantenimiento: this.responsableMantenimiento
     };
 
-    this.mantenimientoService.createMantenimiento(mantenimiento).subscribe(
+    this.mantenimientoService['createMantenimiento'](mantenimiento).subscribe(
       (response) => {
         this.cargando = false;
         this.mensaje = response.message;
@@ -45,4 +46,7 @@ export class MantenimientoRegistroComponent {
       }
     );
   }
+}
+export class RegistrarMantenimientoComponent {
+  // código del componente aquí
 }

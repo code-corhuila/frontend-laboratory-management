@@ -1,8 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface Mantenimiento {
+export interface Mantenimiento {
+  id: number;
+  descripcion: string;
+  fecha: string;
+  equipo: { id: number, nombre: string };
+  responsable: { id: number, nombre: string };
+  tipoMantenimiento: { id: number, nombre: string };
+  observaciones?: string;
+  state?: string;
+}
+
+export interface Equipo {
   id: number;
   state: boolean;
   createdAt: string;
@@ -11,44 +22,57 @@ interface Mantenimiento {
   createdBy: number;
   updatedBy: number;
   deletedBy: number;
-  fechaMantenimiento: string;
-  repuestosUtilizados: string;
-  observacion: string;
-  equipoId: number; // Relación con la tabla Equipo
-  tipoMantenimiento: number; // Relación con CatalogoMantenimiento
-  responsableMantenimiento: number; // Relación con Usuario
+  codigoIdentificacion: string;
+  nombre: string;
+  descripcion: string;
+  ubicacion: string;
+  costo: number;
 }
+export interface Responsable {
+  id: number;          // ID del responsable
+  nombre: string;      // Nombre del responsable
+  email: string;       // Correo electrónico del responsable
+  telefono?: string;   // Teléfono opcional del responsable
+  estado: boolean;     // Estado del responsable (activo/inactivo)
+  fechaCreacion: string; // Fecha de creación del responsable
+  fechaActualizacion: string; // Fecha de última actualización
+}
+
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MantenimientoService {
-  private apiUrl = 'http://localhost:9002/api/mantenimientos'; // URL del API para mantenimientos
+  [x: string]: any;
 
-  constructor(private http: HttpClient) {}
+  private baseURL = 'http://localhost:9002/api/mantenimientos'; // URL de tu backend Spring Boot
 
-  // Método para obtener todos los mantenimientos
-  getMantenimientos(): Observable<{ status: boolean; data: Mantenimiento[]; message: string }> {
-    return this.http.get<{ status: boolean; data: Mantenimiento[]; message: string }>(this.apiUrl);
+  constructor(private httpClient: HttpClient) {}
+
+  // Obtener la lista de mantenimientos
+  obtenerListaDeMantenimientos(): Observable<Mantenimiento[]> {
+    return this.httpClient.get<Mantenimiento[]>(`${this.baseURL}/listar`);
   }
 
-  // Método para obtener un mantenimiento por ID
-  getMantenimientoById(id: number): Observable<{ status: boolean; data: Mantenimiento; message: string }> {
-    return this.http.get<{ status: boolean; data: Mantenimiento; message: string }>(`${this.apiUrl}/${id}`);
+  // Obtener un mantenimiento por su ID
+  obtenerMantenimientoPorId(id: string): Observable<Mantenimiento> {
+    return this.httpClient.get<Mantenimiento>(`${this.baseURL}/${id}`);
   }
 
-  // Método para crear un nuevo mantenimiento
-  createMantenimiento(mantenimiento: Mantenimiento): Observable<{ status: boolean; data: Mantenimiento; message: string }> {
-    return this.http.post<{ status: boolean; data: Mantenimiento; message: string }>(this.apiUrl, mantenimiento);
+  // Crear un nuevo mantenimiento
+  crearMantenimiento(mantenimiento: Mantenimiento): Observable<Object> {
+    return this.httpClient.post(`${this.baseURL}/guardar`, mantenimiento);
   }
 
-  // Método para actualizar un mantenimiento existente
-  updateMantenimiento(id: number, mantenimiento: Mantenimiento): Observable<{ status: boolean; data: Mantenimiento; message: string }> {
-    return this.http.put<{ status: boolean; data: Mantenimiento; message: string }>(`${this.apiUrl}/${id}`, mantenimiento);
+  // Actualizar un mantenimiento existente
+  actualizarMantenimiento(id: string, mantenimiento: Mantenimiento): Observable<Object> {
+    return this.httpClient.put(`${this.baseURL}/actualizar/${id}`, mantenimiento);
   }
 
-  // Método para eliminar un mantenimiento
-  deleteMantenimiento(id: number): Observable<{ status: boolean; message: string }> {
-    return this.http.delete<{ status: boolean; message: string }>(`${this.apiUrl}/${id}`);
+  // Eliminar un mantenimiento por su ID
+  eliminarMantenimiento(id: string): Observable<Object> {
+    return this.httpClient.delete(`${this.baseURL}/eliminar/${id}`);
   }
 }

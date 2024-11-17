@@ -1,108 +1,102 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import Swal from 'sweetalert2';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { MantenimientoService } from '../../../services/mantenimiento.service';
-import { mantenimiento } from '../../../clases/mantenimineto';
-
+import { Equipo, Mantenimiento, MantenimientoService, Responsable } from '../../../services/mantenimiento.service';
+import { TipoMantenimiento } from '../../../services/tipo-mantenimiento.service';
 @Component({
   selector: 'app-listar-mantenimientos',
-  standalone: true,
-  imports: [CommonModule, RouterModule, NgxPaginationModule],
   templateUrl: './listar-mantenimientos.component.html',
   styleUrls: ['./listar-mantenimientos.component.css']
 })
 export class ListarMantenimientosComponent implements OnInit {
+  
+  mantenimientos: Mantenimiento[] = [];
+  equipos: Equipo[] = [];
+  responsables: Responsable[] = [];
+  tiposMantenimiento: TipoMantenimiento[] = [];
+  
+  isModalOpen = false;
+  modalMode: 'add' | 'edit' = 'add';
+  currentMantenimiento: Mantenimiento = {} as Mantenimiento;
 
-  mantenimientos: mantenimiento[] = [];
-  page: number = 1;
-  cargando = true;
-
-  constructor(private mantenimientoService: MantenimientoService, private router: Router) {}
+  constructor(private mantenimientoService: MantenimientoService) {}
 
   ngOnInit(): void {
-    this.obtenerMantenimientos();
+    this.cargarMantenimientos();
+    this.cargarEquipos();
+    this.cargarResponsables();
+    this.cargarTiposMantenimiento();
   }
 
-  // Método para actualizar un mantenimiento
-  actualizarMantenimiento(id: number) {
-    this.router.navigate(['dashboard', 'actualizarMantenimiento', id]);
-  }
-
-  // Método para cargar la lista de mantenimientos
-  private obtenerMantenimientos() {
-    this.cargando = true;
-    this.mantenimientoService.getMantenimientos().subscribe(
-      (respuesta) => {
-        this.mantenimientos = respuesta.data;
-        this.cargando = false;
-        if (this.mantenimientos.length === 0) {
-          Swal.fire({
-            title: 'No hay registros',
-            text: 'No se encontraron mantenimientos. ¿Quieres agregar uno nuevo?',
-            icon: 'info',
-            showCancelButton: true,
-            confirmButtonText: 'Agregar Mantenimiento',
-            cancelButtonText: 'Cancelar'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.agregarMantenimiento();
-            }
-          });
-        }
+  cargarMantenimientos(): void {
+    this.mantenimientoService.obtenerListaDeMantenimientos().subscribe(
+      (mantenimientos) => {
+        this.mantenimientos = mantenimientos;
       },
       (error) => {
-        console.error('Error al cargar los mantenimientos', error);
-        this.cargando = false;
+        console.error('Error al cargar mantenimientos', error);
       }
     );
   }
 
-  // Método para eliminar un mantenimiento
-  eliminarMantenimiento(id: number) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "Confirma si deseas eliminar este registro!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, elimínalo',
-      cancelButtonText: 'No, cancelar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.mantenimientoService.deleteMantenimiento(id).subscribe(() => {
-          this.obtenerMantenimientos();
-          Swal.fire(
-            'Registro eliminado',
-            'El mantenimiento ha sido eliminado con éxito',
-            'success'
-          );
-        });
-      }
-    });
+  cargarEquipos(): void {
+    // Cargar equipos de alguna API, similar a los mantenimientos
   }
 
-  // Método para ver detalles de un mantenimiento
-  verDetallesDeMantenimiento(id: number) {
-    this.router.navigate(['dashboard', 'detalleMantenimiento', id]);
+  cargarResponsables(): void {
+    // Cargar responsables de alguna API
   }
 
-  // Método para agregar un nuevo mantenimiento
-  agregarMantenimiento() {
-    this.router.navigate(['dashboard', 'registrarMantenimiento']);
+  cargarTiposMantenimiento(): void {
+    // Cargar tipos de mantenimiento de alguna API
   }
 
-  // Método para obtener el tipo de mantenimiento en formato legible
-  obtenerTipoMantenimiento(tipo: number): string {
-    const tipos = { 1: 'Preventivo', 2: 'Correctivo', 3: 'Predictivo' };
-    return tipos[tipo] || 'Desconocido';
+  openModal(mode: 'add' | 'edit', mantenimiento?: Mantenimiento): void {
+    this.modalMode = mode;
+    if (mode === 'edit' && mantenimiento) {
+      this.currentMantenimiento = { ...mantenimiento };
+    } else {
+      this.currentMantenimiento = {} as Mantenimiento;
+    }
+    this.isModalOpen = true;
   }
 
-  // Método para obtener el nombre del responsable de mantenimiento
-  obtenerResponsable(id: number): string {
-    // Simulando una conversión básica, puedes ajustarlo para usar un servicio de usuarios
-    return `Responsable ${id}`;
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+
+  saveMantenimiento(): void {
+    if (this.modalMode === 'add') {
+      this.mantenimientoService.crearMantenimiento(this.currentMantenimiento).subscribe(
+        () => {
+          this.cargarMantenimientos();
+          this.closeModal();
+        },
+        (error) => {
+          console.error('Error al guardar mantenimiento', error);
+        }
+      );
+    } else if (this.modalMode === 'edit') {
+      this.mantenimientoService.actualizarMantenimiento(this.currentMantenimiento.id.toString(), this.currentMantenimiento).subscribe(
+        () => {
+          this.cargarMantenimientos();
+          this.closeModal();
+        },
+        (error) => {
+          console.error('Error al actualizar mantenimiento', error);
+        }
+      );
+    }
+  }
+
+  eliminarMantenimiento(id: number): void {
+    if (confirm('¿Seguro que deseas eliminar este mantenimiento?')) {
+      this.mantenimientoService.eliminarMantenimiento(id.toString()).subscribe(
+        () => {
+          this.cargarMantenimientos();
+        },
+        (error) => {
+          console.error('Error al eliminar mantenimiento', error);
+        }
+      );
+    }
   }
 }
