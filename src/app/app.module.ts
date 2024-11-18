@@ -19,7 +19,6 @@ import { AuthService } from './Services/auth.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    ListarMantenimientosComponent
   ],
   imports: [
     BrowserModule,

@@ -1,102 +1,98 @@
 import { Component, OnInit } from '@angular/core';
 import { Equipo, Mantenimiento, MantenimientoService, Responsable } from '../../../services/mantenimiento.service';
-import { TipoMantenimiento } from '../../../services/tipo-mantenimiento.service';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import Swal from 'sweetalert2';
+
+
+
+
 @Component({
   selector: 'app-listar-mantenimientos',
+  standalone: true,
+  imports: [CommonModule, RouterModule, NgxPaginationModule],
   templateUrl: './listar-mantenimientos.component.html',
   styleUrls: ['./listar-mantenimientos.component.css']
 })
 export class ListarMantenimientosComponent implements OnInit {
   
-  mantenimientos: Mantenimiento[] = [];
-  equipos: Equipo[] = [];
-  responsables: Responsable[] = [];
-  tiposMantenimiento: TipoMantenimiento[] = [];
-  
-  isModalOpen = false;
-  modalMode: 'add' | 'edit' = 'add';
-  currentMantenimiento: Mantenimiento = {} as Mantenimiento;
+  mantenimientos: Mantenimiento[];
+  page: number = 1;
+  cargando = true;
 
-  constructor(private mantenimientoService: MantenimientoService) {}
+  constructor(private mantenimientoService: MantenimientoService, private router: Router) { }
+
 
   ngOnInit(): void {
-    this.cargarMantenimientos();
-    this.cargarEquipos();
-    this.cargarResponsables();
-    this.cargarTiposMantenimiento();
+    this.obtenerMantenimientos();
   }
 
-  cargarMantenimientos(): void {
+  actualizarMantenimiento(id: any) {
+    this.router.navigate(['dashboard', 'actualizarSala', id]);
+  }
+
+  private obtenerMantenimientos() {
+    this.cargando = true;
     this.mantenimientoService.obtenerListaDeMantenimientos().subscribe(
-      (mantenimientos) => {
-        this.mantenimientos = mantenimientos;
-      },
-      (error) => {
-        console.error('Error al cargar mantenimientos', error);
-      }
+        (dato) => {
+            this.mantenimientos = dato['data'];
+            this.cargando = false;
+            if (this.mantenimientos.length === 0) {
+                Swal.fire({
+                    title: 'No hay registros',
+                    text: 'No se encontraron mantenimientos. ¿Quieres agregar un nuevo mantenimiento?',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'Agregar mantenimiento',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.agregarMantenimiento();
+                    }
+                });
+            }
+        },
+        (error) => {
+            console.error('Error al cargar las salas', error);
+            this.cargando = false;
+        }
     );
+}
+
+  eliminarMantenimiento(id: any) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Confirma si deseas eliminar este registro!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, elimínalo',
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.mantenimientoService.eliminarMantenimiento(id).subscribe(() => {
+          this.obtenerMantenimientos();
+          Swal.fire(
+            'Registro eliminado',
+            'La sala ha sido eliminada con éxito',
+            'success'
+          );
+        });
+      }
+    });
   }
 
-  cargarEquipos(): void {
-    // Cargar equipos de alguna API, similar a los mantenimientos
+  verDetallesDeMantenimineto(id: any) {
+    this.router.navigate(['dashboard', 'detalleSala', id]);
   }
 
-  cargarResponsables(): void {
-    // Cargar responsables de alguna API
+  obtenerEstadoMantenimiento(estadoOcupacional: number): string {
+    return estadoOcupacional == 0 ? 'Fuera de servicio' : 'Habilitado';
   }
 
-  cargarTiposMantenimiento(): void {
-    // Cargar tipos de mantenimiento de alguna API
-  }
-
-  openModal(mode: 'add' | 'edit', mantenimiento?: Mantenimiento): void {
-    this.modalMode = mode;
-    if (mode === 'edit' && mantenimiento) {
-      this.currentMantenimiento = { ...mantenimiento };
-    } else {
-      this.currentMantenimiento = {} as Mantenimiento;
-    }
-    this.isModalOpen = true;
-  }
-
-  closeModal(): void {
-    this.isModalOpen = false;
-  }
-
-  saveMantenimiento(): void {
-    if (this.modalMode === 'add') {
-      this.mantenimientoService.crearMantenimiento(this.currentMantenimiento).subscribe(
-        () => {
-          this.cargarMantenimientos();
-          this.closeModal();
-        },
-        (error) => {
-          console.error('Error al guardar mantenimiento', error);
-        }
-      );
-    } else if (this.modalMode === 'edit') {
-      this.mantenimientoService.actualizarMantenimiento(this.currentMantenimiento.id.toString(), this.currentMantenimiento).subscribe(
-        () => {
-          this.cargarMantenimientos();
-          this.closeModal();
-        },
-        (error) => {
-          console.error('Error al actualizar mantenimiento', error);
-        }
-      );
-    }
-  }
-
-  eliminarMantenimiento(id: number): void {
-    if (confirm('¿Seguro que deseas eliminar este mantenimiento?')) {
-      this.mantenimientoService.eliminarMantenimiento(id.toString()).subscribe(
-        () => {
-          this.cargarMantenimientos();
-        },
-        (error) => {
-          console.error('Error al eliminar mantenimiento', error);
-        }
-      );
-    }
+  agregarMantenimiento() {
+    this.router.navigate(['dashboard', 'registrarSala']);
   }
 }

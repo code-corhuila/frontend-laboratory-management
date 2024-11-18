@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Mantenimiento } from '../clases/mantenimineto';
 
-export interface Mantenimiento {
-  id: number;
-  descripcion: string;
-  fecha: string;
-  equipo: { id: number, nombre: string };
-  responsable: { id: number, nombre: string };
-  tipoMantenimiento: { id: number, nombre: string };
-  observaciones?: string;
-  state?: string;
-}
+// export interface Mantenimiento {
+//   id: number;
+//   descripcion: string;
+//   fecha: string;
+//   equipo: { id: number, nombre: string };
+//   responsable: { id: number, nombre: string };
+//   tipoMantenimiento: { id: number, nombre: string };
+//   observaciones?: string;
+//   state?: string;
+// }
 
 export interface Equipo {
   id: number;
@@ -76,3 +77,5 @@ export class MantenimientoService {
     return this.httpClient.delete(`${this.baseURL}/eliminar/${id}`);
   }
 }
+export { Mantenimiento };
+
