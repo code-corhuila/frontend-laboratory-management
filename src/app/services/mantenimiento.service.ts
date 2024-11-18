@@ -54,7 +54,7 @@ export class MantenimientoService {
 
   // Obtener la lista de mantenimientos
   obtenerListaDeMantenimientos(): Observable<Mantenimiento[]> {
-    return this.httpClient.get<Mantenimiento[]>(`${this.baseURL}/listar`);
+    return this.httpClient.get<Mantenimiento[]>(`${this.baseURL}`);
   }
 
   // Obtener un mantenimiento por su ID
@@ -64,17 +64,17 @@ export class MantenimientoService {
 
   // Crear un nuevo mantenimiento
   crearMantenimiento(mantenimiento: Mantenimiento): Observable<Object> {
-    return this.httpClient.post(`${this.baseURL}/guardar`, mantenimiento);
+    return this.httpClient.post(`${this.baseURL}`, mantenimiento);
   }
 
   // Actualizar un mantenimiento existente
   actualizarMantenimiento(id: string, mantenimiento: Mantenimiento): Observable<Object> {
-    return this.httpClient.put(`${this.baseURL}/actualizar/${id}`, mantenimiento);
+    return this.httpClient.put(`${this.baseURL}/${id}`, mantenimiento);
   }
 
   // Eliminar un mantenimiento por su ID
   eliminarMantenimiento(id: string): Observable<Object> {
-    return this.httpClient.delete(`${this.baseURL}/eliminar/${id}`);
+    return this.httpClient.delete(`${this.baseURL}/${id}`);
   }
 }
 export { Mantenimiento };
