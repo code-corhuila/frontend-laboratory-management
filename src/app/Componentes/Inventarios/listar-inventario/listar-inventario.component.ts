@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { InventarioService } from '../../../services/inventario.service';
 import { EquipoService } from '../../../services/equipo.service';
-import { FormsModule } from '@angular/forms';
 
 interface Equipo {
   id: number;
@@ -76,8 +76,8 @@ export class ListarInventarioComponent implements OnInit {
   openModal(mode: 'add' | 'edit', inventario?: Inventario): void {
     this.modalMode = mode;
     this.currentInventario = mode === 'edit'
-      ? { ...inventario, equipo: { ...inventario?.equipo } }
-      : { equipo: {} as Equipo } as Inventario;
+      ? { ...inventario, equipo: { ...inventario?.equipo }, state: inventario?.state || true }
+      : { equipo: {} as Equipo, state: true } as Inventario;
     this.isModalOpen = true;
   }
 

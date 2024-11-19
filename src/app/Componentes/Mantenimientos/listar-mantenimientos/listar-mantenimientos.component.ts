@@ -1,98 +1,127 @@
 import { Component, OnInit } from '@angular/core';
-import { Equipo, Mantenimiento, MantenimientoService, Responsable } from '../../../services/mantenimiento.service';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { NgxPaginationModule } from 'ngx-pagination';
-import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
+import { EquipoService } from '../../../services/equipo.service';
+import { MantenimientoService } from '../../../services/mantenimiento.service';
 
+interface Equipo {
+  id: number;
+  codigoIdentificacion: string;
+  nombre: string;
+  descripcion: string;
+  ubicacion: string;
+  costo: number;
+}
 
-
+interface Mantenimiento {
+  id: number;
+  fechaMantenimiento: string;
+  repuestosUtilizados: string;
+  observacion: string;
+  equipo: Equipo;
+  tipoMantenimiento: string;
+  responsableMantenimiento: string;
+}
 
 @Component({
   selector: 'app-listar-mantenimientos',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgxPaginationModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './listar-mantenimientos.component.html',
   styleUrls: ['./listar-mantenimientos.component.css']
 })
 export class ListarMantenimientosComponent implements OnInit {
-  
-  mantenimientos: Mantenimiento[];
-  page: number = 1;
-  cargando = true;
+  buttons: string[] = ['Equipos', 'Mantenimientos'];
+  selectedButton: string = 'Mantenimientos';
+  equipos: Equipo[] = [];
+  mantenimientos: Mantenimiento[] = [];
+  isModalOpen: boolean = false;
+  modalMode: 'add' | 'edit' = 'add';
+  modalType: 'equipo' | 'mantenimiento' = 'equipo';
+  currentItem: any = null;
 
-  constructor(private mantenimientoService: MantenimientoService, private router: Router) { }
-
+  constructor(
+    private equipoService: EquipoService,
+    private mantenimientoService: MantenimientoService
+  ) {}
 
   ngOnInit(): void {
-    this.obtenerMantenimientos();
+    this.loadEquipos();
+    this.loadMantenimientos();
   }
 
-  actualizarMantenimiento(id: any) {
-    this.router.navigate(['dashboard', 'actualizarSala', id]);
-  }
-
-  private obtenerMantenimientos() {
-    this.cargando = true;
-    this.mantenimientoService.obtenerListaDeMantenimientos().subscribe(
-        (dato) => {
-            this.mantenimientos = dato['data'];
-            this.cargando = false;
-            if (this.mantenimientos.length === 0) {
-                Swal.fire({
-                    title: 'No hay registros',
-                    text: 'No se encontraron mantenimientos. ¿Quieres agregar un nuevo mantenimiento?',
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonText: 'Agregar mantenimiento',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.agregarMantenimiento();
-                    }
-                });
-            }
-        },
-        (error) => {
-            console.error('Error al cargar las salas', error);
-            this.cargando = false;
-        }
-    );
-}
-
-  eliminarMantenimiento(id: any) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "Confirma si deseas eliminar este registro!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, elimínalo',
-      cancelButtonText: 'No, cancelar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.mantenimientoService.eliminarMantenimiento(id).subscribe(() => {
-          this.obtenerMantenimientos();
-          Swal.fire(
-            'Registro eliminado',
-            'La sala ha sido eliminada con éxito',
-            'success'
-          );
-        });
+  loadEquipos(): void {
+    this.equipoService.getEquipos().subscribe(response => {
+      if (response.status) {
+        this.equipos = response.data;
       }
     });
   }
 
-  verDetallesDeMantenimineto(id: any) {
-    this.router.navigate(['dashboard', 'detalleSala', id]);
+  loadMantenimientos(): void {
+    this.mantenimientoService.getMantenimientos().subscribe(response => {
+      if (response.status) {
+        this.mantenimientos = response.data;
+      }
+    });
   }
 
-  obtenerEstadoMantenimiento(estadoOcupacional: number): string {
-    return estadoOcupacional == 0 ? 'Fuera de servicio' : 'Habilitado';
+  setActiveButton(button: string) {
+    this.selectedButton = button;
   }
 
-  agregarMantenimiento() {
-    this.router.navigate(['dashboard', 'registrarSala']);
+  openModal(mode: 'add' | 'edit', type: 'equipo' | 'mantenimiento', item?: any): void {
+    this.modalMode = mode;
+    this.modalType = type;
+    this.currentItem = mode === 'edit' ? { ...item } : this.initializeDefaultItem();
+    this.isModalOpen = true;
+  }
+
+  private initializeDefaultItem(): any {
+    return {
+      codigoIdentificacion: '',
+      nombre: '',
+      descripcion: '',
+      ubicacion: '',
+      costo: 0,
+      state: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      deletedAt: null,
+      createdBy: 0,
+      updatedBy: 0,
+      deletedBy: 0,
+    };
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.currentItem = null;
+  }
+
+  save(): void {
+    const data = { ...this.currentItem };
+    if (this.modalMode === 'add') {
+      delete data.id; // Asegurarse de no enviar el ID
+      this.equipoService.createEquipo(data).subscribe(() => {
+        this.loadEquipos();
+        this.closeModal();
+      });
+    } else {
+      this.equipoService.updateEquipo(data.id, data).subscribe(() => {
+        this.loadEquipos();
+        this.closeModal();
+      });
+    }
+  }
+
+  delete(type: 'equipo' | 'mantenimiento', id: number): void {
+    if (confirm('¿Estás seguro de eliminar este registro?')) {
+      if (type === 'equipo') {
+        this.equipoService.deleteEquipo(id).subscribe(() => this.loadEquipos());
+      } else {
+        this.mantenimientoService.deleteMantenimiento(id).subscribe(() => this.loadMantenimientos());
+      }
+    }
   }
 }
