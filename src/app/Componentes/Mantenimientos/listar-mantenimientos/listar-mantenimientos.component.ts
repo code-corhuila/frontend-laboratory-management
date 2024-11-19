@@ -31,7 +31,7 @@ interface Mantenimiento {
   styleUrls: ['./listar-mantenimientos.component.css']
 })
 export class ListarMantenimientosComponent implements OnInit {
-  buttons: string[] = ['Equipos', 'Mantenimientos', 'Reportes'];
+  buttons: string[] = ['Equipos', 'Mantenimientos'];
   selectedButton: string = 'Mantenimientos';
   equipos: Equipo[] = [];
   mantenimientos: Mantenimiento[] = [];

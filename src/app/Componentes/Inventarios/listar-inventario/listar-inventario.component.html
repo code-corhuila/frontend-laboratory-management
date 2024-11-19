@@ -1,10 +1,16 @@
-<div class="container mt-5">
-  <h2>Inventario de Equipos</h2>
-  <button class="btn btn-primary mb-3" (click)="openModal('add')">Agregar Equipo</button>
+<div class="d-flex justify-content-between align-items-center my-4">
+  <h2 class="text-center">Inventario de Equipos</h2>
+  <button type="button" (click)="openModal('add')" class="btn btn-primary"
+    style="background-color: #ECF0F1; border-color: #004494; color: #000;">
+    <img src="assets/Icons/agregar.svg" alt="Agregar" width="20" height="20" style="margin-right: 5px;">
+    Agregar Equipo
+  </button>
+</div>
 
+<div class="container mt-5">
   <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered table-sm">
-      <thead>
+      <thead class="table-dark text-center" >
         <tr>
           <th>ID</th>
           <th>Nombre del Equipo</th>
