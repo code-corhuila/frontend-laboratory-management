@@ -78,21 +78,58 @@ export class ListarMantenimientosComponent implements OnInit {
   }
 
   private initializeDefaultItem(): any {
-    return {
-      codigoIdentificacion: '',
-      nombre: '',
-      descripcion: '',
-      ubicacion: '',
-      costo: 0,
-      state: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      deletedAt: null,
-      createdBy: 0,
-      updatedBy: 0,
-      deletedBy: 0,
-    };
+    if (this.modalType === 'equipo') {
+      return {
+        id: 0,
+        codigoIdentificacion: '',
+        nombre: '',
+        descripcion: '',
+        ubicacion: '',
+        costo: 0,
+        state: true,
+        createdAt: null,
+        updatedAt: null,
+        deletedAt: null,
+        createdBy: null,
+        updatedBy: null,
+        deletedBy: null,
+      };
+    } else if (this.modalType === 'mantenimiento') {
+      return {
+        id: 0,
+        fechaMantenimiento: '',
+        repuestosUtilizados: '',
+        observacion: '',
+        tipoMantenimiento: '',
+        responsableMantenimiento: '',
+        equipo: {
+          id: 0,
+          state: true,
+          createdAt: null,
+          updatedAt: null,
+          deletedAt: null,
+          createdBy: null,
+          updatedBy: null,
+          deletedBy: null,
+          codigoIdentificacion: '',
+          nombre: '',
+          descripcion: '',
+          ubicacion: '',
+          costo: 0,
+        },
+        state: true,
+        createdAt: null,
+        updatedAt: null,
+        deletedAt: null,
+        createdBy: null,
+        updatedBy: null,
+        deletedBy: null,
+      };
+    }
+    return {};
   }
+  
+  
 
   closeModal(): void {
     this.isModalOpen = false;
@@ -100,20 +137,61 @@ export class ListarMantenimientosComponent implements OnInit {
   }
 
   save(): void {
-    const data = { ...this.currentItem };
-    if (this.modalMode === 'add') {
-      delete data.id; // Asegurarse de no enviar el ID
-      this.equipoService.createEquipo(data).subscribe(() => {
-        this.loadEquipos();
-        this.closeModal();
-      });
-    } else {
-      this.equipoService.updateEquipo(data.id, data).subscribe(() => {
-        this.loadEquipos();
-        this.closeModal();
-      });
+    let data = { ...this.currentItem };
+  
+    if (this.modalType === 'mantenimiento') {
+      // Normalizar los campos según el esquema del Swagger
+      data = {
+        ...data,
+        state: data.state ?? true, // Asegura que sea true si no está definido
+        createdAt: data.createdAt || null,
+        updatedAt: data.updatedAt || null,
+        deletedAt: data.deletedAt || null,
+        createdBy: data.createdBy || null,
+        updatedBy: data.updatedBy || null,
+        deletedBy: data.deletedBy || null,
+        equipo: {
+          ...data.equipo,
+          state: data.equipo?.state ?? true,
+          createdAt: data.equipo?.createdAt || null,
+          updatedAt: data.equipo?.updatedAt || null,
+          deletedAt: data.equipo?.deletedAt || null,
+          createdBy: data.equipo?.createdBy || null,
+          updatedBy: data.equipo?.updatedBy || null,
+          deletedBy: data.equipo?.deletedBy || null,
+        },
+      };
+    }
+  
+    // Lógica para equipos o mantenimientos
+    if (this.modalType === 'equipo') {
+      if (this.modalMode === 'add') {
+        this.equipoService.createEquipo(data).subscribe(() => {
+          this.loadEquipos();
+          this.closeModal();
+        });
+      } else {
+        this.equipoService.updateEquipo(data.id, data).subscribe(() => {
+          this.loadEquipos();
+          this.closeModal();
+        });
+      }
+    } else if (this.modalType === 'mantenimiento') {
+      if (this.modalMode === 'add') {
+        this.mantenimientoService.createMantenimiento(data).subscribe(() => {
+          this.loadMantenimientos();
+          this.closeModal();
+        });
+      } else {
+        this.mantenimientoService.updateMantenimiento(data.id, data).subscribe(() => {
+          this.loadMantenimientos();
+          this.closeModal();
+        });
+      }
     }
   }
+  
+  
 
   delete(type: 'equipo' | 'mantenimiento', id: number): void {
     if (confirm('¿Estás seguro de eliminar este registro?')) {

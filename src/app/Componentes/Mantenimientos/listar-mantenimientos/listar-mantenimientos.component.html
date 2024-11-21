@@ -120,13 +120,43 @@
             <input type="number" [(ngModel)]="currentItem.costo" name="costo" class="form-control" />
           </div>
         </ng-container>
+
         <ng-container *ngIf="modalType === 'mantenimiento'">
           <div class="form-group">
-            <label>Fecha de Mantenimiento:</label>
+            <label for="equipoSelect">Equipo:</label>
+            <select
+              id="equipoSelect"
+              [(ngModel)]="currentItem.equipo"
+              name="equipo"
+              class="form-control"
+              required
+            >
+              <option *ngFor="let equipo of equipos" [ngValue]="equipo">
+                {{ equipo.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Fecha Mantenimiento:</label>
             <input type="date" [(ngModel)]="currentItem.fechaMantenimiento" name="fechaMantenimiento" class="form-control" />
           </div>
+          <div class="form-group">
+            <label>Repuestos Utilizados:</label>
+            <input type="text" [(ngModel)]="currentItem.repuestosUtilizados" name="repuestosUtilizados" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Observación:</label>
+            <input type="text" [(ngModel)]="currentItem.observacion" name="observacion" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Responsable Mantenimiento:</label>
+            <input type="text" [(ngModel)]="currentItem.responsableMantenimiento" name="responsableMantenimiento" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Tipo Mantenimiento:</label>
+            <input type="text" [(ngModel)]="currentItem.tipoMantenimiento" name="tipoMantenimiento" class="form-control" />
+          </div>
         </ng-container>
-
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">{{ modalMode === 'add' ? 'Agregar' : 'Guardar' }}</button>
           <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
