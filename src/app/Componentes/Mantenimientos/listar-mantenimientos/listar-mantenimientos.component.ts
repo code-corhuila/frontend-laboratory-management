@@ -80,7 +80,6 @@ export class ListarMantenimientosComponent implements OnInit {
   private initializeDefaultItem(): any {
     if (this.modalType === 'equipo') {
       return {
-        id: 0,
         codigoIdentificacion: '',
         nombre: '',
         descripcion: '',
@@ -96,7 +95,6 @@ export class ListarMantenimientosComponent implements OnInit {
       };
     } else if (this.modalType === 'mantenimiento') {
       return {
-        id: 0,
         fechaMantenimiento: '',
         repuestosUtilizados: '',
         observacion: '',
@@ -138,6 +136,11 @@ export class ListarMantenimientosComponent implements OnInit {
 
   save(): void {
     let data = { ...this.currentItem };
+
+    if (data.fechaMantenimiento) {
+      const fecha = new Date(data.fechaMantenimiento); // Convierte a objeto Date
+      data.fechaMantenimiento = fecha.toISOString(); // Obtiene el formato ISO con tiempo
+    }
   
     if (this.modalType === 'mantenimiento') {
       // Normalizar los campos según el esquema del Swagger
