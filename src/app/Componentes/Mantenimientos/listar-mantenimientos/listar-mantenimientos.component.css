@@ -130,3 +130,31 @@
   width: 100%;             /* Asegura que el ícono ocupe todo el espacio del botón */
   height: 100%;
 }
+
+
+.foto-preview {
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+}
+
+/* Estilo común para los círculos */
+.circle-preventivo,
+.circle-correctivo {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/* Círculo verde para preventivo */
+.circle-preventivo {
+  background-color: rgb(64, 196, 64);
+}
+
+/* Círculo rojo para correctivo */
+.circle-correctivo {
+  background-color: rgb(250, 58, 58);
+}

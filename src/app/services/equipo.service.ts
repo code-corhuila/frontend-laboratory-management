@@ -16,6 +16,7 @@ interface Equipo {
   descripcion: string;
   ubicacion: string;
   costo: number;
+  estado: string;
 }
 
 @Injectable({

@@ -1,39 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-interface Equipo {
-  id: number;
-  state: boolean;
-  createdAt: string | null;
-  updatedAt: string | null;
-  deletedAt: string | null;
-  createdBy: number | null;
-  updatedBy: number | null;
-  deletedBy: number | null;
-  codigoIdentificacion: string;
-  nombre: string;
-  descripcion: string;
-  ubicacion: string;
-  costo: number;
-}
-
-interface Mantenimiento {
-  id: number;
-  state: boolean;
-  createdAt: string | null;
-  updatedAt: string | null;
-  deletedAt: string | null;
-  createdBy: number | null;
-  updatedBy: number | null;
-  deletedBy: number | null;
-  fechaMantenimiento: string;
-  repuestosUtilizados: string;
-  observacion: string;
-  equipo: Equipo;
-  tipoMantenimiento: string;
-  responsableMantenimiento: string;
-}
+import { Mantenimiento } from '../clases/mantenimiento';
 
 @Injectable({
   providedIn: 'root',
