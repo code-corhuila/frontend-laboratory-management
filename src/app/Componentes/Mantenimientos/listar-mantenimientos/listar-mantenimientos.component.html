@@ -22,6 +22,19 @@
   </div>
 
   <!-- Tabla de Equipos -->
+
+  <div *ngIf="selectedButton === 'Equipos'" class="mb-3">
+    <label for="searchEquipos">Buscar por Nombre o Código:</label>
+    <input 
+      id="searchEquipos" 
+      type="text" 
+      class="form-control" 
+      placeholder="Buscar equipo..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="filterEquipos()" 
+    />
+  </div>
+
   <div class="table-responsive mt-4" *ngIf="selectedButton === 'Equipos'">
     <table class="table table-striped table-bordered table-sm">
       <thead class="table-dark text-center">
@@ -35,7 +48,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let equipo of equipos">
+        <tr *ngFor="let equipo of equiposFiltrados">
           <td>{{ equipo.codigoIdentificacion }}</td>
           <td>{{ equipo.nombre }}</td>
           <td>{{ equipo.ubicacion }}</td>
@@ -229,14 +242,13 @@
         <p><strong>Responsable:</strong> {{ selectedMantenimiento.responsableMantenimiento }}</p>
   
         <!-- Mostrar la imagen enviada por el backend -->
-        <div *ngIf="selectedMantenimiento.foto">
-          <img [src]="selectedMantenimiento.foto" alt="Foto del Mantenimiento" width="200" height="200"
-            class="foto-preview">
+        <div *ngIf="selectedMantenimiento.foto" class="foto-preview-container">
+          <img [src]="selectedMantenimiento.foto" alt="Foto del Mantenimiento" class="foto-preview" />
         </div>
       </div>
   
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeInfoModal()">Cerrar</button>
+        <button type="button" class="btn btn-secondary" style="margin: 2%;" (click)="closeInfoModal()">Cerrar</button>
       </div>
     </div>
   </div>

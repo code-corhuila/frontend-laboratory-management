@@ -1,5 +1,10 @@
+<h2 class="text-center">Inventario</h2>
+
 <div class="d-flex justify-content-between align-items-center my-4">
-  <h2 class="text-center">Inventario de Equipos</h2>
+
+  <input type="text" [(ngModel)]="filtroBusqueda" placeholder="Buscar por nombre o ubicación..."
+    class="form-control w-25" style="margin-right: 10px;" />
+
   <button type="button" (click)="openModal('add')" class="btn btn-primary"
     style="background-color: #ECF0F1; border-color: #004494; color: #000;">
     <img src="assets/Icons/agregar.svg" alt="Agregar" width="20" height="20" style="margin-right: 5px;">
@@ -10,9 +15,9 @@
 <div class="container mt-5">
   <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered table-sm">
-      <thead class="table-dark text-center" >
+      <thead class="table-dark text-center">
         <tr>
-          <th>Codigo</th>
+          <th>Codigo Equipo</th>
           <th>Nombre del Equipo</th>
           <th>Ubicación</th>
           <th>Cantidad Disponible</th>
@@ -22,8 +27,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let inventario of inventarios">
-          <td>{{ inventario.id }}</td>
+        <tr *ngFor="let inventario of inventariosFiltrados()">
+          <td>{{ inventario.equipo.codigoIdentificacion }}</td>
           <td>{{ inventario.equipo.nombre }}</td>
           <td>{{ inventario.equipo.ubicacion }}</td>
           <td>{{ inventario.cantidadDisponible }}</td>
@@ -33,7 +38,8 @@
             <button (click)="openModal('edit', inventario)" class="icono-boton" aria-label="Editar">
               <img src="assets/Icons/editar.svg" alt="Editar" />
             </button>
-            <button (click)="deleteInventario(inventario.id)" class="icono-boton" style="margin-left: 10px;" aria-label="Eliminar">
+            <button (click)="deleteInventario(inventario.id)" class="icono-boton" style="margin-left: 10px;"
+              aria-label="Eliminar">
               <img src="assets/Icons/eliminar.svg" alt="Eliminar" />
             </button>
           </td>
@@ -62,15 +68,18 @@
 
         <div class="form-group">
           <label>Cantidad Disponible:</label>
-          <input type="number" [(ngModel)]="currentInventario.cantidadDisponible" name="cantidadDisponible" class="form-control" required />
+          <input type="number" [(ngModel)]="currentInventario.cantidadDisponible" name="cantidadDisponible"
+            class="form-control" required />
         </div>
         <div class="form-group">
           <label>Fecha de Adquisición:</label>
-          <input type="date" [(ngModel)]="currentInventario.fechaAdquisicion" name="fechaAdquisicion" class="form-control" required />
+          <input type="date" [(ngModel)]="currentInventario.fechaAdquisicion" name="fechaAdquisicion"
+            class="form-control" required />
         </div>
         <div class="form-group">
           <label>Observaciones:</label>
-          <textarea [(ngModel)]="currentInventario.observaciones" name="observaciones" class="form-control" rows="3"></textarea>
+          <textarea [(ngModel)]="currentInventario.observaciones" name="observaciones" class="form-control"
+            rows="3"></textarea>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">{{ modalMode === 'add' ? 'Agregar' : 'Guardar' }}</button>

@@ -3,39 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InventarioService } from '../../../services/inventario.service';
 import { EquipoService } from '../../../services/equipo.service';
-
-interface Equipo {
-  id: number;
-  state: boolean;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-  createdBy: number;
-  updatedBy: number;
-  deletedBy: number;
-  codigoIdentificacion: string;
-  nombre: string;
-  descripcion: string;
-  ubicacion: string;
-  costo: number;
-}
-
-interface Inventario {
-  id: number;
-  state: boolean;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-  createdBy: number;
-  updatedBy: number;
-  deletedBy: number;
-  equipo: Equipo;
-  cantidadDisponible: number;
-  disponibilidad: boolean;
-  fechaAdquisicion: string;
-  observaciones: string;
-  costo: number;
-}
+import { Inventario } from '../../../clases/inventario';
+import { Equipo } from '../../../clases/equipo';
+import Swal from 'sweetalert2';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-listar-inventario',
@@ -51,6 +22,9 @@ export class ListarInventarioComponent implements OnInit {
   currentInventario: Inventario | null = null;
   isModalOpen: boolean = false;
 
+  filtroBusqueda: string = '';
+
+
   constructor(
     private inventarioService: InventarioService,
     private equipoService: EquipoService
@@ -61,14 +35,56 @@ export class ListarInventarioComponent implements OnInit {
   }
 
   loadInventarios(): void {
-    this.inventarioService.getInventarios().subscribe(response => {
-      if (response.status) {
-        this.inventarios = response.data;
-      }
-    });
-    this.equipoService.getEquipos().subscribe(response => {
-      if (response.status) {
-        this.equipos = response.data;
+    this.equipoService.getEquipos().pipe(
+      switchMap((response) => {
+        if (response.status && response.data && response.data.length > 0) {
+          this.equipos = response.data;
+          return this.inventarioService.getInventarios();
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "No hay equipos para agregar al inventario, debería crear nuevos equipos.",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          throw new Error("No hay equipos disponibles."); // Detiene la cadena.
+        }
+      })
+    ).subscribe({
+      next: (response) => {
+        if (response.status && response.data && response.data.length > 0) {
+          this.inventarios = response.data.map((inventario: any) => ({
+            ...inventario,
+            equipo: {
+              ...inventario.equipo,
+            }
+          }));
+        } else {
+          Swal.fire({
+            title: "No hay datos para mostrar",
+            icon: "warning",
+            text: "¿Desea agregar un equipo al inventario?",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, agregar equipo"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.openModal('edit');
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error(err.message || 'Error al cargar datos');
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: err.message || "Ocurrió un error al cargar datos.",
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     });
   }
@@ -106,5 +122,18 @@ export class ListarInventarioComponent implements OnInit {
         this.loadInventarios();
       });
     }
+  }
+
+  inventariosFiltrados(): Inventario[] {
+    if (!this.filtroBusqueda) {
+      return this.inventarios; // Si no hay texto de búsqueda, devuelve todos los inventarios
+    }
+  
+    const textoBusqueda = this.filtroBusqueda.toLowerCase();
+  
+    return this.inventarios.filter((inventario) =>
+      inventario.equipo.nombre.toLowerCase().includes(textoBusqueda) || 
+      inventario.equipo.codigoIdentificacion.toLowerCase().includes(textoBusqueda)
+    );
   }
 }

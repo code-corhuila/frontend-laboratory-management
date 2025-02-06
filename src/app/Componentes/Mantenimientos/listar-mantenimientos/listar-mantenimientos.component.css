@@ -131,13 +131,22 @@
   height: 100%;
 }
 
+.foto-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  overflow: hidden; /* Esconde el desbordamiento */
+  border-radius: 8px; /* Redondea los bordes */
+  background-color: #f0f0f0; /* Opcional: color de fondo si no hay imagen */
+}
 
 .foto-preview {
-  object-fit: cover;
-  width: 200px;
-  height: 200px;
-  border-radius: 8px;
+  width: 100%; /* Asegura que ocupe todo el ancho */
+  object-fit: cover; /* Ajusta la imagen al contenedor sin distorsionarla */
 }
+
+
 
 /* Estilo común para los círculos */
 .circle-preventivo,

@@ -16,6 +16,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listar-mantenimientos.component.css']
 })
 export class ListarMantenimientosComponent implements OnInit {
+
+  // Nueva propiedad para la búsqueda
+  searchTerm: string = '';
+  equiposFiltrados: Equipo[] = []; // Equipos filtrados para mostrar en la tabla
+
   buttons: string[] = ['Equipos', 'Mantenimientos'];
   selectedButton: string = 'Mantenimientos';
   equipos: Equipo[] = [];
@@ -38,11 +43,17 @@ export class ListarMantenimientosComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMantenimientos();
+    if (this.selectedButton === 'Equipos') {
+      this.loadEquipos();
+    }
   }
 
   ngOnChanges(): void {
     if (this.selectedButton === 'Equipos') {
       this.loadEquipos();
+    }
+    if (this.selectedButton === 'Mantenimientos') {
+      this.loadMantenimientos();
     }
   }
 
@@ -75,6 +86,7 @@ export class ListarMantenimientosComponent implements OnInit {
         if (response.status) {
           if (response.data && response.data.length > 0) {
             this.equipos = response.data;
+            this.equiposFiltrados = [...this.equipos]; // Inicializa los equipos filtrados
           } else {
             Swal.fire({
               title: "No hay datos para mostrar",
@@ -104,26 +116,42 @@ export class ListarMantenimientosComponent implements OnInit {
       }
     });
   }
-  //openModal('add', 'mantenimiento')
 
   loadMantenimientos(): void {
     this.mantenimientoService.getMantenimientos().subscribe({
       next: (response) => {
         if (response.status) {
-          this.mantenimientos = response.data.map((mantenimiento: any) => ({
-            ...mantenimiento,
-            equipo: {
-              ...mantenimiento.equipo,
-            }
-          }));
-          this.mantenimientosFiltrados = this.mantenimientos;
+          if (!response.data || response.data.length === 0) {
+            Swal.fire({
+              title: "No hay datos para mostrar",
+              icon: "warning",
+              text: "Desea Crear un nuevo Mantenimiento?",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Si, crear nuevo Mantenimiento"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.openModal('add', 'mantenimiento')
+              }
+            });
+          } else {
+            this.mantenimientos = response.data.map((mantenimiento: any) => ({
+              ...mantenimiento,
+              equipo: {
+                ...mantenimiento.equipo,
+              }
+            }));
+            this.mantenimientosFiltrados = this.mantenimientos;
+          }
         }
       },
       error: (err) => {
+        console.error('Error al cargar mantenimientos:', err);
         Swal.fire({
           position: "top-end",
           icon: "error",
-          title: "ocurrio un error al cargar los mantenimientos",
+          title: "Ocurrió un error al cargar los mantenimientos",
           showConfirmButton: false,
           timer: 1500
         });
@@ -136,9 +164,14 @@ export class ListarMantenimientosComponent implements OnInit {
     if (button === 'Equipos') {
       this.loadEquipos();
     }
+    if (button === 'Mantenimientos') {
+      this.loadMantenimientos();
+    }
   }
 
   openModal(mode: 'add' | 'edit', type: 'equipo' | 'mantenimiento', item?: any): void {
+    if(mode == 'add' && type == 'mantenimiento'){this.loadEquipos();}
+    if(mode == 'edit' && type == 'mantenimiento'){this.loadEquipos();}
     this.modalMode = mode;
     this.modalType = type;
     this.currentItem = mode === 'edit' ? { ...item } : this.initializeDefaultItem();
@@ -276,7 +309,7 @@ export class ListarMantenimientosComponent implements OnInit {
         });
       }
     } else if (this.modalType === 'mantenimiento') {
-      if (this.modalMode === 'add') {
+      if (this.modalMode === 'add') { 
         this.mantenimientoService.createMantenimiento(data).subscribe(() => {
           this.loadMantenimientos();
           this.closeModal();
@@ -318,7 +351,6 @@ export class ListarMantenimientosComponent implements OnInit {
       if (result.isConfirmed) {
         if (type === 'equipo') {
           this.equipoService.deleteEquipo(id).subscribe(() => {
-            this.loadEquipos(); // Recargar lista de equipos
             Swal.fire({
               title: "¡Eliminado!",
               text: "El Equipo ha sido eliminado.",
@@ -327,7 +359,6 @@ export class ListarMantenimientosComponent implements OnInit {
           });
         } else if (type === 'mantenimiento') {
           this.mantenimientoService.deleteMantenimiento(id).subscribe(() => {
-            this.loadMantenimientos(); // Recargar lista de mantenimientos
             Swal.fire({
               title: "¡Eliminado!",
               text: "El Mantenimiento ha sido eliminado.",
@@ -336,6 +367,7 @@ export class ListarMantenimientosComponent implements OnInit {
           });
         }
       }
+      window.location.reload();
     });
   }
 
@@ -378,6 +410,16 @@ export class ListarMantenimientosComponent implements OnInit {
       this.mantenimientosFiltrados = [...this.mantenimientos]; // Restaurar todos si no hay filtro
     }
   }
+
+  // Nuevo método para filtrar equipos
+  filterEquipos(): void {
+    const term = this.searchTerm.toLowerCase();
+    this.equiposFiltrados = this.equipos.filter((equipo) =>
+      equipo.nombre.toLowerCase().includes(term) || 
+      equipo.codigoIdentificacion.toLowerCase().includes(term)
+    );
+  }
+  
 
 }
 
