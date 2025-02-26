@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Componentes/login/login.component';
-import { AuthService } from './Services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,11 +11,14 @@ import { AppRoutingModule } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FullCalendarModule } from '@fullcalendar/angular'; 
+import { ListarMantenimientosComponent } from './Componentes/Mantenimientos/listar-mantenimientos/listar-mantenimientos.component';
+import { AuthService } from './Services/auth.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,3 +34,4 @@ import { FullCalendarModule } from '@fullcalendar/angular';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export class MantenimientosModule { }

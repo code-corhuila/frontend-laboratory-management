@@ -17,7 +17,6 @@ export const routes: Routes = [
       { path: 'usuarios', loadComponent: () => import('./Componentes/Usuarios/listar-usuarios/listar-usuarios.component').then(m => m.ListarUsuariosComponent) },
       { path: 'asistencia', loadComponent: () => import('./Componentes/Asistencia/listar-asistencia/listar-asistencia.component').then(m => m.ListarAsistenciaComponent) },
       { path: 'reporte', loadComponent: () => import('./Componentes/Reportes/listar-reporte/listar-reporte.component').then(m => m.ListarReporteComponent) },
-      { path: 'mantenimientos', loadComponent: () => import('./Componentes/Mantenimientos/listar-mantenimientos/listar-mantenimientos.component').then(m => m.ListarMantenimientosComponent) },
       { path: 'agendarNuevaSala', loadComponent: () => import('./Componentes/AgendamientoSalas/agendar-nueva-sala/agendar-nueva-sala.component').then(m => m.AgendarNuevaSalaComponent) },
       { path: 'verDetalle', loadComponent: () => import('./Componentes/AgendamientoSalas/ver-detalle/ver-detalle.component').then(m => m.VerDetalleComponent) },
       { path: 'crearUsuario', loadComponent: () => import('./Componentes/Usuarios/crear-usuario/crear-usuario.component').then(m => m.CrearUsuarioComponent) },
@@ -27,6 +26,7 @@ export const routes: Routes = [
       { path: 'actualizarSala/:id', loadComponent: () => import('./Componentes/Salas/actualizar-sala/actualizar-sala.component').then(m => m.ActualizarSalaComponent) },
       { path: 'detalleSala/:id', loadComponent: () => import('./Componentes/Salas/detalle-sala/detalle-sala.component').then(m => m.DetalleSalaComponent) },
       { path: 'calendario', loadComponent: () => import('./Componentes/calendario/calendario.component').then(m => m.CalendarioComponent)},
+      { path: 'listarMantenimientos', loadComponent: () => import('./Componentes/Mantenimientos/listar-mantenimientos/listar-mantenimientos.component').then(m => m.ListarMantenimientosComponent) },
     ],
   },
   //{ path: '**', redirectTo: '' } // Redirige cualquier ruta desconocida al LoginComponent

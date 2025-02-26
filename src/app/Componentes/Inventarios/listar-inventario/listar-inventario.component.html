@@ -1,28 +1,91 @@
+<h2 class="text-center">Inventario</h2>
+
+<div class="d-flex justify-content-between align-items-center my-4">
+
+  <input type="text" [(ngModel)]="filtroBusqueda" placeholder="Buscar por nombre o ubicación..."
+    class="form-control w-25" style="margin-right: 10px;" />
+
+  <button type="button" (click)="openModal('add')" class="btn btn-primary"
+    style="background-color: #ECF0F1; border-color: #004494; color: #000;">
+    <img src="assets/Icons/agregar.svg" alt="Agregar" width="20" height="20" style="margin-right: 5px;">
+    Agregar Equipo
+  </button>
+</div>
+
 <div class="container mt-5">
-  <h2>Inventario</h2>
-  <table class="table" *ngIf="inventarios && inventarios.length > 0">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre del Equipo</th>
-        <th scope="col">Ubicación</th>
-        <th scope="col">Cantidad Disponible</th>
-        <th scope="col">Costo</th>
-        <th scope="col">Fecha de Adquisición</th>
-        <th scope="col">Observaciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let inventario of inventarios">
-        <th scope="row">{{ inventario.id }}</th>
-        <td>{{ inventario.equipo.nombre }}</td>
-        <td>{{ inventario.equipo.ubicacion }}</td>
-        <td>{{ inventario.cantidadDisponible }}</td>
-        <td>{{ inventario.costo }}</td>
-        <td>{{ inventario.fechaAdquisicion }}</td>
-        <td>{{ inventario.observaciones }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered table-sm">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Codigo Equipo</th>
+          <th>Nombre del Equipo</th>
+          <th>Ubicación</th>
+          <th>Cantidad Disponible</th>
+          <th>Fecha de Adquisición</th>
+          <th>Observaciones</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inventario of inventariosFiltrados()">
+          <td>{{ inventario.equipo.codigoIdentificacion }}</td>
+          <td>{{ inventario.equipo.nombre }}</td>
+          <td>{{ inventario.equipo.ubicacion }}</td>
+          <td>{{ inventario.cantidadDisponible }}</td>
+          <td>{{ inventario.fechaAdquisicion }}</td>
+          <td>{{ inventario.observaciones }}</td>
+          <td class="text-center">
+            <button (click)="openModal('edit', inventario)" class="icono-boton" aria-label="Editar">
+              <img src="assets/Icons/editar.svg" alt="Editar" />
+            </button>
+            <button (click)="deleteInventario(inventario.id)" class="icono-boton" style="margin-left: 10px;"
+              aria-label="Eliminar">
+              <img src="assets/Icons/eliminar.svg" alt="Eliminar" />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <p *ngIf="!inventarios || inventarios.length === 0">Cargando inventarios...</p>
+
+  <!-- Modal para agregar o editar equipo -->
+  <div *ngIf="isModalOpen" class="modal-backdrop">
+    <div class="modal-content modal-form">
+      <h3 class="modal-title">{{ modalMode === 'add' ? 'Agregar Inventario' : 'Editar Inventario' }}</h3>
+      <form (submit)="saveInventario()">
+        <ng-container *ngIf="modalMode === 'add'">
+          <div class="form-group">
+            <label>Seleccionar Equipo:</label>
+            <select [(ngModel)]="currentInventario.equipo.id" name="equipo" class="form-control" required>
+              <option *ngFor="let equipo of equipos" [value]="equipo.id">
+                {{ equipo.nombre }} - {{ equipo.ubicacion }}
+              </option>
+            </select>
+          </div>
+        </ng-container>
+
+        <div class="form-group">
+          <label>Cantidad Disponible:</label>
+          <input type="number" [(ngModel)]="currentInventario.cantidadDisponible" name="cantidadDisponible"
+            class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label>Fecha de Adquisición:</label>
+          <input type="date" [(ngModel)]="currentInventario.fechaAdquisicion" name="fechaAdquisicion"
+            class="form-control" required />
+        </div>
+        <div class="form-group">
+          <label>Observaciones:</label>
+          <textarea [(ngModel)]="currentInventario.observaciones" name="observaciones" class="form-control"
+            rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">{{ modalMode === 'add' ? 'Agregar' : 'Guardar' }}</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

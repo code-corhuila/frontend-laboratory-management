@@ -195,3 +195,86 @@ footer {
     border: 2px solid #ECF0F1;
     /* Borde claro alrededor del avatar */
 }
+
+
+.notification-container {
+    position: relative;
+    font-size: small;
+    font-family: Arial, sans-serif; /* Asegúrate de definir la fuente si es necesario */
+}
+
+.notification-bell {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #3498db; /* Azul claro */
+    transition: color 0.3s ease;
+}
+
+.notification-bell:hover {
+    color: #2980b9; /* Azul más oscuro al pasar el cursor */
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #2c3e50; /* Fondo oscuro */
+    color: #ecf0f1; /* Texto blanco */
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    border: 2px solid #3498db; /* Borde azul claro */
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: calc(100% + 10px); /* Espacio entre el botón y el menú */
+    right: 0;
+    background: #ecf0f1; /* Fondo claro */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 300px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.notification-dropdown li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
+    color: #000000; /* Texto oscuro */
+}
+
+.notification-dropdown li:last-child {
+    border-bottom: none;
+}
+
+.notification-dropdown li:hover {
+    background-color: #58a8dd; /* Fondo azul claro en hover */
+    color: white; /* Texto blanco en hover */
+    cursor: pointer;
+}
+
+.notification-dropdown button {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: #36c457;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.notification-dropdown button:hover {
+    background-color: #218838;
+}
