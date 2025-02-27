@@ -1,71 +1,25 @@
-<div class="table-responsive">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th></th>
-        <th>20 Lunes</th>
-        <th>21 Martes</th>
-        <th>22 Miércoles</th>
-        <th>23 Jueves</th>
-        <th>24 Viernes</th>
-        <th>25 Sábado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>6 A.M</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>7 A.M</td>
-        <td class="bg-info text-white">Sala de sistemas<br>Ocupado</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>8 A.M</td>
-        <td></td>
-        <td></td>
-        <td class="bg-info text-white">Sala de sistemas<br>Ocupado</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>9 A.M</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>10 A.M</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="bg-info text-white">Sala de sistemas<br>Ocupado</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>11 A.M</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container mt-2">
+  <h2 class="text-center">{{ vistaActual === 'calendario' ? 'Agendamiento' : 'Laboratorios' }}</h2>
+
+  <!-- Contenedor de botones -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center my-4">
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-primary d-flex align-items-center"
+        (click)="cambiarVista('salas')">
+        <img src="assets/Icons/laboratorios.svg" alt="Agregar" width="20" height="20" class="me-2">
+        Laboratorios
+      </button>
+
+      <button type="button" class="btn btn-primary d-flex align-items-center m-2"
+        style="background-color: #ECF0F1; border-color: #004494; color: #000;"
+        (click)="cambiarVista('calendario')">
+        <img src="https://img.icons8.com/?size=100&id=23&format=png&color=000000" alt="Agregar" width="20" height="20" class="me-2">
+        Agendamiento Laboratorios
+      </button>
+    </div>
+  </div>
+
+  <!-- Mostrar el Componente Correspondiente -->
+  <app-calendario *ngIf="vistaActual === 'calendario'"></app-calendario>
+  <app-listar-salas *ngIf="vistaActual === 'salas'"></app-listar-salas>
 </div>
