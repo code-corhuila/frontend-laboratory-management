@@ -1,6 +1,39 @@
 <div class="full-calendar-container">
     <full-calendar [events]="events" [options]="options"></full-calendar>
-    
 </div>
-  
 
+
+<!-- Modal para Nueva Reserva -->
+<div *ngIf="mostrarModal" class="modal">
+    <div class="modal-content">
+        <h2>Nueva Reserva</h2>
+        <form [formGroup]="reservaForm" (ngSubmit)="guardarReserva()">
+            <label>Título:</label>
+            <input type="text" id="titulo" formControlName="titulo" required>
+
+            <label>Hora de inicio:</label>
+            <input type="datetime-local" id="hora_inicio" formControlName="hora_inicio" required>
+
+            <label>Hora de finalización:</label>
+            <input type="datetime-local" id="hora_final" formControlName="hora_final" required>
+            <div *ngIf="reservaForm.get('hora_final')?.hasError('horaInvalida')">
+                <small style="color: red;">La hora de finalización debe ser mayor que la de inicio.</small>
+            </div>
+
+            <label>Descripción:</label>
+            <textarea formControlName="descripcion" id="descripcion"></textarea>
+
+            <label>Cantidad de estudiantes:</label>
+            <input type="number" formControlName="cantidad_estudiantes" min="1" id="cantidad_estudiantes" required>
+
+            <label>Semestre:</label>
+            <input type="text" id="semestre" formControlName="semestre" required>
+
+            <label>Grupo:</label>
+            <input type="text" id="grupo" formControlName="grupo" required>
+
+            <button type="button" class="btn btn-success" (click)="guardarReserva()">Guardar</button>
+            <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+        </form>
+    </div>
+</div>
