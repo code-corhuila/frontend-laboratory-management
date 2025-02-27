@@ -141,45 +141,30 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
 
   cerrarModal() {
     this.mostrarModal = false;
-    this.cdRef.detectChanges(); // 🔄 Asegurar que Angular actualice la vista
+    this.cdRef.detectChanges();
   }
 
 
-  //Ajustes fecha de inciio y fin por defecto
+  //Ajustes fecha de inicio y fin por defecto
   handleDateClick(arg: any) {
-    console.log("Fecha seleccionada (UTC):", arg.date);
-  
-    // Convertimos la fecha seleccionada a un objeto Date
     const clickedDate = new Date(arg.date);
-    console.log("Fecha convertida a objeto Date:", clickedDate);
-  
-    // Ajustamos la hora según la zona horaria local
     const localDateString = clickedDate.toLocaleString("en-US", { timeZone: "America/Bogota" });
     const localDate = new Date(localDateString);
-    console.log("Fecha ajustada a la zona local:", localDate);
   
-    // Extraemos la fecha correctamente
     const year = localDate.getFullYear();
     const month = localDate.getMonth() + 1;
     const day = localDate.getDate();
     const hours = localDate.getHours();
-    console.log(`Valores extraídos - Año: ${year}, Mes: ${month}, Día: ${day}, Hora: ${hours}`);
   
-    // Definir la hora de inicio y fin
     const startDate = new Date(year, month - 1, day, hours, 0, 0);
     const endDate = new Date(startDate);
-    endDate.setHours(startDate.getHours() + 1); // Sumamos 1 hora
+    endDate.setHours(startDate.getHours() + 1);
   
-    console.log("Hora inicio:", startDate);
-    console.log("Hora finalización:", endDate);
-  
-    // Formateamos la fecha para datetime-local
     const formatDate = (date: Date) => {
       const pad = (num: number) => num.toString().padStart(2, '0');
       return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
     };
   
-    // Aplicamos los valores al formulario
     this.reservaForm.patchValue({
       hora_inicio: formatDate(startDate),
       hora_final: formatDate(endDate)
@@ -187,7 +172,6 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
   
     console.log("Valores aplicados al formulario:", this.reservaForm.value);
   
-    // Mostrar el modal y actualizar la vista
     this.mostrarModal = true;
     this.cdRef.detectChanges();
   }
