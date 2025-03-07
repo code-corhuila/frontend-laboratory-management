@@ -8,15 +8,16 @@ import { Usuario } from '../clases/usuario';
 })
 export class UsuarioService {
 
-   //Obtiene listado de usuario
-   private baseURL = "http://localhost:8080/api/actividades";
+   //Obtiene listado de usuarios
+   private baseURL = "http://localhost:9002/api/usuarios";
 
    constructor( private httpClient : HttpClient) { }
  
-   //Obtenemos las usuario
-   obtenerListaDeActividades():Observable<Usuario[]>{
-     return this.httpClient.get<Usuario[]>(`${this.baseURL+'/listar'}`)
+   //Obtenemos las usuarios
+   obtenerListaDeUsuarios():Observable<{ data: any[] }>{
+     return this.httpClient.get<{ data: any[] }>(`${this.baseURL}`)
    }
+
 
    //Metodo para registrar Usuario
    registrarUsuario(usuario:Usuario): Observable<Object>{
