@@ -1,11 +1,52 @@
 /* Contenedor principal */
 .full-calendar-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    border: 1px solid #ddd;
+    height: 600px;
+    overflow-y: auto;
     padding: 10px;
     background-color: white !important;
 }
+
+.full-calendar-header {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.full-calendar-wrapper {
+    position: relative;
+    height: 80vh; /* Ajusta la altura total */
+    display: flex;
+    flex-direction: column;
+}
+
+
+.fc-header-toolbar {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+/* Asegurar que los encabezados de la tabla dentro del calendario sean fijos */
+.fc-scrollgrid-sync-table thead {
+    position: sticky;
+    top: 40px; /* Ajusta según el tamaño del encabezado */
+    background: white;
+    z-index: 999;
+}
+
+
+
+
+
+
+
+
+
 
 /* Fondo y estilo del toolbar */
 .fc .fc-toolbar {

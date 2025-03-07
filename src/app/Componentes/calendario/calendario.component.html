@@ -1,39 +1,100 @@
-<div class="full-calendar-container">
-    <full-calendar [events]="events" [options]="options"></full-calendar>
-</div>
+<div class="full-calendar-wrapper">
+    <div class="full-calendar-container">
+        <full-calendar [events]="events" [options]="options"></full-calendar>
+    </div>
 
+</div>
 
 <!-- Modal para Nueva Reserva -->
 <div *ngIf="mostrarModal" class="modal">
     <div class="modal-content">
         <h2>Nueva Reserva</h2>
         <form [formGroup]="reservaForm" (ngSubmit)="guardarReserva()">
-            <label>Título:</label>
-            <input type="text" id="titulo" formControlName="titulo" required>
 
-            <label>Hora de inicio:</label>
-            <input type="datetime-local" id="hora_inicio" formControlName="hora_inicio" required>
-
-            <label>Hora de finalización:</label>
-            <input type="datetime-local" id="hora_final" formControlName="hora_final" required>
-            <div *ngIf="reservaForm.get('hora_final')?.hasError('horaInvalida')">
-                <small style="color: red;">La hora de finalización debe ser mayor que la de inicio.</small>
+            <div class="row">
+                <!-- Título -->
+                <div class="col-md-12">
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" formControlName="titulo" class="form-control" required>
+                </div>
             </div>
 
-            <label>Descripción:</label>
-            <textarea formControlName="descripcion" id="descripcion"></textarea>
+            <div class="row">
+                <!-- Hora de inicio -->
+                <div class="col-md-6">
+                    <label for="hora_inicio">Hora de inicio:</label>
+                    <input type="datetime-local" id="hora_inicio" formControlName="hora_inicio" class="form-control"
+                        required>
+                </div>
 
-            <label>Cantidad de estudiantes:</label>
-            <input type="number" formControlName="cantidad_estudiantes" min="1" id="cantidad_estudiantes" required>
+                <!-- Hora de finalización -->
+                <div class="col-md-6">
+                    <label for="hora_final">Hora de finalización:</label>
+                    <input type="datetime-local" id="hora_final" formControlName="hora_final" class="form-control"
+                        required>
+                    <div *ngIf="reservaForm.get('hora_final')?.hasError('horaInvalida')">
+                        <small style="color: red;">La hora de finalización debe ser mayor que la de inicio.</small>
+                    </div>
+                </div>
+            </div>
 
-            <label>Semestre:</label>
-            <input type="text" id="semestre" formControlName="semestre" required>
 
-            <label>Grupo:</label>
-            <input type="text" id="grupo" formControlName="grupo" required>
+            <div class="row">
+                <!-- Semestre -->
+                <div class="col-md-3">
+                    <label for="semestre">Semestre:</label>
+                    <input type="text" id="semestre" formControlName="semestre" class="form-control" required>
+                </div>
 
-            <button type="button" class="btn btn-success" (click)="guardarReserva()">Guardar</button>
-            <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <!-- Grupo -->
+                <div class="col-md-3">
+                    <label for="grupo">Grupo:</label>
+                    <input type="text" id="grupo" formControlName="grupo" class="form-control" required>
+                </div>
+
+                <!-- Cantidad de estudiantes -->
+                <div class="col-md-6">
+                    <label for="cantidad_estudiantes">Cantidad de estudiantes:</label>
+                    <input type="number" formControlName="cantidad_estudiantes" min="1" id="cantidad_estudiantes"
+                        class="form-control" required>
+                </div>
+
+            </div>
+
+
+            <!-- Descripción (Ocupa el ancho completo) -->
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="laboratorio">Laboratorio:</label>
+                    <select id="laboratorio" class="form-control" formControlName="laboratorio">
+                        <option *ngFor="let laboratorio of laboratorios" [value]="laboratorio.id">
+                            {{ laboratorio.nombre }} - {{ laboratorio.ubicacion }}
+                        </option>
+                    </select>
+                    <label for="usuario">Solicitante:</label>
+                    <select id="usuario" class="form-control" formControlName="usuario">
+                        <option *ngFor="let usuario of usuarios" [value]="usuario.id">
+                            {{ usuario.nombre }} - {{ usuario.cargo }}
+                        </option>
+                    </select>
+                    <label for="description">Descripción:</label>
+                    <textarea formControlName="description" id="description" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success w-100">Guardar</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-secondary w-100" (click)="cerrarModal()">Cancelar</button>
+                </div>
+                <div class="col-md-6" *ngIf="reservaForm.get('id')?.value">
+                    <button type="button" class="btn btn-danger w-100" (click)="eliminarReserva()">Cancelar reserva</button>
+                </div>
+            </div>
+
         </form>
     </div>
 </div>

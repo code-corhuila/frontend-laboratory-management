@@ -14,10 +14,10 @@ export class SalaService {
    constructor( private httpClient : HttpClient) { }
  
    //Obtenemos las clases
-   obtenerListaDeSalas():Observable<Sala[]>{
-     console.log("obtener salas en servicio");
-     return this.httpClient.get<Sala[]>(`${this.baseURL}`)
+   obtenerListaDeSalas():Observable<{ data: any[] }>{
+     return this.httpClient.get<{ data: any[] }>(`${this.baseURL}`)
    }
+
 
    //Metodo para registrar sala
    registrarSala(sala:Sala): Observable<Object>{

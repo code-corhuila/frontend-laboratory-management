@@ -21,7 +21,6 @@ export class ReservacionService {
 
   //Metodo para registrar reservacion
   registrarReservacion(reservacion: Reservacion): Observable<Object> {
-    console.log("reservacion a guardar: ", reservacion);
     return this.httpClient.post(`${this.baseURL}`, reservacion);
   }
 

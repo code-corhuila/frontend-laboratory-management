@@ -9,8 +9,9 @@ export class Reservacion {
     titulo: String;
     hora_inicio: any;
     hora_final: any;
-    descripcion: String;
+    description: String;
     cantidad_estudiantes: any;
     semestre: any;
+    laboratorio: any;
     grupo: any;
 }
