@@ -1,9 +1,8 @@
 export class Sala {
+    state:any;
     id:number;
-    laboratorio:String;
+    estadoLaboratorio:any;
     ubicacion:String;
     descripcion:String;
-    estado_laboratorio:any;
-    state:any;
-    deletedAt:any;
+    laboratorio:String;
 }

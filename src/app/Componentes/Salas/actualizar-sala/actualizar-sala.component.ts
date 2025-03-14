@@ -26,7 +26,7 @@ export class ActualizarSalaComponent  implements OnInit {
       this.salaService.obtenerSalaPorId(this.id).subscribe(
           (dato) => {
               this.sala = dato['data'];
-              this.sala.estado_laboratorio = +this.sala.estado_laboratorio;
+              this.sala.estadoLaboratorio = +this.sala.estadoLaboratorio;
           },
           (error) => console.log(error)
       );
@@ -39,9 +39,15 @@ export class ActualizarSalaComponent  implements OnInit {
   }
 
   onSubmit(){
-    this.salaService.actualizarSala(this.id,this.sala).subscribe(dato => {
-      this.irAlaListaDeSalas();
-    },error => console.log(error));
+     this.salaService.actualizarSala(this.id,this.sala).subscribe({
+          next: (dato) => {
+            this.irAlaListaDeSalas();
+          },
+          error: (err) => {
+            console.error("Error al actualizar el registro:", err);
+            Swal.fire("Error", "Hubo un problema al actualizar el registro. Inténtalo de nuevo.", "error");
+          }
+        });
   }
 
   cancelar(): void {

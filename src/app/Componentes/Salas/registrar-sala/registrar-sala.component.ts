@@ -24,14 +24,19 @@ export class RegistrarSalaComponent implements OnInit {
 
   ngOnInit(): void {
     this.sala = new Sala();
-    this.sala.estado_laboratorio = 1;
+    //this.sala.estado_laboratorio = 1;
   }
 
   guardarSala() {
-    this.sala.state = 1;
-    this.salaService.registrarSala(this.sala).subscribe(dato => {
-      this.irALaListaDeSalas();
-    }, error => console.log(error));
+    this.salaService.registrarSala(this.sala).subscribe({
+      next: (dato) => {
+        this.irALaListaDeSalas();
+      },
+      error: (err) => {
+        console.error("Error al registrar la sala:", err);
+        Swal.fire("Error", "Hubo un problema al guardar la sala. Inténtalo de nuevo.", "error");
+      }
+    });
   }
 
 
@@ -42,7 +47,7 @@ export class RegistrarSalaComponent implements OnInit {
 
   irALaListaDeSalas() {
     this.router.navigate(['dashboard', 'listarSalas']);
-    Swal.fire('Sala registrada', `La sala ${this.sala.laboratorio} ha sido registrada con exito`, `success`);
+    Swal.fire('Sala registrada', `Registro guardado con exito`, `success`);
   }
 
   onSubmit(salaForm: any) {

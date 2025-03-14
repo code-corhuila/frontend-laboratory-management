@@ -36,12 +36,12 @@
         <div>
           <div class="form-check">
             <input type="radio" class="form-check-input" id="estadoOcupacional" name="estadoOcupacional"
-              [(ngModel)]="sala.estado_laboratorio" [value]="1" required #estadoOcupacional="ngModel">
+              [(ngModel)]="sala.estadoLaboratorio" [value]="1" required #estadoOcupacional="ngModel">
             <label class="form-check-label" for="estadoOcupacional">Habilitado</label>
           </div>
           <div class="form-check">
             <input type="radio" class="form-check-input" id="noDisponible" name="estadoOcupacional"
-              [(ngModel)]="sala.estado_laboratorio" [value]="0" required>
+              [(ngModel)]="sala.estadoLaboratorio" [value]="0" required>
             <label class="form-check-label" for="noDisponible">Fuera de servicio</label>
           </div>
         </div>
