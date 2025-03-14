@@ -8,7 +8,13 @@
 <!-- Modal para Nueva Reserva -->
 <div *ngIf="mostrarModal" class="modal">
     <div class="modal-content">
+
         <h2>Reserva</h2>
+        <!-- Botón de cierre en la parte superior derecha -->
+        <button class="close-button" (click)="cerrarModal()">
+            <img src="assets/Icons/cerrar.svg" alt="Cerrar" class="icon">
+        </button>
+
         <form [formGroup]="reservaForm" (ngSubmit)="guardarReserva()">
 
             <div class="row">
@@ -38,7 +44,6 @@
                 </div>
             </div>
 
-
             <div class="row">
                 <!-- Semestre -->
                 <div class="col-md-3">
@@ -58,9 +63,7 @@
                     <input type="number" formControlName="cantidad_estudiantes" min="1" id="cantidad_estudiantes"
                         class="form-control" required>
                 </div>
-
             </div>
-
 
             <!-- Descripción (Ocupa el ancho completo) -->
             <div class="row">
@@ -82,16 +85,14 @@
                 </div>
             </div>
 
-            <!-- Botones -->
+            <!-- Botón Guardar -->
             <div class="row mt-3">
                 <div class="col-md-3">
                     <button type="submit" class="btn btn-success w-100">Guardar</button>
                 </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-secondary w-100" (click)="cerrarModal()">Cancelar</button>
-                </div>
                 <div class="col-md-6" *ngIf="reservaForm.get('id')?.value">
-                    <button type="button" class="btn btn-danger w-100" (click)="eliminarReserva()">Cancelar reserva</button>
+                    <button type="button" class="btn btn-danger w-100" (click)="eliminarReserva()">Cancelar
+                        reserva</button>
                 </div>
             </div>
 
