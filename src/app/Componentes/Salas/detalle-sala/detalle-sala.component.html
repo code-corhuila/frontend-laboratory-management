@@ -1,20 +1,17 @@
-<div class="d-flex justify-content-center my-5">
-    <div class="card shadow-sm p-4 rounded bg-light" style="width: 60%; max-width: 600px;">
-        <h3 class="text-center mb-4">Detalles de la sala</h3>
-        <div class="mb-3">
-            <label><b>Nombre :</b> {{ sala.laboratorio }}</label>
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="card shadow-sm p-3 rounded bg-light w-100" style="max-width: 450px;">
+        <h4 class="text-center mb-3">Detalles de la sala</h4>
+        <div class="mb-2">
+            <label><b>Nombre:</b> {{ sala.laboratorio }}</label>
         </div>
-        <div class="mb-3">
-            <label><b>Descripción :</b> {{ sala.descripcion }}</label>
+        <div class="mb-2">
+            <label><b>Descripción:</b> {{ sala.descripcion }}</label>
         </div>
-        <div class="mb-3">
-            <label><b>Ubicación :</b> {{ sala.ubicacion }}</label>
+        <div class="mb-2">
+            <label><b>Ubicación:</b> {{ sala.ubicacion }}</label>
         </div>
-        <div class="mb-3">
-            <label><b>Estado laboratorio :</b> {{ obtenerEstadoOcupacional(sala.estadoLaboratorio) }}</label>
-        </div>
-        <div class="text-center mt-4">
-            <button class="btn btn-secondary" (click)="cerrar()">Cerrar</button>
+        <div class="mb-2">
+            <label><b>Estado laboratorio:</b> {{ obtenerEstadoOcupacional(sala.estadoLaboratorio) }}</label>
         </div>
     </div>
 </div>

@@ -1,81 +1,73 @@
-<div class="d-flex justify-content-center">
-  <div class="col-md-8 col-lg-6 p-4 shadow-sm rounded bg-white">
-    <h3 class="text-center mb-4 fw-bold">Edición de Sala</h3>
-    <form (ngSubmit)="onSubmit()" #salaForm="ngForm">
+<button class="close-button" (click)="cerrarModalActualizar()">
+  <img src="assets/Icons/cerrar.svg" alt="Cerrar" class="icon">
+</button>
 
-      <div class="form-group mb-3">
-        <label for="laboratorio" class="form-label">Laboratorio:</label>
-        <input type="text" class="form-control" id="laboratorio" [(ngModel)]="sala.laboratorio" name="laboratorio"
-          required minlength="5" maxlength="100" placeholder="Ingrese el valor del campo laboratorio."
-          #laboratorio="ngModel">
-        <div class="alert alert-danger mt-2 p-1"
-          *ngIf="laboratorio.invalid && (laboratorio.dirty || laboratorio.touched)">
-          <small *ngIf="laboratorio.errors?.['required']">Digite el nombre de la sala</small>
-          <small *ngIf="laboratorio.errors?.['minlength']">Debe tener al menos 5 caracteres</small>
-          <small *ngIf="laboratorio.errors?.['maxlength']">Máximo 100 caracteres</small>
-        </div>
-      </div>
+<h3 class="text-center mb-4 fw-bold">Edición de Sala</h3>
+<form (ngSubmit)="onSubmit()" #salaForm="ngForm">
 
-
-
-      <!-- Campo Ubicación -->
-      <div class="form-group mb-3">
-        <label for="ubicacion" class="form-label">Ubicación:</label>
-        <input type="text" class="form-control" id="ubicacion" [(ngModel)]="sala.ubicacion" name="ubicacion" required
-          minlength="5" maxlength="100" placeholder="Ingrese la ubicación" #ubicacion="ngModel">
-        <div class="alert alert-danger mt-2 p-1" *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)">
-          <small *ngIf="ubicacion.errors?.['required']">La ubicación es obligatoria</small>
-          <small *ngIf="ubicacion.errors?.['minlength']">Debe tener al menos 5 caracteres</small>
-          <small *ngIf="ubicacion.errors?.['maxlength']">Máximo 100 caracteres</small>
-        </div>
-      </div>
-
-      <!-- Estado Laboratorio -->
-      <div class="form-group mb-3">
-        <label for="estadoOcupacional" class="form-label">Estado laboratorio:</label>
-        <div>
-          <div class="form-check">
-            <input type="radio" class="form-check-input" id="estadoOcupacional" name="estadoOcupacional"
-              [(ngModel)]="sala.estadoLaboratorio" [value]="1" required #estadoOcupacional="ngModel">
-            <label class="form-check-label" for="estadoOcupacional">Habilitado</label>
-          </div>
-          <div class="form-check">
-            <input type="radio" class="form-check-input" id="noDisponible" name="estadoOcupacional"
-              [(ngModel)]="sala.estadoLaboratorio" [value]="0" required>
-            <label class="form-check-label" for="noDisponible">Fuera de servicio</label>
-          </div>
-        </div>
-
-        <div class="alert alert-danger mt-2 p-1"
-          *ngIf="estadoOcupacional.invalid && (estadoOcupacional.dirty || estadoOcupacional.touched)">
-          <small>Debe seleccionar el estado del laboratorio</small>
-        </div>
-      </div>
-
-
-      <!-- Campo Descripción -->
-      <div class="form-group mb-4">
-        <label for="descripcion" class="form-label">Descripción:</label>
-        <textarea class="form-control" id="descripcion" [(ngModel)]="sala.descripcion" name="descripcion" required
-          minlength="5" maxlength="800" placeholder="Ingrese una descripción" rows="3" #descripcion="ngModel">
-  </textarea>
-        <div class="alert alert-danger mt-2 p-1"
-          *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
-          <small *ngIf="descripcion.errors?.['required']">La descripción es obligatoria</small>
-          <small *ngIf="descripcion.errors?.['minlength']">Debe tener al menos 5 caracteres</small>
-          <small *ngIf="descripcion.errors?.['maxlength']">Máximo 800 caracteres</small>
-        </div>
-      </div>
-
-      <!-- Botón Guardar -->
-      <div class="text-center">
-        <button class="btn btn-success w-100 fw-bold" [disabled]="!salaForm.form.valid">Guardar</button>
-      </div>
-    </form>
-
-    <!-- Botón Cancelar -->
-    <div class="text-center mt-4">
-      <button class="btn btn-secondary w-100 fw-bold" (click)="cancelar()">Cancelar</button>
+  <div class="form-group mb-3">
+    <label for="laboratorio" class="form-label">Laboratorio:</label>
+    <input type="text" class="form-control fs-5 p-2" id="laboratorio" [(ngModel)]="sala.laboratorio" name="laboratorio"
+      required minlength="5" maxlength="100" placeholder="Ingrese el nombre del laboratorio" #laboratorio="ngModel">
+    <div class="alert alert-danger mt-2 p-2" *ngIf="laboratorio.invalid && (laboratorio.dirty || laboratorio.touched)">
+      <small *ngIf="laboratorio.errors?.['required']">Digite el nombre de la sala</small>
+      <small *ngIf="laboratorio.errors?.['minlength']">Debe tener al menos 5 caracteres</small>
+      <small *ngIf="laboratorio.errors?.['maxlength']">Máximo 100 caracteres</small>
     </div>
   </div>
-</div>
+
+
+
+  <!-- Campo Ubicación -->
+  <div class="form-group mb-3">
+    <label for="ubicacion" class="form-label">Ubicación:</label>
+    <input type="text" class="form-control fs-5 p-2" id="ubicacion" [(ngModel)]="sala.ubicacion" name="ubicacion"
+      required minlength="5" maxlength="100" placeholder="Ingrese la ubicación" #ubicacion="ngModel">
+    <div class="alert alert-danger mt-2 p-2" *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)">
+      <small *ngIf="ubicacion.errors?.['required']">La ubicación es obligatoria</small>
+      <small *ngIf="ubicacion.errors?.['minlength']">Debe tener al menos 5 caracteres</small>
+      <small *ngIf="ubicacion.errors?.['maxlength']">Máximo 100 caracteres</small>
+    </div>
+  </div>
+
+  <!-- Estado Laboratorio -->
+  <div class="form-group mb-3">
+    <label for="estadoOcupacional" class="form-label">Estado laboratorio:</label>
+
+    <div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="estadoOcupacional" name="estadoOcupacional"
+          [(ngModel)]="sala.estadoLaboratorio" [value]="1" required #estadoOcupacional="ngModel">
+        <label class="form-check-label" for="estadoOcupacional">Habilitado</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="noDisponible" name="estadoOcupacional"
+          [(ngModel)]="sala.estadoLaboratorio" [value]="0" required>
+        <label class="form-check-label" for="noDisponible">Fuera de servicio</label>
+      </div>
+    </div>
+
+    <div class="alert alert-danger mt-2 p-2"
+      *ngIf="estadoOcupacional.invalid && (estadoOcupacional.dirty || estadoOcupacional.touched)">
+      <small>Debe seleccionar el estado del laboratorio</small>
+    </div>
+  </div>
+
+  <!-- Campo Descripción -->
+  <div class="form-group mb-4">
+    <label for="descripcion" class="form-label">Descripción:</label>
+    <textarea class="form-control fs-5 p-2" id="descripcion" [(ngModel)]="sala.descripcion" name="descripcion" required
+      minlength="5" maxlength="800" placeholder="Ingrese una descripción" rows="3" #descripcion="ngModel">
+        </textarea>
+    <div class="alert alert-danger mt-2 p-1" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+      <small *ngIf="descripcion.errors?.['required']">La descripción es obligatoria</small>
+      <small *ngIf="descripcion.errors?.['minlength']">Debe tener al menos 5 caracteres</small>
+      <small *ngIf="descripcion.errors?.['maxlength']">Máximo 800 caracteres</small>
+    </div>
+  </div>
+
+  <!-- Botón Guardar -->
+  <div class="text-center">
+    <button class="btn btn-success w-100 fw-bold" [disabled]="!salaForm.form.valid">Guardar</button>
+  </div>
+</form>

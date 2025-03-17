@@ -1,48 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Sala } from '../../../clases/sala';
-import { ActivatedRoute } from '@angular/router';
 import { SalaService } from '../../../Services/sala.service';
 import Swal from 'sweetalert2';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detalle-sala',
   standalone: true,
-  imports: [],
   templateUrl: './detalle-sala.component.html',
   styleUrl: './detalle-sala.component.css'
 })
-export class DetalleSalaComponent implements OnInit {
+export class DetalleSalaComponent implements OnInit, OnChanges {
 
-  id: number;
-  sala: Sala;
-  constructor(private route: ActivatedRoute,
-    private salaService: SalaService,
-    private location: Location) { }
+  @Input() mostrarModal: boolean = false; // Estado del modal
+  @Output() modalCerrado = new EventEmitter<void>(); // Evento para cerrar el modal
+
+  @Input() idSala: number | null = null; // Recibe el ID de la sala desde el padre
+
+  sala: Sala | null = null; // Inicializamos la variable de la sala
+
+  constructor(private salaService: SalaService) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
-    this.sala = new Sala();
-    this.salaService.obtenerSalaPorId(this.id).subscribe(dato => {
-      this.sala = dato['data'];
-      Swal.fire({
-        title: `Detalles: ${this.sala.laboratorio}`,
-        confirmButtonText: 'Cerrar',
-        confirmButtonColor: '#28a745', // color gris
-        background: '#f8f9fa',
-        customClass: {
-          title: 'swal-title',
-        }
-      });;
-    })
+    if (this.idSala) {
+      this.cargarDetalles(this.idSala);
+    }
   }
 
-  obtenerEstadoOcupacional(estadoOcupacional: number): string {
-    return estadoOcupacional === 1 ? 'No disponible' : 'Disponible';
+  // Detecta cuando cambia el ID de la sala
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['idSala'] && this.idSala !== null) {
+      this.cargarDetalles(this.idSala);
+    }
   }
 
-  cerrar(): void {
-    this.location.back();
+  cargarDetalles(id: number) {
+    this.salaService.obtenerSalaPorId(id).subscribe({
+      next: (data) => {
+        this.sala = data['data']; // Ajustamos para acceder correctamente a los datos
+      },
+      error: (err) => {
+        console.error("Error al obtener los detalles de la sala:", err);
+      }
+    });
   }
 
+  obtenerEstadoOcupacional(estadoOcupacional: any): string {
+    console.log("estadoOcupacional: ",estadoOcupacional)
+    return estadoOcupacional == false ? 'Fuera de servicio' : 'Habilitado';
+  }
+
+
+
+  cerrarModalDetalle() {
+    this.modalCerrado.emit(); // Notifica al padre que debe cerrar el modal
+  }
 }

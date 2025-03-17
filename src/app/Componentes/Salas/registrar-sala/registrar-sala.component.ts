@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Sala } from '../../../clases/sala';
 import { SalaService } from '../../../Services/sala.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registrar-sala',
@@ -13,23 +13,17 @@ import { CommonModule, Location } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule]
 })
-
-export class RegistrarSalaComponent implements OnInit {
+export class RegistrarSalaComponent {
+  @Input() mostrarModal: boolean = false; // Recibe el estado del modal
+  @Output() modalCerrado = new EventEmitter<void>(); // Evento para cerrar
 
   sala: Sala = new Sala();
 
-  constructor(private salaService: SalaService, private router: Router,
-    private location: Location
-  ) { }
-
-  ngOnInit(): void {
-    this.sala = new Sala();
-    //this.sala.estado_laboratorio = 1;
-  }
+  constructor(private salaService: SalaService, private router: Router) {}
 
   guardarSala() {
     this.salaService.registrarSala(this.sala).subscribe({
-      next: (dato) => {
+      next: () => {
         this.irALaListaDeSalas();
       },
       error: (err) => {
@@ -39,15 +33,9 @@ export class RegistrarSalaComponent implements OnInit {
     });
   }
 
-
-  verDetallesDeSala(id: any) {
-    this.router.navigate(['dashboard', 'detalleSala', id]);
-  }
-
-
   irALaListaDeSalas() {
     this.router.navigate(['dashboard', 'listarSalas']);
-    Swal.fire('Sala registrada', `Registro guardado con exito`, `success`);
+    Swal.fire('Sala registrada', `Registro guardado con éxito`, `success`);
   }
 
   onSubmit(salaForm: any) {
@@ -55,13 +43,10 @@ export class RegistrarSalaComponent implements OnInit {
       salaForm.form.markAllAsTouched();
       return;
     }
-
     this.guardarSala();
-    this.irALaListaDeSalas();
   }
 
-
-  cancelar(): void {
-    this.location.back();
+  cerrarModal() {
+    this.modalCerrado.emit(); // Notifica al padre que debe cerrar el modal
   }
 }

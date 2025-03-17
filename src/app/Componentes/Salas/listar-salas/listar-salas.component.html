@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-between align-items-center my-4">
     <h2 class="text-center">Listado de laboratorios</h2>
-    <button type="button" (click)="agregarSala()" class="btn btn-primary"
+
+    <button type="button" (click)="abrirModal()" class="btn btn-primary"
         style="background-color: #ECF0F1; border-color: #004494; color: #000;">
         <img src="assets/Icons/agregar.svg" alt="Agregar" width="20" height="20" style="margin-right: 5px;">
         Nuevo registro
     </button>
 </div>
-
 
 <!-- Spinner de carga -->
 <div *ngIf="cargando" class="text-center my-4">
@@ -14,7 +14,6 @@
         <span class="visually-hidden">Cargando...</span>
     </div>
 </div>
-
 
 <!-- Tabla de datos -->
 <div *ngIf="!cargando" class="table-responsive">
@@ -35,14 +34,14 @@
                 <td>{{ sala.descripcion }}</td>
                 <td>{{ obtenerEstadoLaboratorio(sala.estadoLaboratorio) }}</td>
                 <td class="text-center">
-                    <button type="button" (click)="actualizarSala(sala.id)" class="icono-boton">
+                    <button type="button" (click)="abrirModalActualizar(sala.id)" class="icono-boton">
                         <img src="assets/Icons/editar.svg" alt="Editar" width="24" height="24">
                     </button>
                     <button type="button" (click)="eliminarSala(sala.id)" class="icono-boton"
                         style="margin-left: 10px;">
                         <img src="assets/Icons/eliminar.svg" alt="Eliminar" width="24" height="24">
                     </button>
-                    <button (click)="verDetallesDeSala(sala.id)" class="icono-boton" style="margin-left: 10px;">
+                    <button (click)="abrirModalDetalle(sala.id)" class="icono-boton" style="margin-left: 10px;">
                         <img src="assets/Icons/info.svg" alt="Info" width="24" height="24">
                     </button>
                 </td>
@@ -51,4 +50,59 @@
     </table>
 </div>
 
+<!-- Modal para Registrar Sala -->
+<div *ngIf="mostrarModal" class="modal">
+    <div class="modal-content">
+        <!-- Botón para cerrar -->
+        <button class="close-button" (click)="cerrarModal()">
+            <img src="assets/Icons/cerrar.svg" alt="Cerrar" class="icon">
+        </button>
+
+        <!-- Se carga el componente -->
+        <app-registrar-sala [mostrarModal]="mostrarModal" (modalCerrado)="cerrarModal()">
+        </app-registrar-sala>
+    </div>
+</div>
+
+
+<!-- Modal para ver el detalle -->
+<div *ngIf="mostrarModalDetalle" class="modal">
+    <div class="modal-content">
+        <!-- Botón para cerrar -->
+        <button class="close-button" (click)="cerrarModalDetalle()">
+            <img src="assets/Icons/cerrar.svg" alt="Cerrar" class="icon">
+        </button>
+
+        <!-- Se carga el componente -->
+        <app-detalle-sala [mostrarModal]="mostrarModalDetalle" [idSala]="idSalaSeleccionada"
+            (modalCerrado)="cerrarModalDetalle()">
+        </app-detalle-sala>
+    </div>
+</div>
+
+
+<!-- Modal para Actualizar Sala -->
+<div *ngIf="mostrarModalActualizar" class="modal">
+    <div class="modal-content">
+        <!-- Botón para cerrar -->
+        <button class="close-button" (click)="cerrarModalActualizar()">
+            <img src="assets/Icons/cerrar.svg" alt="Cerrar" class="icon">
+        </button>
+
+        <!-- Se carga el componente de actualización -->
+        <app-actualizar-sala 
+        [mostrarModal]="mostrarModal" 
+        [idSala]="idSalaSeleccionada" 
+        (modalActualizarCerrado)="cerrarModalActualizar()"
+            ><!-- (salaActualizada)="obtenerSalas()"-->
+        </app-actualizar-sala>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Paginación -->
 <pagination-controls (pageChange)="page = $event"></pagination-controls>
