@@ -13,6 +13,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FullCalendarModule } from '@fullcalendar/angular'; 
 import { ListarMantenimientosComponent } from './Componentes/Mantenimientos/listar-mantenimientos/listar-mantenimientos.component';
 import { AuthService } from './Services/auth.service';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -28,7 +31,9 @@ import { AuthService } from './Services/auth.service';
     FormsModule,
     CommonModule,
     NgxPaginationModule,
-    FullCalendarModule
+    FullCalendarModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

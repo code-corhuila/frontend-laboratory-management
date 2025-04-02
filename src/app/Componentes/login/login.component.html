@@ -5,6 +5,8 @@
       <h2>Gestión De Laboratorios CORHUILA</h2>
     </div>
   </header>
+
+  
   
   <div id="contenido" class="content">
     <form (ngSubmit)="login()" #loginForm="ngForm" class="form-container">
@@ -23,11 +25,15 @@
         <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password" name="password" required>
       </div>
       <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid" >Ingresar</button>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
     </form>
+    
   </div>
 
   <footer>
-    <p>&copy; 2024 Corporación Universitaria del Huila CORHUILA. Todos los derechos reservados.</p>
+    <p>&copy; 2025 Corporación Universitaria del Huila CORHUILA. Todos los derechos reservados.</p>
     <ul class="footer-links">
       <li><a href="#about">Sobre nosotros</a></li>
       <li><a href="#services">Servicios</a></li>
