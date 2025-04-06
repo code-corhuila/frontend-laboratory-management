@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,21 +15,52 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore
   ) {}
 
   async login() {
     try {
+      // 1. Autenticar al usuario
       const userCredential = await this.afAuth.signInWithEmailAndPassword(
         this.username,
         this.password
       );
-      console.log('Login exitoso', userCredential.user);
-      localStorage.setItem('isLoggedIn', 'true');
-      this.router.navigate(['/dashboard']);
+      
+      // 2. Obtener información del usuario desde Firestore
+      const userDoc = await this.firestore.collection('users')
+        .doc(userCredential.user?.uid)
+        .get()
+        .toPromise();
+
+      if (userDoc?.exists) {
+        const userData: any = userDoc.data();
+        
+        // 3. Almacenar datos en localStorage
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userEmail', this.username);
+        localStorage.setItem('userRole', userData.role || 'client'); // Valor por defecto si no tiene rol
+        
+        console.log('Login exitoso. Datos guardados en localStorage:');
+        console.log('Email:', this.username);
+        console.log('Rol:', userData.role);
+        this.router.navigate(['/dashboard']);
+        
+        // Puedes mostrar un mensaje de éxito o actualizar la UI aquí
+        this.errorMessage = ''; // Limpiar mensajes de error previos
+        
+      } else {
+        throw new Error('Usuario no encontrado en la base de datos');
+      }
+      
     } catch (error) {
       console.error('Error en login:', error);
       this.errorMessage = this.getFirebaseErrorMessage(error);
+      
+      // Limpiar localStorage en caso de error
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userRole');
     }
   }
 

@@ -71,7 +71,7 @@ export class ListarInventarioComponent implements OnInit {
             confirmButtonText: "Sí, agregar equipo"
           }).then((result) => {
             if (result.isConfirmed) {
-              this.openModal('edit');
+              this.openModal('add');
             }
           });
         }
