@@ -1,12 +1,14 @@
 <div class="dashboard-container">
     <header>
         <div class="header-content">
-            <div class="date-user-container" style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="date-user-container"
+                style="display: flex; align-items: center; justify-content: space-between;">
                 <!-- Botón para la fecha -->
-                <button type="button" class="btn btn-primary date-button" style="border-radius: 20px; padding: 8px 15px;">
+                <button type="button" class="btn btn-primary date-button"
+                    style="border-radius: 20px; padding: 8px 15px;">
                     <span class="date-label">Fecha actual:</span> {{ currentDate }}
                 </button>
-                
+
                 <div class="notification-container">
                     <button class="btn btn-icon notification-bell" (click)="toggleDropdown()">
                         <i class="fa fa-bell"></i>
@@ -19,23 +21,28 @@
                                     <strong>{{ alerta.mensaje }}</strong>
                                     <span class="notification-date">{{ alerta.fechaAlerta | date:'short' }}</span>
                                 </div>
-                                <button class="btn btn-sm btn-primary mark-read" (click)="marcarAlertaComoAtendida(alerta, i)">
+                                <button class="btn btn-sm btn-primary mark-read"
+                                    (click)="marcarAlertaComoAtendida(alerta, i)">
                                     Marcar como atendida
                                 </button>
                             </div>
                         </li>
                     </ul>
                 </div>
-                
+
                 <!-- Imagen de usuario -->
                 <img src="https://img.icons8.com/?size=100&id=41799&format=png&color=000000" 
-                     alt="Logo_User" 
-                     class="user-avatar" 
-                     style="width: 40px; height: 40px; border-radius: 50%; margin-left: 20px;">
+                alt="Logo_User" 
+                class="user-avatar" 
+                style="width: 40px; height: 40px; border-radius: 50%; margin-left: 20px; cursor: pointer;"
+                (click)="cerrarSesion()">
+                
+
+
             </div>
         </div>
     </header>
-    
+
     <div class="main-content">
         <nav class="menu">
             <button class="btn btn-secondary" routerLink="agendamiento">
@@ -44,7 +51,8 @@
             </button>
 
             <button class="btn btn-secondary" *ngIf="rolUsuario === 'admin'" routerLink="inventario">
-                <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=000000" alt="inventario" class="icon">
+                <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=000000" alt="inventario"
+                    class="icon">
                 Inventario
             </button>
             <!--<button class="btn btn-secondary" routerLink="usuarios">
@@ -62,7 +70,8 @@
             </button>
             -->
             <button class="btn btn-secondary" *ngIf="rolUsuario === 'admin'" routerLink="listarMantenimientos">
-                <img src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="mantenimientos" class="icon">
+                <img src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="mantenimientos"
+                    class="icon">
                 Mantenimientos
             </button>
         </nav>
@@ -85,5 +94,5 @@
             </div>
         </div>
     </footer>
-    
+
 </div>

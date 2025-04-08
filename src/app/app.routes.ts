@@ -6,7 +6,18 @@ import { AuthGuard } from './guards/auth.guard'; // Importa el guard de autentic
 import { FormsModule } from '@angular/forms';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
+
+  // Ruta para el login
+  { 
+    path: 'login', 
+    component: LoginComponent 
+  },
+  // Redirige la ruta vacía a /login
+  { 
+    path: '', 
+    redirectTo: 'login', 
+    pathMatch: 'full' 
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,

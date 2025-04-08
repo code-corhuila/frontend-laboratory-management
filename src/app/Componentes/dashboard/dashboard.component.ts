@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AlertaService } from '../../services/alerta.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,10 +19,16 @@ export class DashboardComponent implements OnInit {
   rolUsuario: string = '';
   alertas: any[] = [];
   showDropdown = false;
+  dropdownVisibleUser = false; 
+  mostrarRR = false;
 
   currentDate = new Date().toLocaleDateString(); // Fecha actual
 
-  constructor(private alertaService: AlertaService) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private alertaService: AlertaService,
+  ) {
     this.currentDate = new Date().toLocaleDateString();
   }
 
@@ -38,6 +46,16 @@ export class DashboardComponent implements OnInit {
 
   toggleDropdown(): void {
     this.showDropdown = !this.showDropdown;
+  }
+
+  mostras(): void {
+    this.mostrarRR = !this.mostrarRR;
+  }
+
+  toggleDropdownUser(): void {
+    console.log("jjjj");
+    this.dropdownVisibleUser = !this.dropdownVisibleUser;
+    console.log("dropdownVisibleUser:", this.dropdownVisibleUser);
   }
 
   marcarAlertaComoAtendida(alerta: any, index: number): void {
@@ -65,5 +83,18 @@ export class DashboardComponent implements OnInit {
       //}
     });
   }
+
+  cerrarSesion() {
+    const confirmacion = confirm('¿Estás seguro de que deseas cerrar sesión?');
+    if (confirmacion) {
+      this.afAuth.signOut().then(() => {
+        localStorage.clear(); // o solo removeItem de lo necesario
+        this.router.navigate(['']);
+      }).catch((error) => {
+        console.error('Error al cerrar sesión:', error);
+      });
+    }
+  }
+  
 
 }
