@@ -43,7 +43,7 @@
                 Laboratorios
             </button>
 
-            <button class="btn btn-secondary" routerLink="inventario">
+            <button class="btn btn-secondary" *ngIf="rolUsuario === 'admin'" routerLink="inventario">
                 <img src="https://img.icons8.com/?size=100&id=1395&format=png&color=000000" alt="inventario" class="icon">
                 Inventario
             </button>
@@ -61,7 +61,7 @@
                 Reporte
             </button>
             -->
-            <button class="btn btn-secondary" routerLink="listarMantenimientos">
+            <button class="btn btn-secondary" *ngIf="rolUsuario === 'admin'" routerLink="listarMantenimientos">
                 <img src="https://img.icons8.com/?size=100&id=11151&format=png&color=000000" alt="mantenimientos" class="icon">
                 Mantenimientos
             </button>

@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 
 export class DashboardComponent implements OnInit {
 
+  rolUsuario: string = '';
   alertas: any[] = [];
   showDropdown = false;
 
@@ -24,8 +25,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.rolUsuario = localStorage.getItem('userRole') || '';
     this.cargarAlertas();
   }
+
 
   cargarAlertas(): void {
     this.alertaService.obtenerAlertasActivas().subscribe((data) => {
