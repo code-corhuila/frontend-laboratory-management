@@ -12,8 +12,14 @@ import { ListarSalasComponent } from '../../Salas/listar-salas/listar-salas.comp
   styleUrls: ['./agendamiento.component.css']
 })
 export class AgendamientoComponent { 
+  rolUsuario: string = '';
+  
 
   vistaActual: string = 'calendario'; // Por defecto, muestra el calendario
+
+  ngOnInit(): void {
+    this.rolUsuario = localStorage.getItem('userRole') || '';
+  }
 
   cambiarVista(vista: string) {
     this.vistaActual = vista;

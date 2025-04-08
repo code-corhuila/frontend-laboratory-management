@@ -4,25 +4,32 @@
   <!-- Contenedor de botones -->
   <div class="d-flex flex-wrap justify-content-between align-items-center my-4">
     <div class="btn-group gap-3">
+
+       <!-- Botón de Agendamiento -->
+       <button 
+       type="button" 
+       class="btn d-flex align-items-center"
+       [ngClass]="{ 'btn-primary': vistaActual === 'calendario', 'btn-secondary': vistaActual !== 'calendario' }"
+       (click)="cambiarVista('calendario')">
+       <!-- <img src="https://img.icons8.com/?size=100&id=23&format=png&color=000000" alt="Agregar" width="20" height="20" class="me-2"> -->
+       Agendamiento Laboratorios
+     </button>
+
+
       <!-- Botón de Laboratorios -->
       <button 
+      
         type="button" 
         class="btn d-flex align-items-center"
         [ngClass]="{ 'btn-primary': vistaActual === 'salas', 'btn-secondary': vistaActual !== 'salas' }"
-        (click)="cambiarVista('salas')">
+        (click)="cambiarVista('salas')"
+        *ngIf="rolUsuario === 'admin'">
+        
         <!-- <img src="assets/Icons/laboratorios.svg" alt="Agregar" width="20" height="20" class="me-2"> -->
         Laboratorios
       </button>
 
-      <!-- Botón de Agendamiento -->
-      <button 
-        type="button" 
-        class="btn d-flex align-items-center"
-        [ngClass]="{ 'btn-primary': vistaActual === 'calendario', 'btn-secondary': vistaActual !== 'calendario' }"
-        (click)="cambiarVista('calendario')">
-        <!-- <img src="https://img.icons8.com/?size=100&id=23&format=png&color=000000" alt="Agregar" width="20" height="20" class="me-2"> -->
-        Agendamiento Laboratorios
-      </button>
+     
     </div>
   </div>
 
