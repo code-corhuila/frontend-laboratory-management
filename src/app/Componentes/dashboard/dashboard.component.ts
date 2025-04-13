@@ -85,16 +85,37 @@ export class DashboardComponent implements OnInit {
   }
 
   cerrarSesion() {
-    const confirmacion = confirm('¿Estás seguro de que deseas cerrar sesión?');
-    if (confirmacion) {
-      this.afAuth.signOut().then(() => {
-        localStorage.clear(); // o solo removeItem de lo necesario
-        this.router.navigate(['']);
-      }).catch((error) => {
-        console.error('Error al cerrar sesión:', error);
-      });
-    }
+    Swal.fire({
+      title: '¿Cerrar sesión?',
+      text: '¿Estás seguro de que deseas cerrar sesión?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.afAuth.signOut().then(() => {
+          localStorage.clear(); // O removeItem si prefieres
+          this.router.navigate(['']);
+          Swal.fire(
+            'Sesión cerrada',
+            'Has cerrado sesión correctamente.',
+            'success'
+          );
+        }).catch((error) => {
+          console.error('Error al cerrar sesión:', error);
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al cerrar la sesión. Inténtalo de nuevo.',
+            'error'
+          );
+        });
+      }
+    });
   }
+  
   
 
 }
