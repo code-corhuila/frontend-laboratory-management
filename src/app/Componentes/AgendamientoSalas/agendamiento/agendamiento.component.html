@@ -1,5 +1,9 @@
 <div class="container mt-2">
-  <h2 class="text-center">{{ vistaActual === 'calendario' ? 'Agendamiento' : 'Laboratorios' }}</h2>
+  
+  <h2 class="text-center">
+    {{ vistaActual === 'calendario' ? 'Agendamiento' : (vistaActual === 'aprobaciones' ? 'Aprobaciones' : 'Laboratorios') }}
+  </h2>
+  
 
   <!-- Contenedor de botones -->
   <div class="d-flex flex-wrap justify-content-between align-items-center my-4">
@@ -29,6 +33,19 @@
         Laboratorios
       </button>
 
+       <!-- Botón de aprobaciones -->
+       <button 
+      
+       type="button" 
+       class="btn d-flex align-items-center"
+       [ngClass]="{ 'btn-primary': vistaActual === 'aprobaciones', 'btn-secondary': vistaActual !== 'aprobaciones' }"
+       (click)="cambiarVista('aprobaciones')"
+       *ngIf="rolUsuario === 'admin'">
+       
+       <!-- <img src="assets/Icons/laboratorios.svg" alt="Agregar" width="20" height="20" class="me-2"> -->
+       Aprobaciones
+     </button>
+
      
     </div>
   </div>
@@ -36,6 +53,7 @@
   <!-- Mostrar el Componente Correspondiente -->
   <app-calendario *ngIf="vistaActual === 'calendario'"></app-calendario>
   <app-listar-salas *ngIf="vistaActual === 'salas'"></app-listar-salas>
+  <app-aprobaciones *ngIf="vistaActual === 'aprobaciones'"></app-aprobaciones>
 </div>
 
 

@@ -53,9 +53,7 @@ export class DashboardComponent implements OnInit {
   }
 
   toggleDropdownUser(): void {
-    console.log("jjjj");
     this.dropdownVisibleUser = !this.dropdownVisibleUser;
-    console.log("dropdownVisibleUser:", this.dropdownVisibleUser);
   }
 
   marcarAlertaComoAtendida(alerta: any, index: number): void {

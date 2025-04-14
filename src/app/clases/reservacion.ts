@@ -7,11 +7,13 @@ export class Reservacion {
     updatedBy: any;
     deletedBy: any;
     titulo: String;
-    hora_inicio: any;
-    hora_final: any;
+    horaInicio: any;
+    horaFinal: any;
     description: String;
-    cantidad_estudiantes: any;
+    cantidadEstudiantes: any;
     semestre: any;
     laboratorio: any;
     grupo: any;
+    id:number;
+    estadoReservacion:String;
 }

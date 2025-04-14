@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-end align-items-center my-3">
+    <label for="estadoSelect" class="me-2 mb-0 fw-bold">Filtrar por estado:</label>
+    <select id="estadoSelect" class="form-select w-auto"
+            [(ngModel)]="estadoSeleccionado"
+            (change)="filtrarReservaciones()">
+      <option value="pendientes">Pendientes</option>
+      <option value="aprobadas">Aprobadas</option>
+      <option value="rechazadas">Rechazadas</option>
+    </select>
+  </div>
+  
+
+<!-- Spinner de carga -->
+<div *ngIf="cargando" class="text-center my-4">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+    </div>
+</div>
+
+<!-- Tabla de datos -->
+<div *ngIf="!cargando" class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Laboratorio</th>
+                <th>Estado laboratorio</th>
+                <th>Hora inicio</th>
+                <th>Hora final</th>
+                <th>Estado aprobación</th>
+                <th>Aprobación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let reservacion of reservaciones | paginate: { itemsPerPage: 8, currentPage: page }">
+                <td>{{ reservacion.titulo }}</td>
+                <td>{{ reservacion.description }}</td>
+                <td>{{ reservacion.laboratorio.laboratorio + ' - ' + reservacion.laboratorio.ubicacion }}</td>
+                <td>{{ obtenerEstadoLaboratorio(reservacion.id) }}</td>
+                <td>{{ reservacion.horaInicio }}</td>
+                <td>{{ reservacion.horaFinal }}</td>
+                <td>{{ reservacion.estadoReservacion }}</td>
+
+                <td class="text-center">
+                    <button type="button" (click)="actualizarEstadoReservacion(reservacion.id, 'APROBADA')"
+                        class="icono-boton boton-espaciado">
+                        <img src="assets/Icons/aprobar.svg" alt="Aprobar" width="24" height="24">
+                    </button>
+
+                    <button type="button" (click)="actualizarEstadoReservacion(reservacion.id, 'RECHAZADA')"
+                        class="icono-boton">
+                        <img src="assets/Icons/rechazar.svg" alt="Rechazar" width="24" height="24">
+                    </button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Paginación -->
+<pagination-controls (pageChange)="page = $event"></pagination-controls>

@@ -41,9 +41,6 @@ export class LoginComponent {
         localStorage.setItem('userEmail', this.username);
         localStorage.setItem('userRole', userData.role || 'client'); // Valor por defecto si no tiene rol
         
-        console.log('Login exitoso. Datos guardados en localStorage:');
-        console.log('Email:', this.username);
-        console.log('Rol:', userData.role);
         this.router.navigate(['/dashboard']);
         
         // Puedes mostrar un mensaje de éxito o actualizar la UI aquí

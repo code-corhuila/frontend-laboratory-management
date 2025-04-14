@@ -10,6 +10,17 @@
     <div class="modal-content">
 
         <h2>Reserva</h2>
+        <!-- Estado de la reserva -->
+<div *ngIf="reservaForm.get('estadoReservacion')?.value" class="estado-indicador"
+[ngClass]="{
+  'estado-aprobada': reservaForm.get('estadoReservacion')?.value === 'APROBADA',
+  'estado-rechazada': reservaForm.get('estadoReservacion')?.value === 'RECHAZADA',
+  'estado-pendiente': reservaForm.get('estadoReservacion')?.value === 'PENDIENTE'
+}">
+Estado: {{ reservaForm.get('estadoReservacion')?.value }}
+</div>
+
+
         <!-- Botón de cierre en la parte superior derecha -->
         <button class="close-button" (click)="cerrarModal()">
             <img src="assets/Icons/cerrar.svg" alt="Cerrar" class="icon">
@@ -28,17 +39,17 @@
             <div class="row">
                 <!-- Hora de inicio -->
                 <div class="col-md-6">
-                    <label for="hora_inicio">Hora de inicio:</label>
-                    <input type="datetime-local" id="hora_inicio" formControlName="hora_inicio" class="form-control"
+                    <label for="horaInicio">Hora de inicioOO:</label>
+                    <input type="datetime-local" id="horaInicio" formControlName="horaInicio" class="form-control"
                         required>
                 </div>
 
                 <!-- Hora de finalización -->
                 <div class="col-md-6">
-                    <label for="hora_final">Hora de finalización:</label>
-                    <input type="datetime-local" id="hora_final" formControlName="hora_final" class="form-control"
+                    <label for="horaFinal">Hora de finalización:</label>
+                    <input type="datetime-local" id="horaFinal" formControlName="horaFinal" class="form-control"
                         required>
-                    <div *ngIf="reservaForm.get('hora_final')?.hasError('horaInvalida')">
+                    <div *ngIf="reservaForm.get('horaFinal')?.hasError('horaInvalida')">
                         <small style="color: red;">La hora de finalización debe ser mayor que la de inicio.</small>
                     </div>
                 </div>
@@ -48,19 +59,19 @@
                 <!-- Semestre -->
                 <div class="col-md-3">
                     <label for="semestre">Semestre:</label>
-                    <input type="text" id="semestre" formControlName="semestre" class="form-control" required>
+                    <input type="number" id="semestre" formControlName="semestre" class="form-control" required>
                 </div>
 
                 <!-- Grupo -->
                 <div class="col-md-3">
                     <label for="grupo">Grupo:</label>
-                    <input type="text" id="grupo" formControlName="grupo" class="form-control" required>
+                    <input type="number" id="grupo" formControlName="grupo" class="form-control" required>
                 </div>
 
                 <!-- Cantidad de estudiantes -->
                 <div class="col-md-6">
-                    <label for="cantidad_estudiantes">Cantidad de estudiantes:</label>
-                    <input type="number" formControlName="cantidad_estudiantes" min="1" id="cantidad_estudiantes"
+                    <label for="cantidadEstudiantes">Cantidad de estudiantes:</label>
+                    <input type="number" formControlName="cantidadEstudiantes" min="1" id="cantidadEstudiantes"
                         class="form-control" required>
                 </div>
             </div>

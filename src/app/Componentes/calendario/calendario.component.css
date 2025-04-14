@@ -277,3 +277,30 @@ button[type="submit"]:hover {
         padding: 15px;
     }
 }
+
+
+
+/*estilo indicador de aprobacion*/
+.estado-indicador {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  
+  .estado-aprobada {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .estado-rechazada {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .estado-pendiente {
+    background-color: #d1ecf1;
+    color: #0c5460;
+  }
+  

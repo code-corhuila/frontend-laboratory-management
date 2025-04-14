@@ -48,14 +48,15 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
     this.reservaForm = this.fb.group({
       id: [null],
       titulo: ['', Validators.required],
-      hora_inicio: ['', Validators.required],
-      hora_final: ['', [Validators.required, this.validarHoraFinal.bind(this)]],
+      horaInicio: ['', Validators.required],
+      horaFinal: ['', [Validators.required, this.validarHoraFinal.bind(this)]],
       usuario: ['', Validators.required], // Cambiado para coincidir con formControlName
       laboratorio: ['', Validators.required], // Cambiado para coincidir con formControlName
       description: ['', Validators.required],
-      cantidad_estudiantes: [, [Validators.required, Validators.min(1)]],
+      cantidadEstudiantes: [, [Validators.required, Validators.min(1)]],
       semestre: ['', Validators.required],
       grupo: ['', Validators.required],
+      estadoReservacion: ['PENDIENTE'] //valor por defecto
     });
   }
 
@@ -129,25 +130,44 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
   cargarEventos() {
     this.reservacionService.obtenerListaDeReservaciones().subscribe(response => {
       if (response.data && Array.isArray(response.data)) {
-        this.events = response.data.map(reserva => ({
-          id: reserva.id,
-          title: ` ${reserva.titulo}`,//${reserva.laboratorio.laboratorio} - ${reserva.laboratorio.ubicacion}
-          start: reserva.hora_inicio,
-          end: reserva.hora_final,
-          extendedProps: {
-            usuario: reserva.usuario,
-            laboratorio: reserva.laboratorio,
-            description: reserva.description,
-            cantidad_estudiantes: reserva.cantidad_estudiantes,
-            semestre: reserva.semestre,
-            grupo: reserva.grupo
+        this.events = response.data.map(reserva => {
+          let color = '';
+  
+          switch (reserva.estadoReservacion) {
+            case 'APROBADA':
+              color = '#28a745'; // verde
+              break;
+            case 'RECHAZADA':
+              color = '#EDBE07'; // rojo
+              break;
+            default: // PENDIENTE u otros
+              color = '#5C636A'; // azul
+              break;
           }
-        }));
+  
+          return {
+            id: reserva.id,
+            title: `${reserva.titulo}`,
+            start: reserva.horaInicio,
+            end: reserva.horaFinal,
+            color: color,
+            extendedProps: {
+              usuario: reserva.usuario,
+              laboratorio: reserva.laboratorio,
+              description: reserva.description,
+              cantidadEstudiantes: reserva.cantidadEstudiantes,
+              semestre: reserva.semestre,
+              grupo: reserva.grupo,
+              estadoReservacion: reserva.estadoReservacion
+            }
+          };
+        });
       } else {
         this.events = [];
       }
     });
   }
+  
 
 
 
@@ -165,8 +185,8 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
     this.fechaSeleccionada = fechaFormateada;
     this.mostrarModal = true;
     this.reservaForm.patchValue({
-      hora_inicio: fechaFormateada,
-      hora_final: fechaFormateada
+      horaInicio: fechaFormateada,
+      horaFinal: fechaFormateada
     });
 
     this.cdRef.detectChanges();
@@ -178,7 +198,6 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
 
   guardarReserva() {
     if (this.reservaForm.valid) {
-
       const reservaId = this.reservaForm.get('id')?.value;
       const laboratorioId = Number(this.reservaForm.get('laboratorio')?.value);
       const laboratorioIdSeleccionado = this.laboratorios.find(laboratorio => laboratorio.id === laboratorioId);
@@ -200,7 +219,8 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
       const reserva = {
         ...this.reservaForm.value,
         usuario: usuarioSeleccionado, // Enviar el objeto completo
-        laboratorio: laboratorioIdSeleccionado
+        laboratorio: laboratorioIdSeleccionado,
+        estadoReservacion: "PENDIENTE"
       }
 
       if (reservaId) {
@@ -243,14 +263,15 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
     this.reservaForm.patchValue({
       id: reservaSeleccionada.id,
       titulo: reservaSeleccionada.title, // FullCalendar usa "title" en vez de "titulo"
-      hora_inicio: reservaSeleccionada.start,
-      hora_final: reservaSeleccionada.end,
+      horaInicio: reservaSeleccionada.start,
+      horaFinal: reservaSeleccionada.end,
       usuario: reservaSeleccionada.extendedProps.usuario?.id || '',
       laboratorio: reservaSeleccionada.extendedProps.laboratorio?.id || '',
       description: reservaSeleccionada.extendedProps.description || '',
-      cantidad_estudiantes: reservaSeleccionada.extendedProps.cantidad_estudiantes || '',
+      cantidadEstudiantes: reservaSeleccionada.extendedProps.cantidadEstudiantes || '',
       semestre: reservaSeleccionada.extendedProps.semestre || '',
-      grupo: reservaSeleccionada.extendedProps.grupo || ''
+      grupo: reservaSeleccionada.extendedProps.grupo || '',
+      estadoReservacion: reservaSeleccionada.extendedProps.estadoReservacion || 'PENDIENTE'
     });
 
 
@@ -334,8 +355,8 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
     };
 
     this.reservaForm.patchValue({
-      hora_inicio: formatDate(startDate),
-      hora_final: formatDate(endDate)
+      horaInicio: formatDate(startDate),
+      horaFinal: formatDate(endDate)
     });
 
     this.mostrarModal = true;
@@ -345,7 +366,7 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
 
 
   validarHoraFinal(control: AbstractControl) {
-    const horaInicio = this.reservaForm?.get('hora_inicio')?.value;
+    const horaInicio = this.reservaForm?.get('horaInicio')?.value;
     const horaFinal = control.value;
 
     if (horaInicio && horaFinal && new Date(horaFinal) <= new Date(horaInicio)) {

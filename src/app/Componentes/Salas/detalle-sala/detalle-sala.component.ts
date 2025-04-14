@@ -45,7 +45,6 @@ export class DetalleSalaComponent implements OnInit, OnChanges {
   }
 
   obtenerEstadoOcupacional(estadoOcupacional: any): string {
-    console.log("estadoOcupacional: ",estadoOcupacional)
     return estadoOcupacional == false ? 'Fuera de servicio' : 'Habilitado';
   }
 

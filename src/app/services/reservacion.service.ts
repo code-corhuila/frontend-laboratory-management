@@ -13,10 +13,21 @@ export class ReservacionService {
 
   constructor(private httpClient: HttpClient) { }
 
+  
+  actualizarEstadoReservacion(id: number, estado: string): Observable<any> {
+    return this.httpClient.put(`${this.baseURL}/${id}/estado?estado=${estado}`, {});
+  }
+  
+
   //Obtener reservaciones
   obtenerListaDeReservaciones(): Observable<{ data: any[] }> {
     return this.httpClient.get<{ data: any[] }>(`${this.baseURL}`);
   }
+
+  obtenerReservacionesPorEstado(estado: string): Observable<any> {
+    return this.httpClient.get<{ data: any[] }>(`${this.baseURL}/${estado}`);
+  }
+  
 
 
   //Metodo para registrar reservacion
