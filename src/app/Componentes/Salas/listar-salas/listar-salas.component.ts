@@ -12,7 +12,7 @@ import { ActualizarSalaComponent } from '../actualizar-sala/actualizar-sala.comp
 @Component({
   selector: 'app-listar-salas',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule, RegistrarSalaComponent, RegistrarSalaComponent, DetalleSalaComponent, ActualizarSalaComponent],
+  imports: [CommonModule, NgxPaginationModule, RegistrarSalaComponent, DetalleSalaComponent, ActualizarSalaComponent],
   templateUrl: './listar-salas.component.html',
   styleUrl: './listar-salas.component.css'
 })
@@ -107,7 +107,7 @@ export class ListarSalasComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.salaService.eliminarSala(id).subscribe(() => {
-          this.obtenerSalas();
+          this.ngOnInit();
           Swal.fire(
             'Registro eliminado',
             'La sala ha sido eliminada con éxito',
@@ -123,6 +123,15 @@ export class ListarSalasComponent implements OnInit {
     return Number(estadoOcupacional) === 0 ? 'Fuera de servicio' : 'Habilitado';
   }
 
+
+  onSalaGuardada() {
+    this.obtenerSalas(); 
+  }
+
+  onSalaActualizada() {
+    this.obtenerSalas(); // Recarga la tabla
+  }
+  
 
 
 

@@ -59,8 +59,13 @@
         </button>
 
         <!-- Se carga el componente -->
-        <app-registrar-sala [mostrarModal]="mostrarModal" (modalCerrado)="cerrarModal()">
-        </app-registrar-sala>
+        <app-registrar-sala 
+        *ngIf="mostrarModal"
+        [mostrarModal]="mostrarModal" 
+        (modalCerrado)="cerrarModal()" 
+        (salaGuardada)="onSalaGuardada()">
+    </app-registrar-sala>
+
     </div>
 </div>
 
@@ -94,14 +99,11 @@
         [mostrarModal]="mostrarModal" 
         [idSala]="idSalaSeleccionada" 
         (modalActualizarCerrado)="cerrarModalActualizar()"
+        (salaActualizada)="onSalaActualizada()"
             ><!-- (salaActualizada)="obtenerSalas()"-->
         </app-actualizar-sala>
     </div>
 </div>
-
-
-
-
 
 
 <!-- Paginación -->

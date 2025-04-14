@@ -16,8 +16,11 @@ import { CommonModule } from '@angular/common';
 export class RegistrarSalaComponent {
   @Input() mostrarModal: boolean = false; // Recibe el estado del modal
   @Output() modalCerrado = new EventEmitter<void>(); // Evento para cerrar
+  @Output() salaGuardada = new EventEmitter<void>(); // Evento para notificar cuando la sala sea guardada
+
 
   sala: Sala = new Sala();
+
 
   constructor(private salaService: SalaService, private router: Router) {}
 
@@ -25,6 +28,7 @@ export class RegistrarSalaComponent {
     this.salaService.registrarSala(this.sala).subscribe({
       next: () => {
         this.irALaListaDeSalas();
+        this.salaGuardada.emit(); // Emitir el evento después de guardar la sala
       },
       error: (err) => {
         console.error("Error al registrar la sala:", err);
@@ -34,7 +38,7 @@ export class RegistrarSalaComponent {
   }
 
   irALaListaDeSalas() {
-    this.router.navigate(['dashboard', 'listarSalas']);
+    this.cerrarModal();
     Swal.fire('Sala registrada', `Registro guardado con éxito`, `success`);
   }
 
@@ -47,6 +51,6 @@ export class RegistrarSalaComponent {
   }
 
   cerrarModal() {
-    this.modalCerrado.emit(); // Notifica al padre que debe cerrar el modal
+    this.modalCerrado.emit();
   }
 }

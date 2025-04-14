@@ -9,13 +9,16 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    padding: 1rem;
 }
 
 .modal-content {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 40%;
+    padding: 20px 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px; /* 👈 Evita que sea demasiado ancho */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     position: relative;
 }
 
@@ -31,4 +34,11 @@
 .icon {
     width: 24px;
     height: 24px;
+}
+
+/* Opcional: responsividad extra en pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 16px;
+    }
 }
