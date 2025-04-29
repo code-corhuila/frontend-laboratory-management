@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../clases/usuario';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Usuario } from '../clases/usuario';
 export class UsuarioService {
 
    //Obtiene listado de usuarios
-   private baseURL = "http://localhost:9002/api/usuarios";
+   private baseURL = environment.apiBaseUrl+'/api/usuarios';
 
    constructor( private httpClient : HttpClient) { }
  

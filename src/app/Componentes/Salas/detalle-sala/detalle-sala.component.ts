@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Sala } from '../../../clases/sala';
-import { SalaService } from '../../../Services/sala.service';
+import { SalaService } from '../../../services/sala.service';
 import Swal from 'sweetalert2';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Sala } from '../../../clases/sala';
-import { SalaService } from '../../../Services/sala.service';
+import { SalaService } from '../../../services/sala.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';

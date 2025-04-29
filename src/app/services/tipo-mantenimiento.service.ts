@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 // Interface para el tipo de mantenimiento
 export interface TipoMantenimiento {
@@ -13,7 +14,7 @@ nombre: any;
   providedIn: 'root',
 })
 export class TipoMantenimientoService {
-  private apiUrl = 'http://localhost:9002/api/tipos-mantenimiento';  // URL base de la API
+  private apiUrl = environment.apiBaseUrl+'/api/tipos-mantenimiento';  // URL base de la API
 
   constructor(private http: HttpClient) {}
 

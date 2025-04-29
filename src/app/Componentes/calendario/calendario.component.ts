@@ -4,11 +4,11 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { ReservacionService } from '../../Services/reservacion.service';
+import { ReservacionService } from '../../services/reservacion.service';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UsuarioService } from '../../Services/usuario.service';
-import { SalaService } from '../../Services/sala.service';
+import { UsuarioService } from '../../services/usuario.service';
+import { SalaService } from '../../services/sala.service';
 import Swal from 'sweetalert2';
 
 

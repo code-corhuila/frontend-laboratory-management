@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 interface Equipo {
   id: number;
@@ -23,7 +24,8 @@ interface Equipo {
   providedIn: 'root'
 })
 export class EquipoService {
-  private apiUrl = 'http://localhost:9002/api/equipos';
+  
+  private apiUrl = environment.apiBaseUrl+'/api/equipos';
 
   constructor(private http: HttpClient) {}
 

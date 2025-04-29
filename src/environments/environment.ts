@@ -7,5 +7,6 @@ export const environment = {
         storageBucket: "aut-laboratorios.firebasestorage.app",
         messagingSenderId: "382083904782",
         appId: "1:382083904782:web:dfe62d4e6909ebb89d935f"
-    }
+    },
+    apiBaseUrl: 'http://localhost:9002'
 };

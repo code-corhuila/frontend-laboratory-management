@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Sala } from '../../../clases/sala';
-import { SalaService } from '../../../Services/sala.service';
+import { SalaService } from '../../../services/sala.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';

@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InventarioService } from '../../../services/inventario.service';
-import { EquipoService } from '../../../services/equipo.service';
 import { Inventario } from '../../../clases/inventario';
 import { Equipo } from '../../../clases/equipo';
 import Swal from 'sweetalert2';
 import { switchMap } from 'rxjs';
+import { InventarioService } from '../../../services/inventario.service';
+import { EquipoService } from '../../../services/equipo.service';
+
+
+//src\app\Services\equipo.service.ts
 
 @Component({
   selector: 'app-listar-inventario',

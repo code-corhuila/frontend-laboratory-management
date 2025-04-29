@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .               # path a tu Dockerfile de Angular+Nginx
+    image: gestion-laboratorios-frontend
+    container_name: frontend-laboratorios
+    ports:
+      - "4200:80"              # <- Publica el 80 del contenedor en el 4200 de tu máquina
+    networks:
+      - network_local_server   # o la red que uses para los demás servicios
+
+networks:
+  network_local_server:
+    external: true

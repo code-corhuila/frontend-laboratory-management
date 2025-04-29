@@ -6,6 +6,7 @@ export const environment = {
         projectId: "aut-laboratorios",
         storageBucket: "aut-laboratorios.firebasestorage.app",
         messagingSenderId: "382083904782",
-        appId: "1:382083904782:web:dfe62d4e6909ebb89d935f"
-    }
+        appId: "1:382083904782:web:dfe62d4e6909ebb89d935f",
+    },
+    apiBaseUrl: 'http://51.91.252.12:9002'
 };

@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Reservacion } from '../../../clases/reservacion';
-import { ReservacionService } from '../../../Services/reservacion.service';
+import { ReservacionService } from '../../../services/reservacion.service';
 import { FormsModule } from '@angular/forms';
 
 

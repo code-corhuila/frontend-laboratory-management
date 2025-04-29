@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+//import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+//import { Auth } from '@angular/fire/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+
 
 @Component({
   selector: 'app-login',
@@ -16,16 +21,22 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
+    //private afAuth: Auth,
     private firestore: AngularFirestore
   ) {}
 
   async login() {
     try {
-      // 1. Autenticar al usuario
+      //1. Autenticar al usuario
       const userCredential = await this.afAuth.signInWithEmailAndPassword(
         this.username,
         this.password
       );
+      // const userCredential = await signInWithEmailAndPassword(
+      //   this.afAuth,    // Pasas el objeto `Auth`
+      //   this.username,  // email
+      //   this.password   // password
+      // );
       
       // 2. Obtener información del usuario desde Firestore
       const userDoc = await this.firestore.collection('users')

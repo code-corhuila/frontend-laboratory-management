@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Sala } from '../clases/sala';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,8 @@ import { Observable } from 'rxjs';
 export class SalaService {
 
    //Obtiene listado de usuario
-   private baseURL = "http://localhost:9002/api/sala";
+   //private baseURL = "http://localhost:9002/api/sala";
+   private baseURL = environment.apiBaseUrl+'/api/sala';
 
    constructor( private httpClient : HttpClient) { }
  
