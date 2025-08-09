@@ -11,14 +11,13 @@
 
         <h2>Reserva</h2>
         <!-- Estado de la reserva -->
-<div *ngIf="reservaForm.get('estadoReservacion')?.value" class="estado-indicador"
-[ngClass]="{
+        <div *ngIf="reservaForm.get('estadoReservacion')?.value" class="estado-indicador" [ngClass]="{
   'estado-aprobada': reservaForm.get('estadoReservacion')?.value === 'APROBADA',
   'estado-rechazada': reservaForm.get('estadoReservacion')?.value === 'RECHAZADA',
   'estado-pendiente': reservaForm.get('estadoReservacion')?.value === 'PENDIENTE'
 }">
-Estado: {{ reservaForm.get('estadoReservacion')?.value }}
-</div>
+            Estado: {{ reservaForm.get('estadoReservacion')?.value }}
+        </div>
 
 
         <!-- Botón de cierre en la parte superior derecha -->
@@ -42,6 +41,11 @@ Estado: {{ reservaForm.get('estadoReservacion')?.value }}
                     <label for="horaInicio">Hora de inicio:</label>
                     <input type="datetime-local" id="horaInicio" formControlName="horaInicio" class="form-control"
                         required>
+                    <div
+                        *ngIf="reservaForm.get('horaInicio')?.hasError('fechaPasada') && reservaForm.get('horaInicio')?.touched">
+                        <small style="color: red;">La hora de inicio no puede ser anterior a la fecha y hora
+                            actual.</small>
+                    </div>
                 </div>
 
                 <!-- Hora de finalización -->
@@ -59,13 +63,19 @@ Estado: {{ reservaForm.get('estadoReservacion')?.value }}
                 <!-- Semestre -->
                 <div class="col-md-3">
                     <label for="semestre">Semestre:</label>
-                    <input type="number" id="semestre" formControlName="semestre" class="form-control" required>
+                    <input type="number" id="semestre" min="1" formControlName="semestre" class="form-control" required>
+                    <div *ngIf="reservaForm.get('semestre')?.hasError('min') && reservaForm.get('semestre')?.touched">
+                        <small style="color: red;">El semestre debe ser mayor que 0.</small>
+                    </div>
                 </div>
 
                 <!-- Grupo -->
                 <div class="col-md-3">
                     <label for="grupo">Grupo:</label>
-                    <input type="number" id="grupo" formControlName="grupo" class="form-control" required>
+                    <input type="number" id="grupo" min="1" formControlName="grupo" class="form-control" required>
+                    <div *ngIf="reservaForm.get('grupo')?.hasError('min') && reservaForm.get('grupo')?.touched">
+                        <small style="color: red;">El grupo debe ser mayor que 0.</small>
+                    </div>
                 </div>
 
                 <!-- Cantidad de estudiantes -->
@@ -73,6 +83,10 @@ Estado: {{ reservaForm.get('estadoReservacion')?.value }}
                     <label for="cantidadEstudiantes">Cantidad de estudiantes:</label>
                     <input type="number" formControlName="cantidadEstudiantes" min="1" id="cantidadEstudiantes"
                         class="form-control" required>
+                    <div
+                        *ngIf="reservaForm.get('cantidadEstudiantes')?.hasError('min') && reservaForm.get('cantidadEstudiantes')?.touched">
+                        <small style="color: red;">La cantidad debe ser mayor que 0.</small>
+                    </div>
                 </div>
             </div>
 
@@ -92,7 +106,14 @@ Estado: {{ reservaForm.get('estadoReservacion')?.value }}
                         </option>
                     </select>
                     <label for="description">Descripción:</label>
-                    <textarea formControlName="description" id="description" class="form-control"></textarea>
+                    <textarea formControlName="description" maxlength="500"
+                        placeholder="Escribe la descripción (máx. 500 caracteres)" id="description"
+                        class="form-control"></textarea>
+                    <!-- Mensaje de error legible -->
+                    <div class="text-danger"
+                        *ngIf="reservaForm.get('description')?.invalid && (reservaForm.get('description')?.dirty || reservaForm.get('description')?.touched)">
+                        La descripción debe tener mínimo 10 caracteres.
+                    </div>
                 </div>
             </div>
 

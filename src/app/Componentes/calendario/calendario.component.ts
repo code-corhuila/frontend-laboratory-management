@@ -48,14 +48,14 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
     this.reservaForm = this.fb.group({
       id: [null],
       titulo: ['', Validators.required],
-      horaInicio: ['', Validators.required],
+      horaInicio: ['', [Validators.required,this.validarFechaPasada]],
       horaFinal: ['', [Validators.required, this.validarHoraFinal.bind(this)]],
       usuario: ['', Validators.required], // Cambiado para coincidir con formControlName
       laboratorio: ['', Validators.required], // Cambiado para coincidir con formControlName
-      description: ['', Validators.required],
+      description:  ['',[Validators.required, Validators.minLength(10),Validators.maxLength(500)]],
       cantidadEstudiantes: [, [Validators.required, Validators.min(1)]],
-      semestre: ['', Validators.required],
-      grupo: ['', Validators.required],
+      semestre: ['', [Validators.required,Validators.min(1)]],
+      grupo: ['', [Validators.required,Validators.min(1)]],
       estadoReservacion: ['PENDIENTE'] //valor por defecto
     });
   }
@@ -132,7 +132,7 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
       if (response.data && Array.isArray(response.data)) {
         this.events = response.data.map(reserva => {
           let color = '';
-  
+
           switch (reserva.estadoReservacion) {
             case 'APROBADA':
               color = '#28a745'; // verde
@@ -144,7 +144,7 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
               color = '#5C636A'; // azul
               break;
           }
-  
+
           return {
             id: reserva.id,
             title: `${reserva.titulo}`,
@@ -167,7 +167,7 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  
+
 
 
 
@@ -198,6 +198,30 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
 
   guardarReserva() {
     if (this.reservaForm.valid) {
+      const horaInicio = new Date(this.reservaForm.get('horaInicio')?.value);
+      const now = new Date();
+
+      if (horaInicio < now) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Fecha inválida',
+          text: 'La hora de inicio no puede ser anterior a la fecha y hora actual.',
+        });
+        return;
+      }
+
+
+      const { cantidadEstudiantes, semestre, grupo } = this.reservaForm.value;
+
+    if (cantidadEstudiantes <= 0 || semestre <= 0 || grupo <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Número inválido',
+        text: 'Los valores numéricos deben ser mayores que cero.',
+      });
+      return;
+    }
+
       const reservaId = this.reservaForm.get('id')?.value;
       const laboratorioId = Number(this.reservaForm.get('laboratorio')?.value);
       const laboratorioIdSeleccionado = this.laboratorios.find(laboratorio => laboratorio.id === laboratorioId);
@@ -324,7 +348,7 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
   }
 
   cerrarModal() {
-    this.reservaForm.reset(); 
+    this.reservaForm.reset();
     this.reservaForm.markAsPristine();
     this.reservaForm.markAsUntouched();
 
@@ -337,6 +361,19 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
   handleDateClick(arg: any) {
 
     const clickedDate = new Date(arg.date);
+    const now = new Date();
+
+
+    // Validar si la fecha es anterior al momento actual
+    if (clickedDate < now) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Fecha inválida',
+        text: 'No puedes crear reservas en una fecha y hora pasadas.',
+      });
+      return; // No abrir modal
+    }
+
     const localDateString = clickedDate.toLocaleString("en-US", { timeZone: "America/Bogota" });
     const localDate = new Date(localDateString);
 
@@ -374,6 +411,21 @@ export class CalendarioComponent implements OnInit, AfterViewInit {
     }
     return null;
   }
+
+
+
+  validarFechaPasada(control: AbstractControl) {
+    if (!control.value) return null; // si no hay valor, no valida nada
+  
+    const fechaSeleccionada = new Date(control.value);
+    const ahora = new Date();
+  
+    if (fechaSeleccionada < ahora) {
+      return { fechaPasada: true };
+    }
+    return null;
+  }
+  
 
 
 
